@@ -1,0 +1,66 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -150%;
+  z-index: 999;
+  width: 100svw;
+  height: 100svh;
+  background-color: var(--color-sidebar-bg);
+  transition: left 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 1rem; /* Reducimos el padding base */
+
+  &.active {
+    left: 0;
+  }
+
+  .logo {
+    display: block;
+    width: 3rem;
+    border-radius: 50%;
+    object-fit: contain;
+    margin: 0 auto 1.5rem auto;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Achicamos un poco el gap para que los botones se vean más unidos */
+    font-family: var(
+      --font-body
+    ); /* Cambié a --font-body según tu :root anterior */
+  }
+
+  li {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+
+    a {
+      text-decoration: none;
+      color: var(--color-text-sidebar);
+    }
+  }
+}
+
+/* Tablets (900px) */
+@media (min-width: 900px) {
+  .logoEquipo {
+    margin-top: 1rem;
+  }
+  .sidebar {
+    top: 0;
+    left: 0; /* Aseguramos que siempre sea visible en desktop */
+    padding-top: 1.5rem; /* Un padding sutil y elegante para escritorio */
+    position: sticky;
+    width: 15rem;
+    height: 100vh;
+  }
+}

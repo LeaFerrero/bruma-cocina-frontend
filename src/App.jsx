@@ -1,8 +1,13 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/layout/Layout";
+
 function App() {
   return (
-    <>
-      <h1>Bruma cocina</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,0 +1,50 @@
+.header {
+  background-color: var(--color-header-bg);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  position: sticky;
+  top: 0;
+  height: 5rem;
+  z-index: 999;
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 1;
+}
+
+.sectionGroup {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 1rem;
+}
+
+.separator {
+  display: none;
+}
+
+.routeSubtitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+@media (min-width: 900px) {
+  .titles {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .separator {
+    display: inline;
+    font-size: 1.6rem;
+    font-weight: 300;
+  }
+}
