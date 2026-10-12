@@ -1,0 +1,84 @@
+:root {
+  /* 1. Tipografía */
+  --font-titles: "Montserrat", sans-serif;
+  --font-body: "Roboto", sans-serif;
+
+  /* 2. Layout y Superficies */
+  --color-card-bg: #f6f4f0;
+  --color-modal-bg: #f6f4f0;
+  --color-header-bg: #dfd7c7;
+  --color-footer-bg: #dfd7c7;
+  --color-sidebar-bg: #2a3a48;
+  --color-sidebar-hover: #374c5e;
+  --color-sidebar-active-bg: #32a3b9;
+  --color-sidebar-indicator: #f6f4f0;
+  --color-list-hover: #cccccc;
+  --color-detail: #2c2c2c;
+
+  /* 3. Textos */
+  --color-text-main: #2c2c2c;
+  --color-text-secondary: #f6f4f0;
+  --color-text-price: #2d6a4f;
+  --color-text-sidebar: #ffffff;
+  --color-btn-text: #ffffff;
+
+  /* 4. Formularios e Inputs */
+  --color-input-border: #2c2c2c;
+  --color-input-hover: #8c98a4;
+  --color-input-focus: #32a3b9;
+
+  /* 5. Botones */
+  --color-btn-primary-bg: #32a3b9;
+  --color-btn-primary-hover: #268294;
+  --color-btn-secondary-bg: #2a3a48;
+  --color-btn-secondary-hover: #4c647a;
+  --color-btn-cancel-bg: #8c98a4;
+  --color-btn-cancel-hover: #758290;
+  --color-btn-danger-bg: #d9534f;
+  --color-btn-danger-hover: #a83b37;
+
+  /* 6. Estados Semánticos y Alertas (Bordes de tarjetas, Badges, Errores) */
+  --color-danger: #d9534f;
+  --color-warning: #e69500;
+  --color-success: #2d6a4f;
+  --color-neutral: #8c98a4;
+  --color-error: #d9534f;
+}
+
+*,
+html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-card-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  font-size: 1rem;
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 40%),
+    url("../assets/img/bg-main.webp");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+h1 {
+  font-family: var(--font-titles);
+  font-size: 1.7rem;
+}
+
+h2 {
+  font-family: var(--font-titles);
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-family: var(--font-titles);
+  font-size: 1.2rem;
+}
