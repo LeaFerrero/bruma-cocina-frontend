@@ -1,0 +1,28 @@
+.navItem {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+
+  /* Forzamos que este color le gane a cualquier regla global */
+  color: var(--color-text-sidebar) !important;
+
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  font-weight: 500;
+  border-left: 0.25rem solid transparent;
+  transition: all 0.2s ease;
+}
+
+.active {
+  background-color: var(--color-sidebar-active-bg);
+  border-left-color: var(--color-sidebar-indicator);
+}
+
+.navItem:hover {
+  background-color: var(--color-sidebar-hover);
+  border-left-color: var(--color-sidebar-indicator);
+}

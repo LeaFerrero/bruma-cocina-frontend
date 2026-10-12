@@ -1,0 +1,7 @@
+.actionsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}

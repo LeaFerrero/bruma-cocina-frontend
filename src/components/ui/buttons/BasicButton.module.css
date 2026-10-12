@@ -1,0 +1,63 @@
+.basicButton {
+  cursor: pointer;
+  border-radius: 0.25rem;
+  font-family: var(--font-body);
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  height: 2.5rem;
+  padding: 0 1.5rem;
+  width: 100%;
+  border: 0.15rem solid transparent;
+  color: var(--color-btn-text);
+}
+
+.basicButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Modificador de Forma --- */
+.square {
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0;
+}
+
+/* --- Variantes de Color Principales --- */
+.primary {
+  background-color: var(--color-btn-primary-bg);
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--color-btn-primary-hover);
+}
+
+.secondary {
+  background-color: var(--color-btn-secondary-bg);
+}
+
+.secondary:hover:not(:disabled) {
+  background-color: var(--color-btn-secondary-hover);
+}
+
+.cancel {
+  background-color: var(--color-btn-cancel-bg);
+}
+
+.cancel:hover:not(:disabled) {
+  background-color: var(--color-btn-cancel-hover);
+}
+
+.danger {
+  background-color: var(--color-btn-danger-bg);
+}
+
+.danger:hover:not(:disabled) {
+  background-color: var(--color-btn-danger-hover);
+}

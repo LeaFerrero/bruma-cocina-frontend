@@ -1,0 +1,31 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.label {
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.basicTextarea {
+  padding: 0.5rem;
+  border: 0.15rem solid var(--color-input-border);
+  border-radius: 0.15rem;
+  width: 100%;
+  min-height: 5.5rem;
+  height: auto;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+  resize: none;
+}
+
+.basicTextarea:focus {
+  outline: none;
+  border-color: var(--color-input-focus);
+}
+
+.basicTextarea:hover {
+  border-color: var(--color-input-hover);
+}
