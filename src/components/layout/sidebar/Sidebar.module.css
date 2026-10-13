@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-top: 1rem; /* Reducimos el padding base */
+  padding-top: 1rem;
 
   &.active {
     left: 0;
@@ -31,10 +31,8 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; /* Achicamos un poco el gap para que los botones se vean más unidos */
-    font-family: var(
-      --font-body
-    ); /* Cambié a --font-body según tu :root anterior */
+    gap: 0.5rem;
+    font-family: var(--font-body);
   }
 
   li {
@@ -57,8 +55,8 @@
   }
   .sidebar {
     top: 0;
-    left: 0; /* Aseguramos que siempre sea visible en desktop */
-    padding-top: 1.5rem; /* Un padding sutil y elegante para escritorio */
+    left: 0;
+    padding-top: 1.5rem;
     position: sticky;
     width: 15rem;
     height: 100vh;

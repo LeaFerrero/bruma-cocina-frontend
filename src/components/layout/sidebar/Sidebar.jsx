@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Sidebar.module.css";
+import NavItem from "../../ui/links/NavItem";
 import logo from "../../../assets/img/logo-mark.webp";
 
 function Sidebar({ isMenuOpen, toggleMenu }) {
@@ -9,7 +10,9 @@ function Sidebar({ isMenuOpen, toggleMenu }) {
     <div className={sidebarClasses}>
       <img src={logo} alt="Logo Bruma Cocina" className={styles.logo} />
       <ul>
-        ´<p>Usuarios</p>
+        <li>
+          <NavItem to="/usuarios" text="Usuarios" onClick={toggleMenu} />
+        </li>
       </ul>
     </div>
   );

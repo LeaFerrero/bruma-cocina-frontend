@@ -5,10 +5,7 @@
   text-align: left;
   text-decoration: none;
   white-space: nowrap;
-
-  /* Forzamos que este color le gane a cualquier regla global */
   color: var(--color-text-sidebar) !important;
-
   padding: 0.75rem 1.5rem;
   border-radius: 0.25rem;
   font-size: clamp(1rem, 4vw, 1.25rem);
