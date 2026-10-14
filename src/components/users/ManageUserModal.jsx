@@ -3,10 +3,9 @@ import BasicModal from "../ui/modals/BasicModal";
 import ManageUserForm from "./ManageUserForm";
 import styles from "./ManageUserModal.module.css";
 
-function ManageUserModal({ isOpen, onClose, onSave, userToEdit }) {
+function ManageUserModal({ isOpen, onClose, onSave, userToEdit, errors }) {
   const handleFormSubmit = (formData, id) => {
     onSave(formData, id);
-    onClose();
   };
 
   return (
@@ -20,6 +19,7 @@ function ManageUserModal({ isOpen, onClose, onSave, userToEdit }) {
           userToEdit={userToEdit}
           onSubmit={handleFormSubmit}
           onCancel={onClose}
+          errors={errors}
         />
       </div>
     </BasicModal>

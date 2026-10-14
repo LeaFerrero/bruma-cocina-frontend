@@ -13,8 +13,9 @@ const apiFetch = async (endpoint, options = {}) => {
     const data = await response.json();
 
     if (!response.ok) {
-      const errorMessage = data.message || "Ocurrió un error en el servidor";
-      throw new Error(errorMessage);
+      const error = new Error("Ocurrió un error en el servidor");
+      error.backendData = data;
+      throw error;
     }
 
     return data;

@@ -6,7 +6,6 @@ function BasicForm({ title, onSubmit, children }) {
     <form className={styles.formBase} onSubmit={onSubmit}>
       {title && <h3 className={styles.title}>{title}</h3>}
 
-      {/* Acá adentro van a vivir los inputs y botones de cada formulario específico */}
       <div className={styles.content}>{children}</div>
     </form>
   );

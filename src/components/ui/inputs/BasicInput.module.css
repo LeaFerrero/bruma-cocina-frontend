@@ -38,3 +38,18 @@
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+.inputError {
+  border-color: var(--color-error) !important;
+}
+
+.inputError:focus {
+  border-color: var(--color-error) !important;
+}
+
+.errorText {
+  color: var(--color-error);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import {
   getUsers,
   getUserById,
@@ -11,12 +12,16 @@ import BasicButton from "../components/ui/buttons/BasicButton";
 import ManageUserModal from "../components/users/ManageUserModal";
 import styles from "./UsersPage.module.css";
 import AutocompleteInput from "../components/ui/inputs/AutocompleteInput";
+import ConfirmModal from "../components/ui/modals/ConfirmModal";
 
 function UsersPage() {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [formErrors, setFormErrors] = useState({});
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -24,7 +29,11 @@ function UsersPage() {
         const users = await getUsers();
         setUsers(users);
       } catch (error) {
-        alert("Error al cargar los usuarios: " + error.message);
+        if (error.backendData && error.backendData.message) {
+          toast.error(error.backendData.message);
+        } else {
+          toast.error(`Ocurrio un error ${error.message}`);
+        }
       }
     };
     loadUsers();
@@ -33,41 +42,66 @@ function UsersPage() {
   const handleOpenCreateModal = () => {
     setUserToEdit(null);
     setIsModalOpen(true);
+    setFormErrors({});
   };
 
   const handleOpenEditModal = (user) => {
     setUserToEdit(user);
     setIsModalOpen(true);
+    setFormErrors({});
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setIsConfirmOpen(false);
     setUserToEdit(null);
+    setUserToDelete(null);
+    setFormErrors({});
+  };
+
+  const handleOpenDeleteModal = (user) => {
+    setUserToDelete(user);
+    setIsConfirmOpen(true);
   };
 
   const handleSaveUser = async (formData, id) => {
     try {
+      setFormErrors({});
       if (id) {
         await editUser(id, formData);
       } else {
         const newUser = { ...formData };
         await createUser(newUser);
       }
+      toast.success(
+        id ? "Usuario actualizado" : "Usuario creado correctamente",
+      );
       const users = await getUsers();
       setUsers(users);
       handleCloseModal();
     } catch (error) {
-      alert("Error al guardar: " + error.message);
+      if (error.backendData && error.backendData.message) {
+        setFormErrors(error.backendData.message);
+      } else {
+        toast.error(`Ocurrio un error ${error.message}`);
+      }
     }
   };
 
-  const handleDeleteUser = async (id) => {
+  const handleDeleteUser = async () => {
+    if (!userToDelete) return;
     try {
-      await deleteUser(id);
+      await deleteUser(userToDelete._id);
       const users = await getUsers();
       setUsers(users);
+      toast.success("Usuario eliminado correctamente");
+      handleCloseModal();
     } catch (error) {
-      alert("Error al eliiminar: " + error.message);
+      if (error.backendData && error.backendData.message) {
+        toast.error(error.backendData.message);
+      } else {
+        toast.error(`Ocurrio un error ${error.message}`);
+      }
     }
   };
 
@@ -106,7 +140,7 @@ function UsersPage() {
             key={user._id}
             user={user}
             onEdit={() => handleOpenEditModal(user)}
-            onDelete={() => handleDeleteUser(user._id)}
+            onDelete={() => handleOpenDeleteModal(user)}
           />
         ))}
       </div>
@@ -116,6 +150,16 @@ function UsersPage() {
         onClose={handleCloseModal}
         onSave={handleSaveUser}
         userToEdit={userToEdit}
+        errors={formErrors}
+      />
+
+      <ConfirmModal
+        title="Eliminar usuario"
+        isOpen={isConfirmOpen}
+        onClose={() => handleCloseModal()}
+        onConfirm={handleDeleteUser}
+        isDanger={true}
+        message={`¿Estás seguro de que querés eliminar a "${userToDelete?.userName}"? Esta acción no se puede deshacer.`}
       />
     </section>
   );

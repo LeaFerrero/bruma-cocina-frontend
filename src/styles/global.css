@@ -43,6 +43,9 @@
   --color-success: #2d6a4f;
   --color-neutral: #8c98a4;
   --color-error: #d9534f;
+
+  /* 7. Radios de Borde */
+  --border-radius: 0.15rem;
 }
 
 *,
@@ -81,4 +84,14 @@ h2 {
 h3 {
   font-family: var(--font-titles);
   font-size: 1.2rem;
+}
+
+.toast-alert {
+  background-color: var(--color-card-bg);
+  color: var(--color-text-main);
+  font-size: 1.125rem !important;
+  padding: 1rem 1.5rem !important;
+  max-width: 31.25rem !important;
+  text-align: center;
+  border: var(--border-radius) solid var(--color-input-border);
 }

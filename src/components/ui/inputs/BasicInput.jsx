@@ -5,11 +5,11 @@ function BasicInput({
   id,
   label,
   type = "text",
-  variant = "primary",
   additionalClass = "",
+  error,
   ...props
 }) {
-  const variantClass = styles[variant] || "";
+  const errorClass = error ? styles.inputError : "";
 
   return (
     <div className={styles.field}>
@@ -21,9 +21,10 @@ function BasicInput({
       <input
         id={id}
         type={type}
-        className={`${styles.basicInput} ${variantClass} ${additionalClass}`.trim()}
+        className={`${styles.basicInput} ${errorClass} ${additionalClass}`.trim()}
         {...props}
       />
+      {error && <span className={styles.errorText}>{error}</span>}
     </div>
   );
 }
