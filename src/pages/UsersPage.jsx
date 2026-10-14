@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import usersData from "../data/usersData";
+import React, { useEffect, useState } from "react";
+import {
+  getUsers,
+  getUserById,
+  createUser,
+  editUser,
+  deleteUser,
+} from "../api/userApi";
 import UserCard from "../components/users/UserCard";
 import BasicButton from "../components/ui/buttons/BasicButton";
 import ManageUserModal from "../components/users/ManageUserModal";
@@ -7,10 +13,22 @@ import styles from "./UsersPage.module.css";
 import AutocompleteInput from "../components/ui/inputs/AutocompleteInput";
 
 function UsersPage() {
-  const [users, setUsers] = useState(usersData);
+  const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const loadUsers = async () => {
+      try {
+        const users = await getUsers();
+        setUsers(users);
+      } catch (error) {
+        alert("Error al cargar los usuarios: " + error.message);
+      }
+    };
+    loadUsers();
+  }, []);
 
   const handleOpenCreateModal = () => {
     setUserToEdit(null);
@@ -27,20 +45,30 @@ function UsersPage() {
     setUserToEdit(null);
   };
 
-  const handleSaveUser = (formData, id) => {
-    if (id) {
-      setUsers(users.map((u) => (u.id === id ? { ...u, ...formData } : u)));
-    } else {
-      const newUser = {
-        id: Date.now(),
-        ...formData,
-      };
-      setUsers([...users, newUser]);
+  const handleSaveUser = async (formData, id) => {
+    try {
+      if (id) {
+        await editUser(id, formData);
+      } else {
+        const newUser = { ...formData };
+        await createUser(newUser);
+      }
+      const users = await getUsers();
+      setUsers(users);
+      handleCloseModal();
+    } catch (error) {
+      alert("Error al guardar: " + error.message);
     }
   };
 
-  const deleteUser = (user) => {
-    setUsers(users.filter((u) => u.id !== user.id));
+  const handleDeleteUser = async (id) => {
+    try {
+      await deleteUser(id);
+      const users = await getUsers();
+      setUsers(users);
+    } catch (error) {
+      alert("Error al eliiminar: " + error.message);
+    }
   };
 
   const userNames = users.map((user) => user.userName);
@@ -75,10 +103,10 @@ function UsersPage() {
       <div className={styles.usersGrid}>
         {filteredUsers.map((user) => (
           <UserCard
-            key={user.id}
+            key={user._id}
             user={user}
             onEdit={() => handleOpenEditModal(user)}
-            onDelete={() => deleteUser(user)}
+            onDelete={() => handleDeleteUser(user._id)}
           />
         ))}
       </div>

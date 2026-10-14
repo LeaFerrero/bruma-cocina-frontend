@@ -2,6 +2,7 @@ import React from "react";
 import BasicCard from "../ui/cards/BasicCard.jsx";
 import BasicButton from "../ui/buttons/BasicButton.jsx";
 import styles from "./UserCard.module.css";
+import { ROLE_NAMES } from "../../utils/roles.js";
 
 function UserCard({ user, onEdit, onDelete }) {
   return (
@@ -13,11 +14,11 @@ function UserCard({ user, onEdit, onDelete }) {
         </p>
         <p>
           <strong>Apellido: </strong>
-          {user.lastname}
+          {user.lastName}
         </p>
         <p>
           <strong>Rol: </strong>
-          {user.rol}
+          {ROLE_NAMES[user.role]}
         </p>
       </div>
       <div className={styles.buttonsContainer}>

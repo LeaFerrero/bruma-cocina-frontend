@@ -4,6 +4,7 @@ import BasicButton from "../ui/buttons/BasicButton";
 import BasicInput from "../ui/inputs/BasicInput";
 import BasicDropdown from "../ui/inputs/BasicDropdown";
 import styles from "./ManageUserForm.module.css";
+import { ROLES, ROLE_NAMES } from "../../utils/roles";
 
 function ManageUserForm({ userToEdit, onSubmit, onCancel }) {
   const [formData, setFormData] = useState({
@@ -15,11 +16,12 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel }) {
 
   useEffect(() => {
     if (userToEdit) {
+      console.log("Datos del usuario a editar:", userToEdit);
       setFormData({
         name: userToEdit.name || "",
         lastName: userToEdit.lastName || "",
         role: userToEdit.role || "",
-        password: "", // Por seguridad se deja en blanco al editar
+        password: "",
       });
     } else {
       setFormData({ name: "", lastName: "", role: "", password: "" });
@@ -33,16 +35,13 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData, userToEdit ? userToEdit.id : null);
+    onSubmit(formData, userToEdit ? userToEdit._id : null);
   };
 
-    const roles = [
-    { value: "", text: "Seleccionar..." },
-    { value: "admin", text: "Administrador" },
-    { value: "cocina", text: "Cocina" },
-    { value: "caja", text: "Caja" },
-    { value: "stock", text: "Stock" },
-  ];
+  const dropdownRolesOptions = Object.values(ROLES).map((rol) => ({
+    value: rol,
+    label: ROLE_NAMES[rol],
+  }));
 
   return (
     <BasicForm onSubmit={handleSubmit}>
@@ -68,7 +67,7 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel }) {
         label="Rol"
         id="role"
         name="role"
-        options={roles}
+        options={dropdownRolesOptions}
         value={formData.role}
         onChange={handleChange}
         required

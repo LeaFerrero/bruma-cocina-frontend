@@ -1,13 +1,7 @@
 import React from "react";
 import styles from "./BasicInput.module.css";
 
-function BasicDropdown({
-  id,
-  label,
-  options,
-  additionalClass = "",
-  ...props
-}) {
+function BasicDropdown({ id, label, options, additionalClass = "", ...props }) {
   return (
     <div className={styles.field}>
       {label && (
@@ -22,7 +16,7 @@ function BasicDropdown({
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
-            {option.text}
+            {option.label}
           </option>
         ))}
       </select>
