@@ -1,0 +1,30 @@
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* Corregido el salto de línea y el operador matemático */
+  min-height: calc(100vh - 9.375rem);
+  width: 100%;
+  padding: 1rem 0.75rem;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* Trasladamos el ancho máximo a este contenedor */
+  max-width: 31.25rem;
+}
+
+@media (min-width: 480px) {
+  .pageContainer {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .pageContainer {
+    padding: 1.5rem;
+  }
+}

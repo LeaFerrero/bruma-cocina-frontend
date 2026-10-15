@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import BasicForm from "../ui/forms/BasicForm";
-import BasicButton from "../ui/buttons/BasicButton";
-import BasicInput from "../ui/inputs/BasicInput";
-import BasicDropdown from "../ui/inputs/BasicDropdown";
+import BasicForm from "../components/ui/forms/BasicForm";
+import BasicButton from "../components/ui/buttons/BasicButton";
+import BasicInput from "../components/ui/inputs/BasicInput";
+import BasicDropdown from "../components/ui/inputs/BasicDropdown";
 import styles from "./ManageUserForm.module.css";
-import { ROLES, ROLE_NAMES } from "../../utils/roles";
+import { ROLES, ROLE_NAMES } from "../utils/roles";
 
 function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
   const [formData, setFormData] = useState({

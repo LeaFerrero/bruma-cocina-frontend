@@ -7,9 +7,9 @@ import {
   editUser,
   deleteUser,
 } from "../api/userApi";
-import UserCard from "../components/users/UserCard";
+import UserCard from "../users/UserCard";
 import BasicButton from "../components/ui/buttons/BasicButton";
-import ManageUserModal from "../components/users/ManageUserModal";
+import ManageUserModal from "../users/ManageUserModal";
 import styles from "./UsersPage.module.css";
 import AutocompleteInput from "../components/ui/inputs/AutocompleteInput";
 import ConfirmModal from "../components/ui/modals/ConfirmModal";

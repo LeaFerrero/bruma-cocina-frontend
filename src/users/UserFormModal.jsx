@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import BasicModal from "../ui/modals/BasicModal";
-import BasicForm from "../ui/forms/BasicForm";
-import BasicButton from "../ui/buttons/BasicButton";
-import BasicInput from "../ui/inputs/BasicInput";
+import BasicModal from "..components/ui/modals/BasicModal";
+import BasicForm from "..components/ui/forms/BasicForm";
+import BasicButton from "..components/ui/buttons/BasicButton";
+import BasicInput from "..components/ui/inputs/BasicInput";
 import styles from "./UserFormModal.module.css";
 
 function UserFormModal({ isOpen, onClose, onSave, userToEdit }) {

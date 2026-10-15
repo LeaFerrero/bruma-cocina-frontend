@@ -1,8 +1,8 @@
 import React from "react";
-import BasicCard from "../ui/cards/BasicCard.jsx";
-import BasicButton from "../ui/buttons/BasicButton.jsx";
+import BasicCard from "../components/ui/cards/BasicCard.jsx";
+import BasicButton from "../components/ui/buttons/BasicButton.jsx";
 import styles from "./UserCard.module.css";
-import { ROLE_NAMES } from "../../utils/roles.js";
+import { ROLE_NAMES } from "../utils/roles.js";
 
 function UserCard({ user, onEdit, onDelete }) {
   return (

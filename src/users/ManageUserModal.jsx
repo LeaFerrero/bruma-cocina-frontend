@@ -1,5 +1,5 @@
 import React from "react";
-import BasicModal from "../ui/modals/BasicModal";
+import BasicModal from "../components/ui/modals/BasicModal";
 import ManageUserForm from "./ManageUserForm";
 import styles from "./ManageUserModal.module.css";
 

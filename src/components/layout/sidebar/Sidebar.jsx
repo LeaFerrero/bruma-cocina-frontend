@@ -11,6 +11,9 @@ function Sidebar({ isMenuOpen, toggleMenu }) {
       <img src={logo} alt="Logo Bruma Cocina" className={styles.logo} />
       <ul>
         <li>
+          <NavItem to="/login" text="Login" onClick={toggleMenu} />
+        </li>
+        <li>
           <NavItem to="/usuarios" text="Usuarios" onClick={toggleMenu} />
         </li>
       </ul>
