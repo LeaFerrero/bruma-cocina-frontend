@@ -36,14 +36,17 @@ function LoginPage() {
 
     try {
       const response = await login(loginData);
-      loginContext(response.user);
-      toast.success("Sesion iniciada con exito");
+
+      loginContext(response.data.user);
+
+      toast.success(response.message);
+
       navigate("/gestion", { replace: true });
     } catch (error) {
-      if (error.backendData && error.backendData.message) {
-        toast.error(error.backendData.message);
-      } else {
-        toast.error(`Ocurrio un error ${error.message}`);
+      toast.error(error.message);
+
+      if (error.details) {
+        setFormErrors(error.details);
       }
     }
   };

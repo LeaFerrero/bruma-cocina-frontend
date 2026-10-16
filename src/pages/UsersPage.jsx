@@ -30,14 +30,10 @@ function UsersPage() {
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const users = await getUsers();
-        setUsers(users);
+        const response = await getUsers();
+        setUsers(response.data);
       } catch (error) {
-        if (error.backendData && error.backendData.message) {
-          toast.error(error.backendData.message);
-        } else {
-          toast.error(`Ocurrio un error ${error.message}`);
-        }
+        toast.error(error.message);
       }
     };
     loadUsers();
@@ -85,23 +81,26 @@ function UsersPage() {
 
     try {
       setFormErrors({});
+      let response;
+
       if (id) {
-        await editUser(id, formData);
+        response = await editUser(id, formData);
       } else {
         const newUser = { ...formData };
-        await createUser(newUser);
+        response = await createUser(newUser);
       }
-      toast.success(
-        id ? "Usuario actualizado" : "Usuario creado correctamente",
-      );
-      const users = await getUsers();
-      setUsers(users);
+
+      toast.success(response.message);
+
+      const usersResponse = await getUsers();
+      setUsers(usersResponse.data);
+
       handleCloseModal();
     } catch (error) {
-      if (error.backendData && error.backendData.message) {
-        toast.error(error.backendData.message);
-      } else {
-        toast.error(`Ocurrió un error: ${error.message}`);
+      toast.error(error.message);
+
+      if (error.details) {
+        setFormErrors(error.details);
       }
     }
   };
@@ -109,17 +108,15 @@ function UsersPage() {
   const handleDeleteUser = async () => {
     if (!userToDelete) return;
     try {
-      await deleteUser(userToDelete._id);
-      const users = await getUsers();
-      setUsers(users);
-      toast.success("Usuario eliminado correctamente");
+      const response = await deleteUser(userToDelete._id);
+      toast.success(response.message);
+
+      const usersResponse = await getUsers();
+      setUsers(usersResponse.data);
+
       handleCloseModal();
     } catch (error) {
-      if (error.backendData && error.backendData.message) {
-        toast.error(error.backendData.message);
-      } else {
-        toast.error(`Ocurrio un error ${error.message}`);
-      }
+      toast.error(error.message);
     }
   };
 

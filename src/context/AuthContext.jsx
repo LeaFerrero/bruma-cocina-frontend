@@ -11,9 +11,10 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const data = await verifySession();
+        const response = await verifySession();
+
         setIsLogged(true);
-        setUser(data.user);
+        setUser(response.data.user);
         setIsLoading(false);
       } catch (error) {
         setIsLogged(false);
