@@ -3,18 +3,22 @@ import { useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import HamburgerButton from "../../ui/buttons/HamburgerButton";
 
-function Header({ toggleMenu, isMenuOpen }) {
+function Header({ toggleMenu, isMenuOpen, showHamburger = true }) {
   const location = useLocation();
 
   const routeNames = {
-    "/usuarios": "Usuarios",
+    "/gestion/usuarios": "Usuarios",
+    "/gestion/login": "Login",
   };
 
   const sectionName = routeNames[location.pathname];
 
   return (
     <div className={styles.header}>
-      <HamburgerButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+      {showHamburger && (
+        <HamburgerButton toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+      )}
+
       <div className={styles.titles}>
         <h1>Bruma Cocina</h1>
 

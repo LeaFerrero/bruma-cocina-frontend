@@ -93,5 +93,5 @@ h3 {
   padding: 1rem 1.5rem !important;
   max-width: 31.25rem !important;
   text-align: center;
-  border: var(--border-radius) solid var(--color-input-border);
+  border-radius: var(--border-radius);
 }

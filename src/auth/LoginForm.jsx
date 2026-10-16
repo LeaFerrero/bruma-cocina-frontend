@@ -35,8 +35,6 @@ function LoginForm({ loginData, setLoginData, error, onSubmit, errors = {} }) {
         error={errors.password}
       />
 
-      {error && <p className={styles.errorMessage}>{error}</p>}
-
       <div className={styles.buttonContainer}>
         <BasicButton
           text="Iniciar sesión"

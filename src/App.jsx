@@ -1,8 +1,26 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useContext } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import Layout from "./components/layout/Layout";
+import ManagementLayout from "./components/layout/ManagementLayout";
+import LoginLayout from "./components/layout/LoginLayout";
 import UsersPage from "./pages/UsersPage";
 import LoginPage from "./pages/LoginPage";
+import { AuthContext } from "./context/AuthContext";
+
+const PrivateRoute = () => {
+  const { isLogged } = useContext(AuthContext);
+
+  if (!isLogged) {
+    return <Navigate to="/gestion/login" replace />;
+  }
+  return <Outlet />;
+};
 
 function App() {
   return (
@@ -11,11 +29,22 @@ function App() {
         position="bottom-right"
         toastOptions={{ className: "toast-alert", duration: 5000 }}
       />
+
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/usuarios" element={<UsersPage />} />
-          <Route path="/login" element={<LoginPage />} />
+        <Route path="/gestion">
+          <Route element={<LoginLayout />}>
+            <Route path="login" element={<LoginPage />} />
+          </Route>
+
+          <Route element={<PrivateRoute />}>
+            <Route element={<ManagementLayout />}>
+              <Route index element={<Navigate to="usuarios" replace />} />
+              <Route path="usuarios" element={<UsersPage />} />
+            </Route>
+          </Route>
         </Route>
+
+        <Route path="*" element={<Navigate to="/gestion" replace />} />
       </Routes>
     </BrowserRouter>
   );

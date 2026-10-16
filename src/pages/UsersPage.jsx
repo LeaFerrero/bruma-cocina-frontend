@@ -8,11 +8,15 @@ import {
   deleteUser,
 } from "../api/userApi";
 import UserCard from "../users/UserCard";
-import BasicButton from "../components/ui/buttons/BasicButton";
 import ManageUserModal from "../users/ManageUserModal";
+import BasicButton from "../components/ui/buttons/BasicButton";
 import styles from "./UsersPage.module.css";
 import AutocompleteInput from "../components/ui/inputs/AutocompleteInput";
 import ConfirmModal from "../components/ui/modals/ConfirmModal";
+import {
+  createUserSchema,
+  updateUserSchema,
+} from "../utils/validations/usersValidation";
 
 function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -65,6 +69,20 @@ function UsersPage() {
   };
 
   const handleSaveUser = async (formData, id) => {
+    const schemaToUse = id ? updateUserSchema : createUserSchema;
+    const validations = schemaToUse.safeParse(formData);
+
+    if (!validations.success) {
+      const fieldErrors = validations.error.flatten().fieldErrors;
+      const formattedErrors = {};
+      for (const key in fieldErrors) {
+        formattedErrors[key] = fieldErrors[key][0];
+      }
+
+      setFormErrors(formattedErrors);
+      return;
+    }
+
     try {
       setFormErrors({});
       if (id) {
@@ -81,9 +99,9 @@ function UsersPage() {
       handleCloseModal();
     } catch (error) {
       if (error.backendData && error.backendData.message) {
-        setFormErrors(error.backendData.message);
+        toast.error(error.backendData.message);
       } else {
-        toast.error(`Ocurrio un error ${error.message}`);
+        toast.error(`Ocurrió un error: ${error.message}`);
       }
     }
   };

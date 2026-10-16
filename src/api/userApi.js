@@ -1,11 +1,11 @@
 import apiFetch from "./apiClient";
 
 const getUsers = () => {
-  return apiFetch("/users");
+  return apiFetch("/users", {});
 };
 
 const getUserById = (id) => {
-  return apiFetch(`/users/${id}`);
+  return apiFetch(`/users/${id}`, {});
 };
 
 const createUser = (userData) => {

@@ -1,31 +1,50 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./LoginPage.module.css";
 import LoginForm from "../auth/LoginForm";
 import BasicCard from "../components/ui/cards/BasicCard";
 import { login } from "../api/loginApi";
+import { loginSchema } from "../utils/validations/loginValidation";
+import toast from "react-hot-toast";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [loginData, setLoginData] = useState({
     userName: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [formErrors, setFormErrors] = useState({});
+  const { loginContext } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!loginData.userName || !loginData.password) {
-      setError("Por favor, complete todos los campos.");
+    const validations = loginSchema.safeParse(loginData);
+    if (!validations.success) {
+      const fieldErrors = validations.error.flatten().fieldErrors;
+      const formattedErrors = {};
+      for (const key in fieldErrors) {
+        formattedErrors[key] = fieldErrors[key][0];
+      }
+
+      setFormErrors(formattedErrors);
       return;
     }
-    setError("");
+
+    setFormErrors({});
 
     try {
       const response = await login(loginData);
-
-      console.log("¡Sesión iniciada con éxito!", response);
-    } catch (err) {
-      setError(err.message || "Error al iniciar sesión.");
+      loginContext(response.user);
+      toast.success("Sesion iniciada con exito");
+      navigate("/gestion", { replace: true });
+    } catch (error) {
+      if (error.backendData && error.backendData.message) {
+        toast.error(error.backendData.message);
+      } else {
+        toast.error(`Ocurrio un error ${error.message}`);
+      }
     }
   };
 
@@ -36,8 +55,8 @@ function LoginPage() {
           <LoginForm
             loginData={loginData}
             setLoginData={setLoginData}
-            error={error}
             onSubmit={handleLogin}
+            errors={formErrors}
           />
         </BasicCard>
       </div>

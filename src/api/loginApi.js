@@ -13,4 +13,10 @@ const logout = () => {
   });
 };
 
-export { login, logout };
+const verifySession = () => {
+  return apiFetch("/verify", {
+    method: "GET",
+  });
+};
+
+export { login, logout, verifySession };
