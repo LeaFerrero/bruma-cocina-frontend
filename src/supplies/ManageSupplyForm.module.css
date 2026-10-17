@@ -1,0 +1,16 @@
+.rowInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 900px) {
+  .rowInputs {
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .rowInputs > * {
+    flex: 1;
+  }
+}

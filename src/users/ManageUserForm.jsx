@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import BasicForm from "../components/ui/forms/BasicForm";
-import BasicButton from "../components/ui/buttons/BasicButton";
 import BasicInput from "../components/ui/inputs/BasicInput";
 import BasicDropdown from "../components/ui/inputs/BasicDropdown";
-import styles from "./ManageUserForm.module.css";
-import { ROLES, ROLE_NAMES } from "../utils/roles";
+import BasicButton from "../components/ui/buttons/BasicButton";
+import ButtonGroup from "../components/ui/buttons/ButtonGroup";
+import { ROLE_OPTIONS } from "../utils/roles";
 
 function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
   const [formData, setFormData] = useState({
@@ -37,14 +37,6 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
     onSubmit(formData, userToEdit ? userToEdit._id : null);
   };
 
-  const dropdownRolesOptions = [
-    { value: "", label: "Seleccione un rol..." },
-    ...Object.values(ROLES).map((rol) => ({
-      value: rol,
-      label: ROLE_NAMES[rol],
-    })),
-  ];
-
   return (
     <BasicForm onSubmit={handleSubmit}>
       <BasicInput
@@ -71,10 +63,12 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
         label="Rol"
         id="role"
         name="role"
-        options={dropdownRolesOptions}
+        options={ROLE_OPTIONS}
+        placeholder="Seleccione un rol..."
         value={formData.role}
         onChange={handleChange}
         required
+        error={errors.role}
       />
 
       <BasicInput
@@ -88,7 +82,7 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
         error={errors.password}
       />
 
-      <div className={styles.buttonsContainer}>
+      <ButtonGroup>
         <BasicButton
           text={userToEdit ? "Guardar cambios" : "Registrar"}
           variant="primary"
@@ -100,7 +94,7 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
           type="button"
           onClick={onCancel}
         />
-      </div>
+      </ButtonGroup>
     </BasicForm>
   );
 }

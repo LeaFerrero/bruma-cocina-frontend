@@ -1,0 +1,81 @@
+const supplies = [
+  {
+    id: 1,
+    name: "Arroz Carnaroli",
+    stock: 10000,
+    minStock: 2000,
+    unit: "gr",
+  },
+  {
+    id: 2,
+    name: "Hongos de Pino",
+    stock: 3000,
+    minStock: 500,
+    unit: "gr",
+  },
+  {
+    id: 3,
+    name: "Caldo de Verduras",
+    stock: 15000,
+    minStock: 3000,
+    unit: "ml",
+  },
+  {
+    id: 4,
+    name: "Pechuga de Pollo",
+    stock: 12000,
+    minStock: 2500,
+    unit: "gr",
+  },
+  {
+    id: 5,
+    name: "Arroz Basmati",
+    stock: 8000,
+    minStock: 1500,
+    unit: "gr",
+  },
+  {
+    id: 6,
+    name: "Leche de Coco",
+    stock: 5000,
+    minStock: 1000,
+    unit: "ml",
+  },
+  {
+    id: 7,
+    name: "Mix de Vegetales",
+    stock: 15000,
+    minStock: 3000,
+    unit: "gr",
+  },
+  {
+    id: 8,
+    name: "Salsa de Soja",
+    stock: 3000,
+    minStock: 500,
+    unit: "ml",
+  },
+  {
+    id: 9,
+    name: "Salmón Rosado",
+    stock: 6000,
+    minStock: 1500,
+    unit: "gr",
+  },
+  {
+    id: 10,
+    name: "Mix de Hierbas",
+    stock: 1000,
+    minStock: 200,
+    unit: "gr",
+  },
+  {
+    id: 11,
+    name: "Huevos",
+    stock: 120,
+    minStock: 30,
+    unit: "un",
+  },
+];
+
+export default supplies;

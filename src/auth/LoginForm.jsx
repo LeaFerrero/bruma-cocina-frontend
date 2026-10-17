@@ -1,8 +1,9 @@
 import React from "react";
+import styles from "./LoginForm.module.css";
 import BasicForm from "../components/ui/forms/BasicForm";
 import BasicInput from "../components/ui/inputs/BasicInput";
 import BasicButton from "../components/ui/buttons/BasicButton";
-import styles from "./LoginForm.module.css";
+import ButtonGroup from "../components/ui/buttons/ButtonGroup";
 
 function LoginForm({ loginData, setLoginData, error, onSubmit, errors = {} }) {
   const handleChange = (e) => {
@@ -35,13 +36,13 @@ function LoginForm({ loginData, setLoginData, error, onSubmit, errors = {} }) {
         error={errors.password}
       />
 
-      <div className={styles.buttonContainer}>
+      <ButtonGroup className={styles.buttonContainer}>
         <BasicButton
           text="Iniciar sesión"
           type="submit"
           className={styles.submitButton}
         />
-      </div>
+      </ButtonGroup>
     </BasicForm>
   );
 }

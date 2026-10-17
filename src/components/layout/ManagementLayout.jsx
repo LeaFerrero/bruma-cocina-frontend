@@ -13,7 +13,10 @@ function ManagementLayout() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const menuLinks = [{ path: "/gestion/usuarios", text: "Usuarios" }];
+  const menuLinks = [
+    { path: "/gestion/insumos", text: "Insumos" },
+    { path: "/gestion/usuarios", text: "Usuarios" },
+  ];
 
   return (
     <div className={styles.appContainer}>

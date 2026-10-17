@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import styles from "./UserFormModal.module.css";
 import BasicModal from "..components/ui/modals/BasicModal";
 import BasicForm from "..components/ui/forms/BasicForm";
-import BasicButton from "..components/ui/buttons/BasicButton";
 import BasicInput from "..components/ui/inputs/BasicInput";
-import styles from "./UserFormModal.module.css";
+import BasicButton from "..components/ui/buttons/BasicButton";
+import ButtonGroup from "../components/ui/buttons/ButtonGroup";
 
 function UserFormModal({ isOpen, onClose, onSave, userToEdit }) {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ function UserFormModal({ isOpen, onClose, onSave, userToEdit }) {
         name: userToEdit.name || "",
         lastName: userToEdit.lastName || "",
         role: userToEdit.role || "",
-        password: "", // Por seguridad se deja en blanco al editar
+        password: "",
       });
     } else {
       setFormData({
@@ -87,7 +88,7 @@ function UserFormModal({ isOpen, onClose, onSave, userToEdit }) {
           required={!userToEdit}
         />
 
-        <div className={styles.buttonsContainer}>
+        <ButtonGroup>
           <BasicButton
             text={userToEdit ? "Guardar cambios" : "Registrar"}
             variant="primary"
@@ -99,7 +100,7 @@ function UserFormModal({ isOpen, onClose, onSave, userToEdit }) {
             type="button"
             onClick={onClose}
           />
-        </div>
+        </ButtonGroup>
       </BasicForm>
     </BasicModal>
   );

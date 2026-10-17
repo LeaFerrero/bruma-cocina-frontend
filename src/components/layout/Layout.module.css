@@ -1,4 +1,4 @@
-  .appContainer {
+.appContainer {
   display: flex;
   flex-direction: row;
   height: 100svh;
@@ -28,14 +28,12 @@
   overflow-x: hidden;
 }
 
-/* 2. TABLETS Y CELULARES GRANDES (Desde 480px) */
 @media (min-width: 480px) {
   .contentContainer {
     padding: 1.5rem;
   }
 }
 
-/* 3. ESCRITORIO (Desde 768px) */
 @media (min-width: 768px) {
   .contentContainer {
     padding: 2rem 2.5rem;

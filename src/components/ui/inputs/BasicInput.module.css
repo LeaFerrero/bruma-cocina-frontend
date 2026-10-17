@@ -28,13 +28,13 @@
   border-color: var(--color-input-hover);
 }
 
-.numeric::-webkit-outer-spin-button,
-.numeric::-webkit-inner-spin-button {
+.basicInput::-webkit-outer-spin-button,
+.basicInput::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.numeric[type="number"] {
+.basicInput[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
