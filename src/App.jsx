@@ -28,6 +28,9 @@ function App() {
     <BrowserRouter>
       <Toaster
         position="bottom-right"
+        containerStyle={{
+          zIndex: 9999999,
+        }}
         toastOptions={{ className: "toast-alert", duration: 5000 }}
       />
 

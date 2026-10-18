@@ -10,8 +10,9 @@ import { UNIT_OPTIONS } from "../utils/units";
 function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
   const [formData, setFormData] = useState({
     name: "",
-    stock: "",
     unit: "",
+    price: "",
+    currentStock: "",
     minStock: "",
   });
 
@@ -19,12 +20,19 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
     if (supplyToEdit) {
       setFormData({
         name: supplyToEdit.name || "",
-        stock: supplyToEdit.stock || "",
         unit: supplyToEdit.unit || "",
+        price: supplyToEdit.price || "",
+        currentStock: supplyToEdit.currentStock || "",
         minStock: supplyToEdit.minStock || "",
       });
     } else {
-      setFormData({ name: "", stock: "", unit: "", minStock: "" });
+      setFormData({
+        name: "",
+        unit: "",
+        price: "",
+        currentStock: "",
+        minStock: "",
+      });
     }
   }, [supplyToEdit]);
 
@@ -35,7 +43,7 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData, supplyToEdit ? supplyToEdit.id : null);
+    onSubmit(formData, supplyToEdit ? supplyToEdit._id : null);
   };
 
   return (
@@ -64,9 +72,9 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
         />
         <BasicInput
           label="Precio"
-          type="number"
           id="price"
           name="price"
+          inputMode="decimal"
           value={formData.price}
           onChange={handleChange}
           error={errors.price}
@@ -77,10 +85,10 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
       <div className={styles.rowInputs}>
         <BasicInput
           label="Stock actual"
-          type="number"
-          id="stock"
-          name="stock"
-          value={formData.stock}
+          id="currentStock"
+          name="currentStock"
+          inputMode="decimal"
+          value={formData.currentStock}
           onChange={handleChange}
           error={errors.currentStock}
           required
@@ -88,9 +96,9 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
 
         <BasicInput
           label="Stock mínimo"
-          type="number"
           id="minStock"
           name="minStock"
+          inputMode="decimal"
           value={formData.minStock}
           onChange={handleChange}
           error={errors.minStock}

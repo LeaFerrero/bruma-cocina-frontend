@@ -5,47 +5,45 @@ import BasicButton from "../components/ui/buttons/BasicButton";
 import ButtonGroup from "../components/ui/buttons/ButtonGroup";
 import SupplyEntryForm from "./SupplyEntryForm";
 import SupplyEntryItem from "./SupplyEntryItem";
+import toast from "react-hot-toast";
 
-function SupplyEntryModal({ availableSupplies, isOpen, onClose, onSaveLote }) {
-  const [entryList, setEntryList] = useState([]);
+function SupplyEntryModal({ availableSupplies, isOpen, onClose, onSave }) {
+  const [selectedSupplies, setSelectedSupplies] = useState([]);
 
   useEffect(() => {
     if (!isOpen) {
-      setEntryList([]);
+      setSelectedSupplies([]);
     }
   }, [isOpen]);
 
   const handleAddItem = (newItem) => {
-    const exists = entryList.find((item) => item.name === newItem.name);
+    const exists = selectedSupplies.find((item) => item._id === newItem._id);
+
     if (exists) {
-      setEntryList(
-        entryList.map((item) =>
-          item.name === newItem.name
-            ? { ...item, quantity: item.quantity + 1 }
-            : item,
-        ),
-      );
-    } else {
-      setEntryList([...entryList, newItem]);
+      toast.error(`El insumo "${newItem.name}" ya está en la lista.`);
+      return;
     }
+    const itemWithQuantity = {
+      ...newItem,
+      quantity: "",
+    };
+    setSelectedSupplies([...selectedSupplies, itemWithQuantity]);
   };
 
   const handleQuantityChange = (id, newQuantity) => {
-    setEntryList(
-      entryList.map((item) =>
-        item.id === id ? { ...item, quantity: Number(newQuantity) } : item,
+    setSelectedSupplies(
+      selectedSupplies.map((item) =>
+        item._id === id ? { ...item, quantity: newQuantity } : item,
       ),
     );
   };
 
   const handleRemoveItem = (id) => {
-    setEntryList(entryList.filter((item) => item.id !== id));
+    setSelectedSupplies(selectedSupplies.filter((item) => item._id !== id));
   };
 
-  const handleSubmitFinal = () => {
-    onSaveLote(entryList);
-    setEntryList([]);
-    onClose();
+  const handleSubmit = () => {
+    onSave(selectedSupplies);
   };
 
   return (
@@ -57,24 +55,32 @@ function SupplyEntryModal({ availableSupplies, isOpen, onClose, onSaveLote }) {
         />
 
         <ul className={styles.itemsList}>
-          {entryList.map((item) => (
-            <SupplyEntryItem
-              key={item.id}
-              item={item}
-              onQuantityChange={handleQuantityChange}
-              onRemove={handleRemoveItem}
-            />
-          ))}
+          {selectedSupplies.length > 0 ? (
+            selectedSupplies.map((item) => (
+              <SupplyEntryItem
+                key={item._id}
+                item={item}
+                onQuantityChange={handleQuantityChange}
+                onRemove={handleRemoveItem}
+              />
+            ))
+          ) : (
+            <li className={styles.emptyMessage}>
+              No hay insumos seleccionados
+            </li>
+          )}
         </ul>
 
-        <ButtonGroup>
-          <BasicButton
-            text="Registrar"
-            variant="primary"
-            onClick={handleSubmitFinal}
-          />
-          <BasicButton text="Cancelar" variant="cancel" onClick={onClose} />
-        </ButtonGroup>
+        <div className={styles.buttonsContainer}>
+          <ButtonGroup>
+            <BasicButton
+              text="Registrar"
+              variant="primary"
+              onClick={handleSubmit}
+            />
+            <BasicButton text="Cancelar" variant="cancel" onClick={onClose} />
+          </ButtonGroup>
+        </div>
       </div>
     </BasicModal>
   );

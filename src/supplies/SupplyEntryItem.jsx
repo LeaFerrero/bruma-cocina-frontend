@@ -14,13 +14,10 @@ function SupplyEntryItem({ item, onQuantityChange, onRemove }) {
       <div className={styles.controlsContainer}>
         <div className={styles.inputGroup}>
           <BasicInput
-            type="number"
-            variant="numeric"
-            min="0.001"
-            step="0.001"
+            inputMode="decimal"
             value={item.quantity}
             onChange={(e) =>
-              onQuantityChange && onQuantityChange(item.id, e.target.value)
+              onQuantityChange && onQuantityChange(item._id, e.target.value)
             }
             additionalClass={styles.groupedInput}
           />
@@ -32,7 +29,7 @@ function SupplyEntryItem({ item, onQuantityChange, onRemove }) {
           variant="danger"
           isSquare={true}
           ariaLabel={`Eliminar ${item.name}`}
-          onClick={() => onRemove(item.id)}
+          onClick={() => onRemove(item._id)}
         />
       </div>
     </li>

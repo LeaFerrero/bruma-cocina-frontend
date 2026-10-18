@@ -3,10 +3,15 @@ import styles from "./ManageSupplyModal.module.css";
 import BasicModal from "../components/ui/modals/BasicModal";
 import ManageSupplyForm from "./ManageSupplyForm";
 
-function ManageSupplyModal({ isOpen, onClose, onSave, supplyToEdit }) {
+function ManageSupplyModal({
+  isOpen,
+  onClose,
+  onSave,
+  supplyToEdit,
+  errors = {},
+}) {
   const handleFormSubmit = (formData, id) => {
     onSave(formData, id);
-    onClose();
   };
 
   return (
@@ -20,6 +25,7 @@ function ManageSupplyModal({ isOpen, onClose, onSave, supplyToEdit }) {
           supplyToEdit={supplyToEdit}
           onSubmit={handleFormSubmit}
           onCancel={onClose}
+          errors={errors}
         />
       </div>
     </BasicModal>

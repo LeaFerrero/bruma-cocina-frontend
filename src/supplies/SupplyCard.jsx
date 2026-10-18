@@ -10,7 +10,7 @@ function SupplyCard({ supply, onEdit, onDelete }) {
       <div className={styles.cardDetail}>
         <p>
           <strong>Stock actual: </strong>
-          {supply.stock} {supply.unit}
+          {supply.currentStock} {supply.unit}
         </p>
         <p>
           <strong>Stock minimo: </strong>

@@ -16,18 +16,18 @@
   color: var(--color-text-secondary);
 }
 
-.buttonsContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-}
-
 .suppliesGrid {
   display: grid;
   gap: 2rem;
   margin-top: 2rem;
   grid-template-columns: repeat(auto-fill, 17.5rem);
   justify-content: center;
+}
+
+.emptyMessage {
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 @media (min-width: 1200px) {

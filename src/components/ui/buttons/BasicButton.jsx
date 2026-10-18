@@ -19,7 +19,7 @@ function BasicButton({
   ariaLabel,
 }) {
   const variantClass = styles[variant] || "";
-  const squareClass = isSquare ? styles.square : ""; // 2. Evaluamos si aplica la clase square
+  const squareClass = isSquare ? styles.square : "";
 
   return (
     <button
@@ -28,7 +28,6 @@ function BasicButton({
       disabled={disabled}
       form={form}
       aria-label={ariaLabel}
-      // 3. Inyectamos squareClass en el className
       className={`${styles.basicButton} ${variantClass} ${squareClass} ${additionalClass}`.trim()}
     >
       {text}

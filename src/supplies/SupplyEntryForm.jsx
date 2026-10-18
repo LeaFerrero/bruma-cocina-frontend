@@ -4,6 +4,7 @@ import BasicForm from "../components/ui/forms/BasicForm";
 import AutocompleteInput from "../components/ui/inputs/AutocompleteInput";
 import BasicButton from "../components/ui/buttons/BasicButton";
 import ButtonGroup from "../components/ui/buttons/ButtonGroup";
+import toast from "react-hot-toast";
 
 function SupplyEntryForm({ availableSupplies, onAdd }) {
   const [inputValue, setInputValue] = useState("");
@@ -17,16 +18,11 @@ function SupplyEntryForm({ availableSupplies, onAdd }) {
     );
 
     if (!selectedSupply) {
-      alert("Por favor, selecciona un insumo válido de la lista.");
+      toast.error("Por favor, selecciona un insumo válido de la lista.");
       return;
     }
 
-    const newItem = {
-      ...selectedSupply,
-      quantity: 1,
-    };
-
-    onAdd(newItem);
+    onAdd(selectedSupply);
     setInputValue("");
   };
 
@@ -34,8 +30,8 @@ function SupplyEntryForm({ availableSupplies, onAdd }) {
     <BasicForm onSubmit={handleSubmit}>
       <div className={styles.inputGroup}>
         <div className={styles.inputContainer}>
-          <label>Seleccionar insumo</label>
           <AutocompleteInput
+            label="Seleccionar un insumo"
             options={availableSupplies.map((supply) => supply.name)}
             placeholder="Nombre del insumo"
             value={inputValue}

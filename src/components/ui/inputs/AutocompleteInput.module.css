@@ -3,11 +3,6 @@
   width: 100%;
 }
 
-.label {
-  font-weight: 600;
-  margin-bottom: 0.2rem;
-}
-
 .dropdownList {
   position: absolute;
   top: 100%;

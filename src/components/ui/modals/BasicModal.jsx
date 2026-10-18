@@ -2,18 +2,30 @@ import React from "react";
 import { createPortal } from "react-dom";
 import styles from "./BasicModal.module.css";
 
-function BasicModal({ title, isOpen, onClose, children, maxWidth }) {
+function BasicModal({
+  title,
+  isOpen,
+  onClose,
+  children,
+  maxWidth,
+  closeOnOutsideClick = false,
+}) {
   if (!isOpen) return null;
 
+  const handleOverlayClick = () => {
+    if (closeOnOutsideClick) {
+      onClose();
+    }
+  };
+
   return createPortal(
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={styles.overlay} onMouseDown={handleOverlayClick}>
       <div
         className={styles.modalContainer}
-        onClick={(e) => e.stopPropagation()}
-        style={maxWidth ? { maxWidth: maxWidth } : {}}
+        onMouseDown={(e) => e.stopPropagation()}
       >
         <div className={styles.header}>
-          {title && <h2 className={styles.title}>{title}</h2>}
+          {title && <h3 className={styles.title}>{title}</h3>}
           <button className={styles.closeButton} onClick={onClose}>
             &times;
           </button>
@@ -22,7 +34,7 @@ function BasicModal({ title, isOpen, onClose, children, maxWidth }) {
         <div className={styles.content}>{children}</div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
 

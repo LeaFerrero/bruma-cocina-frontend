@@ -79,15 +79,17 @@ function UsersPage() {
       return;
     }
 
+    // EXTRAEMOS LOS DATOS LIMPIOS Y SEGUROS
+    const cleanData = validations.data;
+
     try {
       setFormErrors({});
       let response;
 
       if (id) {
-        response = await editUser(id, formData);
+        response = await editUser(id, cleanData);
       } else {
-        const newUser = { ...formData };
-        response = await createUser(newUser);
+        response = await createUser(cleanData);
       }
 
       toast.success(response.message);
@@ -171,10 +173,10 @@ function UsersPage() {
       <ConfirmModal
         title="Eliminar usuario"
         isOpen={isConfirmOpen}
-        onClose={() => handleCloseModal()}
+        onClose={handleCloseModal}
         onConfirm={handleDeleteUser}
         isDanger={true}
-        message={`¿Estás seguro de que querés eliminar a "${userToDelete?.userName}"? Esta acción no se puede deshacer.`}
+        message={`¿Desea eliminar a "${userToDelete?.userName}"? Esta acción no se puede deshacer.`}
       />
     </section>
   );

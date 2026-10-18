@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import BasicInput from "./BasicInput";
 import styles from "./AutocompleteInput.module.css";
 
-function AutocompleteInput({ options, value, onChange, placeholder, label }) {
+function AutocompleteInput({
+  options,
+  value,
+  onChange,
+  placeholder,
+  label,
+  error,
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const filteredOptions = options.filter((opt) =>
@@ -11,9 +18,8 @@ function AutocompleteInput({ options, value, onChange, placeholder, label }) {
 
   return (
     <div className={styles.container}>
-      {label && <label className={styles.label}>{label}</label>}
-
       <BasicInput
+        label={label}
         type="text"
         placeholder={placeholder}
         value={value}
@@ -23,6 +29,7 @@ function AutocompleteInput({ options, value, onChange, placeholder, label }) {
         }}
         onFocus={() => setIsOpen(true)}
         onBlur={() => setTimeout(() => setIsOpen(false), 150)}
+        error={error}
       />
 
       {isOpen && filteredOptions.length > 0 && (
