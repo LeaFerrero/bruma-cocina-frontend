@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import BasicInput from "./BasicInput";
 import styles from "./AutocompleteInput.module.css";
+import BasicInput from "./BasicInput";
 
 function AutocompleteInput({
   options,

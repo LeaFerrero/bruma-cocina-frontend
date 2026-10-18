@@ -7,7 +7,13 @@ import BasicButton from "../components/ui/buttons/BasicButton";
 import ButtonGroup from "../components/ui/buttons/ButtonGroup";
 import { UNIT_OPTIONS } from "../utils/units";
 
-function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
+function ManageSupplyForm({
+  supplyToEdit,
+  onSubmit,
+  onCancel,
+  formError = null,
+  fieldErrors = {},
+}) {
   const [formData, setFormData] = useState({
     name: "",
     unit: "",
@@ -47,14 +53,14 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
   };
 
   return (
-    <BasicForm onSubmit={handleSubmit}>
+    <BasicForm onSubmit={handleSubmit} error={formError}>
       <BasicInput
         label="Nombre del insumo"
         id="name"
         name="name"
         value={formData.name}
         onChange={handleChange}
-        error={errors.name}
+        error={fieldErrors.name}
         required
       />
 
@@ -67,7 +73,7 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
           label="Unidad de medida"
           options={UNIT_OPTIONS}
           placeholder="Seleccione una unidad de medida..."
-          error={errors.unit}
+          error={fieldErrors.unit}
           required
         />
         <BasicInput
@@ -77,7 +83,7 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
           inputMode="decimal"
           value={formData.price}
           onChange={handleChange}
-          error={errors.price}
+          error={fieldErrors.price}
           required
         />
       </div>
@@ -90,7 +96,7 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
           inputMode="decimal"
           value={formData.currentStock}
           onChange={handleChange}
-          error={errors.currentStock}
+          error={fieldErrors.currentStock}
           required
         />
 
@@ -101,7 +107,7 @@ function ManageSupplyForm({ supplyToEdit, onSubmit, onCancel, errors = {} }) {
           inputMode="decimal"
           value={formData.minStock}
           onChange={handleChange}
-          error={errors.minStock}
+          error={fieldErrors.minStock}
           required
         />
       </div>

@@ -1,12 +1,12 @@
 const UNITS = Object.freeze({
   KG: "kg",
-  L: "cocina",
+  L: "L",
   U: "u",
 });
 
 const UNIT_NAMES = Object.freeze({
   [UNITS.KG]: "Kilogramos (kg)",
-  [UNITS.L]: "Litros (l)",
+  [UNITS.L]: "Litros (L)",
   [UNITS.U]: "Unidades (u)",
 });
 

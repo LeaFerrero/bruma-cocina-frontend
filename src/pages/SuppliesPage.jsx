@@ -7,6 +7,7 @@ import SupplyCard from "../supplies/SupplyCard";
 import SupplyEntryModal from "../supplies/SupplyEntryModal";
 import ManageSupplyModal from "../supplies/ManageSupplyModal";
 import {
+  addStock,
   createSupply,
   deleteSupply,
   editSupply,
@@ -20,12 +21,14 @@ import {
   stockItemSchema,
   stockEntryListSchema,
 } from "../utils/validations/supplyValidator";
-import { validate } from "zod";
 
 function SuppliesPage() {
   const [supplies, setSupplies] = useState(suppliesData);
   const [searchTerm, setSearchTerm] = useState("");
-  const [formErrors, setFormErrors] = useState({});
+
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [formError, setFormError] = useState(null);
+
   const [isManageModalOpen, setIsManageModalOpen] = useState(false);
   const [isEntryModalOpen, setIsEntryModalOpen] = useState(false);
   const [supplyToEdit, setSupplyToEdit] = useState(null);
@@ -35,11 +38,15 @@ function SuppliesPage() {
   const handleOpenCreateModal = () => {
     setSupplyToEdit(null);
     setIsManageModalOpen(true);
+    setFieldErrors({});
+    setFormError(null);
   };
 
   const handleOpenEditModal = (supply) => {
     setSupplyToEdit(supply);
     setIsManageModalOpen(true);
+    setFieldErrors({});
+    setFormError(null);
   };
 
   const handleCloseModal = () => {
@@ -48,7 +55,8 @@ function SuppliesPage() {
     setIsConfirmOpen(false);
     setSupplyToEdit(null);
     setSuplyToDelete(null);
-    setFormErrors({});
+    setFieldErrors({});
+    setFormError(null);
   };
 
   const handleOpenDeleteModal = (supply) => {
@@ -69,6 +77,9 @@ function SuppliesPage() {
   }, []);
 
   const handleSaveSupply = async (formData, id) => {
+    setFieldErrors({});
+    setFormError(null);
+
     const validations = supplySchema.safeParse(formData);
 
     if (!validations.success) {
@@ -78,13 +89,13 @@ function SuppliesPage() {
         formattedErrors[key] = fieldErrors[key][0];
       }
 
-      setFormErrors(formattedErrors);
+      setFieldErrors(formattedErrors);
       return;
     }
+
     const cleanData = validations.data;
 
     try {
-      setFormErrors({});
       let response;
 
       if (id) {
@@ -95,15 +106,17 @@ function SuppliesPage() {
 
       toast.success(response.message);
 
-      const supplyRespnse = await getSupplies();
-      setSupplies(supplyRespnse.data);
+      const supplyResponse = await getSupplies();
+      setSupplies(supplyResponse.data);
 
       handleCloseModal();
     } catch (error) {
-      toast.error(error.message);
-
       if (error.details) {
-        setFormErrors(error.details);
+        setFieldErrors(error.details);
+      } else {
+        setFormError(
+          error.message || "Ocurrió un error inesperado al guardar.",
+        );
       }
     }
   };
@@ -114,21 +127,61 @@ function SuppliesPage() {
       const response = await deleteSupply(supplyToDelete._id);
       toast.success(response.message);
 
-      const supplyRespnse = await getSupplies();
-      setSupplies(supplyRespnse.data);
+      const supplyResponse = await getSupplies();
+      setSupplies(supplyResponse.data);
     } catch (error) {
       toast.error(error.message);
     }
     handleCloseModal();
   };
 
-  const handleSaveEntryLot = (entryList) => {
-    const validations = stockEntryListSchema.safeParse(entryList);
-    if (!validations.success) {
-      for (const key of entryError) {
-        entryError[key] = entryError[key][0];
+  const handleSaveEntryLot = async (entryList) => {
+    setFieldErrors({});
+    setFormError(null);
 
-        toast.error(entryError[key]);
+    const validations = stockEntryListSchema.safeParse(entryList);
+
+    if (!validations.success) {
+      const formattedErrors = {};
+
+      validations.error.issues.forEach((issue) => {
+        if (issue.path.length === 0) {
+          setFormError(issue.message);
+        } else {
+          const key = issue.path.join(".");
+
+          if (!formattedErrors[key]) {
+            formattedErrors[key] = issue.message;
+          }
+        }
+      });
+
+      setFieldErrors(formattedErrors);
+      return;
+    }
+
+    const cleanEntryList = validations.data;
+
+    try {
+      const response = await addStock(cleanEntryList);
+
+      toast.success(response.message);
+
+      const supplyResponse = await getSupplies();
+      setSupplies(supplyResponse.data);
+
+      handleCloseModal();
+    } catch (error) {
+      if (error.statusCode === 404) {
+        toast.error(error.message);
+      } else if (error.details) {
+        setFieldErrors(error.details);
+      } else if (error.statusCode === 400) {
+        setFormError(error.message);
+      } else {
+        toast.error(
+          error.message || "Ocurrió un error inesperado en el servidor.",
+        );
       }
     }
   };
@@ -193,8 +246,10 @@ function SuppliesPage() {
         onClose={handleCloseModal}
         onSave={handleSaveSupply}
         supplyToEdit={supplyToEdit}
-        errors={formErrors}
+        fieldErrors={fieldErrors}
+        formError={formError}
       />
+
       <ConfirmModal
         title="Eliminar insumo"
         isOpen={isConfirmOpen}
@@ -209,6 +264,8 @@ function SuppliesPage() {
         onClose={handleCloseModal}
         onSave={handleSaveEntryLot}
         availableSupplies={supplies}
+        formError={formError}
+        fieldErrors={fieldErrors}
       />
     </section>
   );

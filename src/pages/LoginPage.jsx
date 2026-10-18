@@ -13,29 +13,40 @@ function LoginPage() {
     userName: "",
     password: "",
   });
-  const [formErrors, setFormErrors] = useState({});
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [formError, setFormError] = useState(null);
   const { loginContext } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const validations = loginSchema.safeParse(loginData);
-    if (!validations.success) {
-      const fieldErrors = validations.error.flatten().fieldErrors;
-      const formattedErrors = {};
-      for (const key in fieldErrors) {
-        formattedErrors[key] = fieldErrors[key][0];
-      }
+    setFieldErrors({});
+    setFormError(null);
 
-      setFormErrors(formattedErrors);
+    const validations = loginSchema.safeParse(loginData);
+
+    if (!validations.success) {
+      const formattedErrors = {};
+
+      validations.error.issues.forEach((issue) => {
+        if (issue.path.length === 0) {
+          setFormError(issue.message);
+        } else {
+          const key = issue.path.join(".");
+
+          if (!formattedErrors[key]) {
+            formattedErrors[key] = issue.message;
+          }
+        }
+      });
+
+      setFieldErrors(formattedErrors);
       return;
     }
 
-    setFormErrors({});
-
     try {
-      const response = await login(loginData);
+      const response = await login(validations.data);
 
       loginContext(response.data.user);
 
@@ -43,14 +54,15 @@ function LoginPage() {
 
       navigate("/gestion", { replace: true });
     } catch (error) {
-      toast.error(error.message);
-
       if (error.details) {
-        setFormErrors(error.details);
+        setFieldErrors(error.details);
+      } else {
+        setFormError(
+          error.message || "Ocurrió un error inesperado al intentar ingresar.",
+        );
       }
     }
   };
-
   return (
     <div className={styles.pageContainer}>
       <div className={styles.loginContainer}>
@@ -59,7 +71,8 @@ function LoginPage() {
             loginData={loginData}
             setLoginData={setLoginData}
             onSubmit={handleLogin}
-            errors={formErrors}
+            formError={formError}
+            fieldErrors={fieldErrors}
           />
         </BasicCard>
       </div>

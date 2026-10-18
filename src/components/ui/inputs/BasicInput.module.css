@@ -48,7 +48,7 @@
 }
 
 .errorText {
-  color: var(--color-error);
+  color: var(--color-error-main);
   font-size: 0.85rem;
   margin-top: 0.25rem;
   font-weight: 500;

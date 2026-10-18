@@ -23,7 +23,10 @@ function UsersPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [formErrors, setFormErrors] = useState({});
+
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [formError, setFormError] = useState(null);
+
   const [userToDelete, setUserToDelete] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
@@ -42,13 +45,15 @@ function UsersPage() {
   const handleOpenCreateModal = () => {
     setUserToEdit(null);
     setIsModalOpen(true);
-    setFormErrors({});
+    setFieldErrors({});
+    setFormError(null);
   };
 
   const handleOpenEditModal = (user) => {
     setUserToEdit(user);
     setIsModalOpen(true);
-    setFormErrors({});
+    setFieldErrors({});
+    setFormError(null);
   };
 
   const handleCloseModal = () => {
@@ -56,7 +61,8 @@ function UsersPage() {
     setIsConfirmOpen(false);
     setUserToEdit(null);
     setUserToDelete(null);
-    setFormErrors({});
+    setFieldErrors({});
+    setFormError(null);
   };
 
   const handleOpenDeleteModal = (user) => {
@@ -65,25 +71,34 @@ function UsersPage() {
   };
 
   const handleSaveUser = async (formData, id) => {
+    setFieldErrors({});
+    setFormError(null);
+
     const schemaToUse = id ? updateUserSchema : createUserSchema;
     const validations = schemaToUse.safeParse(formData);
 
     if (!validations.success) {
-      const fieldErrors = validations.error.flatten().fieldErrors;
       const formattedErrors = {};
-      for (const key in fieldErrors) {
-        formattedErrors[key] = fieldErrors[key][0];
-      }
 
-      setFormErrors(formattedErrors);
+      validations.error.issues.forEach((issue) => {
+        if (issue.path.length === 0) {
+          setFormError(issue.message);
+        } else {
+          const key = issue.path.join(".");
+
+          if (!formattedErrors[key]) {
+            formattedErrors[key] = issue.message;
+          }
+        }
+      });
+
+      setFieldErrors(formattedErrors);
       return;
     }
 
-    // EXTRAEMOS LOS DATOS LIMPIOS Y SEGUROS
     const cleanData = validations.data;
 
     try {
-      setFormErrors({});
       let response;
 
       if (id) {
@@ -99,10 +114,12 @@ function UsersPage() {
 
       handleCloseModal();
     } catch (error) {
-      toast.error(error.message);
-
       if (error.details) {
-        setFormErrors(error.details);
+        setFieldErrors(error.details);
+      } else {
+        setFormError(
+          error.message || "Ocurrió un error inesperado al guardar el usuario.",
+        );
       }
     }
   };
@@ -167,7 +184,8 @@ function UsersPage() {
         onClose={handleCloseModal}
         onSave={handleSaveUser}
         userToEdit={userToEdit}
-        errors={formErrors}
+        fieldErrors={fieldErrors}
+        formError={formError}
       />
 
       <ConfirmModal

@@ -1,27 +1,32 @@
 import React from "react";
-import styles from "./LoginForm.module.css";
 import BasicForm from "../components/ui/forms/BasicForm";
 import BasicInput from "../components/ui/inputs/BasicInput";
 import BasicButton from "../components/ui/buttons/BasicButton";
 import ButtonGroup from "../components/ui/buttons/ButtonGroup";
 
-function LoginForm({ loginData, setLoginData, error, onSubmit, errors = {} }) {
+function LoginForm({
+  loginData,
+  setLoginData,
+  onSubmit,
+  formError,
+  fieldErrors = {},
+}) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
-    <BasicForm onSubmit={onSubmit}>
+    <BasicForm onSubmit={onSubmit} error={formError}>
       <BasicInput
         id="login-user"
         name="userName"
         label="Usuario"
-        value={loginData.username}
+        value={loginData.userName}
         onChange={handleChange}
         placeholder="nombre.apellido"
         required
-        error={errors.userName}
+        error={fieldErrors.userName}
       />
 
       <BasicInput
@@ -33,15 +38,11 @@ function LoginForm({ loginData, setLoginData, error, onSubmit, errors = {} }) {
         onChange={handleChange}
         placeholder="contraseña"
         required
-        error={errors.password}
+        error={fieldErrors.password}
       />
 
-      <ButtonGroup className={styles.buttonContainer}>
-        <BasicButton
-          text="Iniciar sesión"
-          type="submit"
-          className={styles.submitButton}
-        />
+      <ButtonGroup>
+        <BasicButton text="Iniciar sesión" type="submit" />
       </ButtonGroup>
     </BasicForm>
   );

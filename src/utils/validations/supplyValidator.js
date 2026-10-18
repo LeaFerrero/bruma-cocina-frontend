@@ -42,7 +42,7 @@ const supplySchema = z.object({
 
 // 2. Validador individual para los ítems del ingreso de stock
 const stockItemSchema = z.object({
-  id: z.string().min(1, "El ID del insumo es obligatorio"),
+  _id: z.string().min(1, "El ID del insumo es obligatorio"),
   name: z.string().optional(),
   quantity: z
     .any()
@@ -61,6 +61,6 @@ const stockItemSchema = z.object({
 // 3. Validador para la lista completa
 const stockEntryListSchema = z
   .array(stockItemSchema)
-  .min(1, "Debes agregar al menos un insumo a la lista");
+  .min(1, "Debe agregar al menos un insumo a la lista");
 
 export { supplySchema, stockItemSchema, stockEntryListSchema };

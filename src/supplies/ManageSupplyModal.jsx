@@ -8,7 +8,8 @@ function ManageSupplyModal({
   onClose,
   onSave,
   supplyToEdit,
-  errors = {},
+  formError = null,
+  fieldErrors = {},
 }) {
   const handleFormSubmit = (formData, id) => {
     onSave(formData, id);
@@ -25,7 +26,8 @@ function ManageSupplyModal({
           supplyToEdit={supplyToEdit}
           onSubmit={handleFormSubmit}
           onCancel={onClose}
-          errors={errors}
+          fieldErrors={fieldErrors}
+          formError={formError}
         />
       </div>
     </BasicModal>

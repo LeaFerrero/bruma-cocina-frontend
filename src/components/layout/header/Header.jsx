@@ -1,18 +1,8 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import HamburgerButton from "../../ui/buttons/HamburgerButton";
 
-function Header({ toggleMenu, isMenuOpen, showHamburger = true }) {
-  const location = useLocation();
-
-  const routeNames = {
-    "/gestion/usuarios": "Usuarios",
-    "/gestion/login": "Login",
-  };
-
-  const sectionName = routeNames[location.pathname];
-
+function Header({ toggleMenu, isMenuOpen, showHamburger = true, title }) {
   return (
     <div className={styles.header}>
       {showHamburger && (
@@ -23,10 +13,10 @@ function Header({ toggleMenu, isMenuOpen, showHamburger = true }) {
         <h1>Bruma Cocina</h1>
 
         <div className={styles.sectionGroup}>
-          {sectionName && (
+          {title && (
             <>
               <span className={styles.separator}>|</span>
-              <span className={styles.routeSubtitle}>{sectionName}</span>
+              <span className={styles.routeSubtitle}>{title}</span>
             </>
           )}
         </div>

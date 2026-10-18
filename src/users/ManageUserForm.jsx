@@ -6,7 +6,13 @@ import BasicButton from "../components/ui/buttons/BasicButton";
 import ButtonGroup from "../components/ui/buttons/ButtonGroup";
 import { ROLE_OPTIONS } from "../utils/roles";
 
-function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
+function ManageUserForm({
+  userToEdit,
+  onSubmit,
+  onCancel,
+  formError,
+  fieldErrors = {},
+}) {
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -38,7 +44,7 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
   };
 
   return (
-    <BasicForm onSubmit={handleSubmit}>
+    <BasicForm onSubmit={handleSubmit} error={formError}>
       <BasicInput
         label="Nombre"
         id="name"
@@ -46,7 +52,7 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
         value={formData.name}
         onChange={handleChange}
         required
-        error={errors.name}
+        error={fieldErrors.name}
       />
 
       <BasicInput
@@ -56,7 +62,7 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
         value={formData.lastName}
         onChange={handleChange}
         required
-        error={errors.lastName}
+        error={fieldErrors.lastName}
       />
 
       <BasicDropdown
@@ -68,7 +74,7 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
         value={formData.role}
         onChange={handleChange}
         required
-        error={errors.role}
+        error={fieldErrors.role}
       />
 
       <BasicInput
@@ -79,7 +85,7 @@ function ManageUserForm({ userToEdit, onSubmit, onCancel, errors = {} }) {
         value={formData.password}
         onChange={handleChange}
         required={!userToEdit}
-        error={errors.password}
+        error={fieldErrors.password}
       />
 
       <ButtonGroup>

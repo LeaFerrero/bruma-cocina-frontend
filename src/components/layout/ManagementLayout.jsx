@@ -18,6 +18,10 @@ function ManagementLayout() {
     { path: "/gestion/usuarios", text: "Usuarios" },
   ];
 
+  const currentLink = menuLinks.find((link) => link.path === location.pathname);
+
+  const pageTitle = currentLink ? currentLink.text : "";
+
   return (
     <div className={styles.appContainer}>
       <Sidebar
@@ -31,6 +35,7 @@ function ManagementLayout() {
           toggleMenu={toggleMenu}
           isMenuOpen={isMenuOpen}
           showHamburger={true}
+          title={pageTitle}
         />
 
         <main

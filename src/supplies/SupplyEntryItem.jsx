@@ -4,13 +4,15 @@ import styles from "./SupplyEntryItem.module.css";
 import BasicButton from "../components/ui/buttons/BasicButton";
 import BasicInput from "../components/ui/inputs/BasicInput";
 
-function SupplyEntryItem({ item, onQuantityChange, onRemove }) {
+function SupplyEntryItem({ item, onQuantityChange, onRemove, error }) {
   const unit = item.unit || "kg";
 
   return (
     <li className={styles.itemRow}>
-      <span className={styles.itemName}>{item.name}</span>
-
+      <div className={styles.nameContainer}>
+        <span className={styles.itemName}>{item.name}</span>
+        {error && <span className={styles.errorMessage}>{error}</span>}
+      </div>
       <div className={styles.controlsContainer}>
         <div className={styles.inputGroup}>
           <BasicInput

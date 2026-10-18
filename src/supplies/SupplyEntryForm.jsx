@@ -6,11 +6,14 @@ import BasicButton from "../components/ui/buttons/BasicButton";
 import ButtonGroup from "../components/ui/buttons/ButtonGroup";
 import toast from "react-hot-toast";
 
-function SupplyEntryForm({ availableSupplies, onAdd }) {
+function SupplyEntryForm({ availableSupplies, onAdd, formError = null }) {
   const [inputValue, setInputValue] = useState("");
+  const [localError, setLocalError] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLocalError(null);
+
     if (inputValue.trim() === "") return;
 
     const selectedSupply = availableSupplies.find(
@@ -18,7 +21,7 @@ function SupplyEntryForm({ availableSupplies, onAdd }) {
     );
 
     if (!selectedSupply) {
-      toast.error("Por favor, selecciona un insumo válido de la lista.");
+      setLocalError("Por favor, seleccione un insumo válido de la lista.");
       return;
     }
 
@@ -27,7 +30,7 @@ function SupplyEntryForm({ availableSupplies, onAdd }) {
   };
 
   return (
-    <BasicForm onSubmit={handleSubmit}>
+    <BasicForm onSubmit={handleSubmit} error={localError || formError}>
       <div className={styles.inputGroup}>
         <div className={styles.inputContainer}>
           <AutocompleteInput

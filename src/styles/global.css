@@ -42,9 +42,14 @@
   --color-warning: #e69500;
   --color-success: #2d6a4f;
   --color-neutral: #8c98a4;
-  --color-error: #d9534f;
 
-  /* 7. Radios de Borde */
+  /* 7. Alertas de Error (Global Form Errors, Textos de validación) */
+  --color-error-main: #d9534f;
+  --color-error-secondary: #991b1b;
+  --color-error-bg: #fee2e2;
+  --color-error-border: #f87171;
+
+  /* 8. Radios de Borde */
   --border-radius: 0.15rem;
 }
 
