@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Header.module.css";
-import HamburgerButton from "../../ui/buttons/HamburgerButton";
+import { HamburgerButton } from "../../ui";
 
 function Header({ toggleMenu, isMenuOpen, showHamburger = true, title }) {
   return (

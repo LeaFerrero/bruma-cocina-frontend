@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import NavItem from "../../ui/links/NavItem";
-import logo from "../../../assets/img/logo-mark.webp";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
-import { logout } from "../../../api/loginApi";
+import { logout } from "../../../features/auth";
+import { NavItem } from "../../ui";
+import logo from "../../../assets/img/logo-mark.webp";
 
 function Sidebar({ isMenuOpen, toggleMenu, links = [], showUser = false }) {
   const sidebarClasses = `${styles.sidebar} ${isMenuOpen ? styles.active : ""}`;

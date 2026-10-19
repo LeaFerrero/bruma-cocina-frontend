@@ -7,11 +7,11 @@ import {
   Outlet,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import ManagementLayout from "./components/layout/ManagementLayout";
-import LoginLayout from "./components/layout/LoginLayout";
-import LoginPage from "./pages/LoginPage";
-import SuppliesPage from "./pages/SuppliesPage";
-import UsersPage from "./pages/UsersPage";
+import ManagementLayout from "./components/layout/ManagementLayout/ManagementLayout";
+import LoginLayout from "./components/layout/LoginLayout/LoginLayout";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import SuppliesPage from "./pages/SuppliesPage/SuppliesPage";
+import UsersPage from "./pages/UsersPage/UsersPage";
 import { AuthContext } from "./context/AuthContext";
 
 const PrivateRoute = () => {
