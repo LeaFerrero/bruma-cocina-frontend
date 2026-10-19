@@ -35,16 +35,16 @@ Las operaciones de gestión de usuarios e insumos están implementadas en el có
 
 ## Tecnologías
 
-| Tecnología | Uso |
-| --- | --- |
-| React | Construcción de interfaces y componentes. |
-| JavaScript | Lógica del frontend. |
-| Vite | Entorno de desarrollo y compilación. |
-| React Router | Navegación y definición de rutas. |
-| CSS Modules y CSS global | Estilos de la aplicación. |
-| Zod | Validación de formularios. |
-| React Hot Toast | Notificaciones. |
-| Fetch API | Comunicación con el backend. |
+| Tecnología               | Uso                                       |
+| ------------------------ | ----------------------------------------- |
+| React                    | Construcción de interfaces y componentes. |
+| JavaScript               | Lógica del frontend.                      |
+| Vite                     | Entorno de desarrollo y compilación.      |
+| React Router             | Navegación y definición de rutas.         |
+| CSS Modules y CSS global | Estilos de la aplicación.                 |
+| Zod                      | Validación de formularios.                |
+| React Hot Toast          | Notificaciones.                           |
+| Fetch API                | Comunicación con el backend.              |
 
 ## Requisitos
 
@@ -97,10 +97,10 @@ Iniciar el backend en una terminal independiente, siguiendo las instrucciones de
 
 La configuración local probada utiliza:
 
-| Parámetro | Valor |
-| --- | --- |
-| Dirección del backend | `http://localhost:3000` |
-| Prefijo de la API | `/api` |
+| Parámetro                                                    | Valor                   |
+| ------------------------------------------------------------ | ----------------------- |
+| Dirección del backend                                        | `http://localhost:3000` |
+| Prefijo de la API                                            | `/api`                  |
 | Origen permitido del frontend (`FRONTEND_URL` en el backend) | `http://localhost:5173` |
 
 ### 5. Iniciar el frontend
@@ -125,12 +125,12 @@ Los datos creados mediante la aplicación se almacenan en la base de datos confi
 
 ## Comandos disponibles
 
-| Comando | Descripción |
-| --- | --- |
-| `npm run dev` | Inicia el servidor de desarrollo. |
-| `npm run build` | Genera la versión de producción en `dist/`. |
-| `npm run preview` | Permite revisar localmente la versión compilada. |
-| `npm run lint` | Ejecuta el análisis estático de código con ESLint. |
+| Comando           | Descripción                                        |
+| ----------------- | -------------------------------------------------- |
+| `npm run dev`     | Inicia el servidor de desarrollo.                  |
+| `npm run build`   | Genera la versión de producción en `dist/`.        |
+| `npm run preview` | Permite revisar localmente la versión compilada.   |
+| `npm run lint`    | Ejecuta el análisis estático de código con ESLint. |
 
 Para revisar la compilación de producción:
 
@@ -143,32 +143,29 @@ La vista previa también necesita acceso al backend para utilizar las funcionali
 
 ## Organización del código
 
-| Carpeta o archivo | Contenido |
-| --- | --- |
-| `public/` | Recursos públicos. |
-| `src/api/` | Cliente HTTP y funciones de acceso a la API. |
-| `src/assets/` | Imágenes y recursos gráficos. |
-| `src/auth/` | Formulario de inicio de sesión. |
-| `src/components/layout/` | Estructura general, encabezado, menú lateral y pie de página. |
-| `src/components/ui/` | Botones, tarjetas, formularios, campos y ventanas modales reutilizables. |
-| `src/context/` | Estado compartido de autenticación. |
-| `src/data/` | Datos de ejemplo. |
-| `src/pages/` | Pantallas principales. |
-| `src/styles/` | Estilos globales. |
-| `src/supplies/` | Componentes de gestión e ingreso de insumos. |
-| `src/users/` | Componentes de gestión de usuarios. |
-| `src/utils/` | Utilidades, constantes y esquemas de validación. |
-| `src/App.jsx` | Definición de rutas y protección del acceso. |
-| `src/main.jsx` | Punto de entrada de la aplicación. |
+| Carpeta o archivo    | Contenido                                                                                                             |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `public/`            | Recursos públicos.                                                                                                    |
+| `src/assets/`        | Imágenes y recursos gráficos estáticos.                                                                               |
+| `src/components/ui/` | Botones, tarjetas, formularios, campos y ventanas modales reutilizables (exportados en `index.js`).                   |
+| `src/config/`        | Configuraciones globales de la aplicación (ej. cliente HTTP/API centralizado).                                        |
+| `src/context/`       | Estado compartido de autenticación.                                                                                   |
+| `src/features/`      | Lógica de negocio agrupada por dominio (`auth/`, `supplies/`, `users/`). Incluye componentes y servicios específicos. |
+| `src/layouts/`       | Estructura general, encabezado, menú lateral y pie de página.                                                         |
+| `src/pages/`         | Pantallas principales atadas a las rutas de React Router.                                                             |
+| `src/styles/`        | Estilos globales de la aplicación.                                                                                    |
+| `src/utils/`         | Utilidades, constantes, funciones de ayuda y esquemas de validación.                                                  |
+| `src/App.jsx`        | Definición de rutas y protección del acceso.                                                                          |
+| `src/main.jsx`       | Punto de entrada de la aplicación en React.                                                                           |
 
 ## Rutas
 
-| Ruta | Descripción | Acceso |
-| --- | --- | --- |
-| `/gestion/login` | Inicio de sesión. | Público. |
-| `/gestion` | Redirección a la gestión de usuarios. | Requiere sesión. |
-| `/gestion/usuarios` | Gestión de usuarios. | Requiere sesión. |
-| `/gestion/insumos` | Gestión de insumos. | Requiere sesión. |
+| Ruta                | Descripción                           | Acceso           |
+| ------------------- | ------------------------------------- | ---------------- |
+| `/gestion/login`    | Inicio de sesión.                     | Público.         |
+| `/gestion`          | Redirección a la gestión de usuarios. | Requiere sesión. |
+| `/gestion/usuarios` | Gestión de usuarios.                  | Requiere sesión. |
+| `/gestion/insumos`  | Gestión de insumos.                   | Requiere sesión. |
 
 Actualmente, la protección de rutas comprueba la existencia de una sesión. La restricción de las vistas según el rol del usuario está pendiente de implementación en el frontend.
 
@@ -178,11 +175,11 @@ Las solicitudes se centralizan en `src/api/apiClient.js`, que utiliza `VITE_API_
 
 Los módulos de acceso a la API son:
 
-| Archivo | Responsabilidad |
-| --- | --- |
-| `loginApi.js` | Inicio, cierre y verificación de sesión. |
-| `userApi.js` | Consulta, registro, edición y eliminación de usuarios. |
-| `supplyApi.js` | Consulta, registro, edición y eliminación de insumos, además de la función de solicitud de ingreso de stock. |
+| Archivo                    | Responsabilidad                                                                                              |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `features/auth/services/s` | Inicio, cierre y verificación de sesión.                                                                     |
+| `features/users/services/` | Consulta, registro, edición y eliminación de usuarios.                                                       |
+| `features/users/services/` | Consulta, registro, edición y eliminación de insumos, además de la función de solicitud de ingreso de stock. |
 
 Los endpoints de autenticación utilizados son `/login`, `/logout` y `/verify`, relativos a la dirección base de la API.
 
