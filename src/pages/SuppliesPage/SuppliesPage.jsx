@@ -74,11 +74,11 @@ function SuppliesPage() {
     loadSupplies();
   }, []);
 
-  const handleSaveSupply = async (formData, id) => {
+  const handleSaveSupply = async (supplyData, id) => {
     setFieldErrors({});
     setFormError(null);
 
-    const validations = supplySchema.safeParse(formData);
+    const validations = supplySchema.safeParse(supplyData);
 
     if (!validations.success) {
       const formattedErrors = {};

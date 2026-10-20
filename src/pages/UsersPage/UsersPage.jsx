@@ -65,12 +65,12 @@ function UsersPage() {
     setIsConfirmOpen(true);
   };
 
-  const handleSaveUser = async (formData, id) => {
+  const handleSaveUser = async (userData, id) => {
     setFieldErrors({});
     setFormError(null);
 
     const schemaToUse = id ? updateUserSchema : createUserSchema;
-    const validations = schemaToUse.safeParse(formData);
+    const validations = schemaToUse.safeParse(userData);
 
     if (!validations.success) {
       const formattedErrors = {};
@@ -164,14 +164,18 @@ function UsersPage() {
       </div>
 
       <div className={styles.usersGrid}>
-        {filteredUsers.map((user) => (
-          <UserCard
-            key={user._id}
-            user={user}
-            onEdit={() => handleOpenEditModal(user)}
-            onDelete={() => handleOpenDeleteModal(user)}
-          />
-        ))}
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map((user) => (
+            <UserCard
+              key={user._id}
+              user={user}
+              onEdit={() => handleOpenEditModal(user)}
+              onDelete={() => handleOpenDeleteModal(user)}
+            />
+          ))
+        ) : (
+          <p className={styles.emptyMessage}>No se encontraron usuarios.</p>
+        )}
       </div>
 
       <UserModal

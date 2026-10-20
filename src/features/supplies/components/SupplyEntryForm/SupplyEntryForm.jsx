@@ -1,25 +1,26 @@
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import {
   Form,
   AutocompleteInput,
   Button,
   ButtonGroup,
 } from "../../../../components/ui";
+import SupplyEntryItem from "../SupplyEntryItem/SupplyEntryItem";
 import styles from "./SupplyEntryForm.module.css";
 
 function SupplyEntryForm({
   availableSupplies,
-  onAdd,
+  onSave,
+  onCancel,
   formError = null,
-  fieldError = null,
+  fieldErrors = {},
 }) {
   const [inputValue, setInputValue] = useState("");
-  const [localError, setLocalError] = useState(null);
+  const [selectedSupplies, setSelectedSupplies] = useState([]);
+  const [searchError, setSearchError] = useState(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLocalError(null);
+  const handleAddItem = () => {
+    setSearchError(null);
 
     if (inputValue.trim() === "") return;
 
@@ -28,33 +29,98 @@ function SupplyEntryForm({
     );
 
     if (!selectedSupply) {
-      setLocalError("Por favor, seleccione un insumo válido de la lista.");
+      setSearchError("Por favor, seleccione un insumo válido de la lista.");
       return;
     }
 
-    onAdd(selectedSupply);
+    const exists = selectedSupplies.find(
+      (item) => item._id === selectedSupply._id,
+    );
+    if (exists) {
+      setSearchError(`El insumo "${selectedSupply.name}" ya está en la lista.`);
+      return;
+    }
+
+    const itemWithQuantity = {
+      ...selectedSupply,
+      quantity: "",
+    };
+
+    setSelectedSupplies([...selectedSupplies, itemWithQuantity]);
     setInputValue("");
+  };
+
+  const handleQuantityChange = (id, newQuantity) => {
+    setSelectedSupplies(
+      selectedSupplies.map((item) =>
+        item._id === id ? { ...item, quantity: newQuantity } : item,
+      ),
+    );
+  };
+
+  const handleRemoveItem = (id) => {
+    setSelectedSupplies(selectedSupplies.filter((item) => item._id !== id));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearchError(null);
+    onSave(selectedSupplies);
   };
 
   return (
     <Form onSubmit={handleSubmit} error={formError}>
-      <div className={styles.inputGroup}>
-        <div className={styles.inputContainer}>
-          <AutocompleteInput
-            label="Seleccionar un insumo"
-            options={availableSupplies.map((supply) => supply.name)}
-            placeholder="Nombre del insumo..."
-            value={inputValue}
-            onChange={setInputValue}
-          />
+      {/* Contenedor extra para proteger del gap del Form */}
+      <div>
+        <div className={styles.inputGroup}>
+          <div className={styles.inputContainer}>
+            <AutocompleteInput
+              label="Seleccionar un insumo"
+              options={availableSupplies.map((supply) => supply.name)}
+              placeholder="Nombre del insumo..."
+              value={inputValue}
+              onChange={setInputValue}
+            />
+          </div>
+          <ButtonGroup>
+            <Button
+              text="Agregar"
+              variant="primary"
+              type="button"
+              onClick={handleAddItem}
+            />
+          </ButtonGroup>
         </div>
-        <ButtonGroup>
-          <Button text="Agregar" variant="primary" type="submit" />
-        </ButtonGroup>
+        {searchError && (
+          <span className={styles.inlineError}>{searchError}</span>
+        )}
       </div>
-      {(fieldError || localError) && (
-        <span className={styles.inlineError}>{fieldError || localError}</span>
-      )}
+
+      <ul className={styles.itemsList}>
+        {selectedSupplies.length > 0 ? (
+          selectedSupplies.map((item, index) => (
+            <SupplyEntryItem
+              key={item._id}
+              item={item}
+              onQuantityChange={handleQuantityChange}
+              onRemove={handleRemoveItem}
+              error={fieldErrors[`${index}.quantity`]}
+            />
+          ))
+        ) : (
+          <li className={styles.emptyMessage}>No hay insumos seleccionados</li>
+        )}
+      </ul>
+
+      <ButtonGroup>
+        <Button text="Registrar ingreso" variant="primary" type="submit" />
+        <Button
+          text="Cancelar"
+          variant="cancel"
+          type="button"
+          onClick={onCancel}
+        />
+      </ButtonGroup>
     </Form>
   );
 }

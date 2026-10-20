@@ -15,7 +15,7 @@ function UserForm({
   formError,
   fieldErrors = {},
 }) {
-  const [formData, setFormData] = useState({
+  const [userData, setUserData] = useState({
     name: "",
     lastName: "",
     role: "",
@@ -24,25 +24,25 @@ function UserForm({
 
   useEffect(() => {
     if (userToEdit) {
-      setFormData({
+      setUserData({
         name: userToEdit.name || "",
         lastName: userToEdit.lastName || "",
         role: userToEdit.role || "",
         password: "",
       });
     } else {
-      setFormData({ name: "", lastName: "", role: "", password: "" });
+      setUserData({ name: "", lastName: "", role: "", password: "" });
     }
   }, [userToEdit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData, userToEdit ? userToEdit._id : null);
+    onSubmit(userData, userToEdit ? userToEdit._id : null);
   };
 
   return (
@@ -51,7 +51,7 @@ function UserForm({
         label="Nombre"
         id="name"
         name="name"
-        value={formData.name}
+        value={userData.name}
         onChange={handleChange}
         required
         error={fieldErrors.name}
@@ -62,7 +62,7 @@ function UserForm({
         label="Apellido"
         id="lastName"
         name="lastName"
-        value={formData.lastName}
+        value={userData.lastName}
         onChange={handleChange}
         required
         error={fieldErrors.lastName}
@@ -75,7 +75,7 @@ function UserForm({
         name="role"
         options={ROLE_OPTIONS}
         placeholder="Seleccione un rol..."
-        value={formData.role}
+        value={userData.role}
         onChange={handleChange}
         required
         error={fieldErrors.role}
@@ -86,7 +86,7 @@ function UserForm({
         type="password"
         id="password"
         name="password"
-        value={formData.password}
+        value={userData.password}
         onChange={handleChange}
         required={!userToEdit}
         error={fieldErrors.password}

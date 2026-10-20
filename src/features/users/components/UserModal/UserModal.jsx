@@ -11,10 +11,6 @@ function UserModal({
   fieldErrors,
   formError,
 }) {
-  const handleFormSubmit = (formData, id) => {
-    onSave(formData, id);
-  };
-
   return (
     <Modal
       isOpen={isOpen}
@@ -24,7 +20,7 @@ function UserModal({
       <div className={styles.modalLayout}>
         <UserForm
           userToEdit={userToEdit}
-          onSubmit={handleFormSubmit}
+          onSubmit={onSave}
           onCancel={onClose}
           fieldErrors={fieldErrors}
           formError={formError}

@@ -7,18 +7,12 @@ import { Card } from "../../components/ui";
 import { LoginForm, login, loginSchema } from "../../features/auth";
 
 function LoginPage() {
-  const [loginData, setLoginData] = useState({
-    userName: "",
-    password: "",
-  });
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
   const { loginContext } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
+  const handleLogin = async (loginData) => {
     setFieldErrors({});
     setFormError(null);
 
@@ -32,7 +26,6 @@ function LoginPage() {
           setFormError(issue.message);
         } else {
           const key = issue.path.join(".");
-
           if (!formattedErrors[key]) {
             formattedErrors[key] = issue.message;
           }
@@ -45,11 +38,8 @@ function LoginPage() {
 
     try {
       const response = await login(validations.data);
-
       loginContext(response.data.user);
-
       toast.success(response.message);
-
       navigate("/gestion", { replace: true });
     } catch (error) {
       if (error.details) {
@@ -67,8 +57,6 @@ function LoginPage() {
       <div className={styles.loginContainer}>
         <Card title="Login" headingLevel="h2">
           <LoginForm
-            loginData={loginData}
-            setLoginData={setLoginData}
             onSubmit={handleLogin}
             formError={formError}
             fieldErrors={fieldErrors}

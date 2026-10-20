@@ -8,7 +8,7 @@ function AutocompleteInput({
   onChange,
   placeholder,
   label,
-  error,
+  error,  
 }) {
   const [isOpen, setIsOpen] = useState(false);
 

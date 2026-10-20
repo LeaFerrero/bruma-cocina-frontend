@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./SupplyModal.module.css";
 import { Modal } from "../../../../components/ui";
 import SupplyForm from "../SupplyForm/SupplyForm";
@@ -11,44 +11,6 @@ function SupplyModal({
   formError = null,
   fieldErrors = {},
 }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    unit: "",
-    price: "",
-    currentStock: "",
-    minStock: "",
-  });
-
-  useEffect(() => {
-    if (supplyToEdit) {
-      setFormData({
-        name: supplyToEdit.name || "",
-        unit: supplyToEdit.unit || "",
-        price: supplyToEdit.price || "",
-        currentStock: supplyToEdit.currentStock || "",
-        minStock: supplyToEdit.minStock || "",
-      });
-    } else {
-      setFormData({
-        name: "",
-        unit: "",
-        price: "",
-        currentStock: "",
-        minStock: "",
-      });
-    }
-  }, [supplyToEdit, isOpen]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    onSave(formData, supplyToEdit ? supplyToEdit._id : null);
-  };
-
   return (
     <Modal
       isOpen={isOpen}
@@ -57,11 +19,9 @@ function SupplyModal({
     >
       <div className={styles.modalLayout}>
         <SupplyForm
-          formData={formData}
-          onChange={handleInputChange}
-          onSubmit={handleFormSubmit}
+          supplyToEdit={supplyToEdit}
+          onSubmit={onSave}
           onCancel={onClose}
-          isEditing={!!supplyToEdit}
           fieldErrors={fieldErrors}
           formError={formError}
         />

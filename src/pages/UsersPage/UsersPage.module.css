@@ -24,6 +24,12 @@
   justify-content: center;
 }
 
+.emptyMessage {
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 @media (min-width: 1200px) {
   .usersGrid {
     justify-content: flex-start;

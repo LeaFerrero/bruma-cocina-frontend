@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./SupplyForm.module.css";
 import {
   Form,
@@ -10,22 +10,58 @@ import {
 import { UNIT_OPTIONS } from "../../utils/units";
 
 function SupplyForm({
-  formData,
+  supplyToEdit,
   onSubmit,
-  onChange,
   onCancel,
-  isEditing,
   formError = null,
   fieldErrors = {},
 }) {
+  const [supplyData, setSupplyData] = useState({
+    name: "",
+    unit: "",
+    price: "",
+    currentStock: "",
+    minStock: "",
+  });
+
+  useEffect(() => {
+    if (supplyToEdit) {
+      setSupplyData({
+        name: supplyToEdit.name || "",
+        unit: supplyToEdit.unit || "",
+        price: supplyToEdit.price || "",
+        currentStock: supplyToEdit.currentStock || "",
+        minStock: supplyToEdit.minStock || "",
+      });
+    } else {
+      setSupplyData({
+        name: "",
+        unit: "",
+        price: "",
+        currentStock: "",
+        minStock: "",
+      });
+    }
+  }, [supplyToEdit]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSupplyData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(supplyData, supplyToEdit ? supplyToEdit._id : null);
+  };
+
   return (
-    <Form onSubmit={onSubmit} error={formError}>
+    <Form onSubmit={handleSubmit} error={formError}>
       <Input
         label="Nombre del insumo"
         id="name"
         name="name"
-        value={formData.name} // <-- Lee directamente la prop
-        onChange={onChange} // <-- Usa la función del padre
+        value={supplyData.name}
+        onChange={handleChange}
         error={fieldErrors.name}
         required
         maxLength={50}
@@ -35,8 +71,8 @@ function SupplyForm({
         <DropdownInput
           id="unit"
           name="unit"
-          value={formData.unit}
-          onChange={onChange}
+          value={supplyData.unit}
+          onChange={handleChange}
           label="Unidad de medida"
           options={UNIT_OPTIONS}
           placeholder="Seleccione una unidad de medida..."
@@ -48,8 +84,8 @@ function SupplyForm({
           id="price"
           name="price"
           inputMode="decimal"
-          value={formData.price}
-          onChange={onChange}
+          value={supplyData.price}
+          onChange={handleChange}
           error={fieldErrors.price}
           required
           maxLength={10}
@@ -62,8 +98,8 @@ function SupplyForm({
           id="currentStock"
           name="currentStock"
           inputMode="decimal"
-          value={formData.currentStock}
-          onChange={onChange}
+          value={supplyData.currentStock}
+          onChange={handleChange}
           error={fieldErrors.currentStock}
           required
           maxLength={10}
@@ -73,8 +109,8 @@ function SupplyForm({
           id="minStock"
           name="minStock"
           inputMode="decimal"
-          value={formData.minStock}
-          onChange={onChange}
+          value={supplyData.minStock}
+          onChange={handleChange}
           error={fieldErrors.minStock}
           required
           maxLength={10}
@@ -83,7 +119,7 @@ function SupplyForm({
 
       <ButtonGroup>
         <Button
-          text={isEditing ? "Guardar cambios" : "Registrar"}
+          text={supplyToEdit ? "Guardar cambios" : "Registrar"}
           variant="primary"
           type="submit"
         />

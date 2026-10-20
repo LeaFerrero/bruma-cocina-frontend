@@ -5,9 +5,3 @@
   max-width: 100%;
   min-height: 20svh;
 }
-
-.itemsList {
-  flex-grow: 1;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-}

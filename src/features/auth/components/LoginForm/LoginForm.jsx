@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, ButtonGroup } from "../../../../components/ui";
 
-function LoginForm({
-  loginData,
-  setLoginData,
-  onSubmit,
-  formError,
-  fieldErrors = {},
-}) {
+function LoginForm({ onSubmit, formError, fieldErrors = {} }) {
+  const [loginData, setLoginData] = useState({
+    userName: "",
+    password: "",
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(loginData);
+  };
+
   return (
-    <Form onSubmit={onSubmit} error={formError}>
+    <Form onSubmit={handleSubmit} error={formError}>
       <Input
         id="login-user"
         name="userName"
