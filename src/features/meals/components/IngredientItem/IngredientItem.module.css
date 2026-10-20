@@ -1,0 +1,92 @@
+/* --- LAYOUT DE LA FILA --- */
+.itemRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0rem;
+  border-bottom: 0.0625rem solid var(--color-detail);
+}
+
+.itemRow:last-child {
+  border-bottom: none;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.itemName {
+  flex-grow: 1;
+  font-size: 1rem;
+  color: var(--color-text-main);
+  font-weight: bold;
+}
+
+.errorMessage {
+  color: var(--color-error-main);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.controlsContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* --- INPUT GROUP (Input + Unidad) --- */
+.inputGroup {
+  display: flex;
+  align-items: stretch;
+  height: 2.5rem;
+  border: 0.1rem solid var(--color-input-border);
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  overflow: hidden;
+}
+
+.inputGroup:hover {
+  border-color: var(--color-input-hover);
+}
+
+.inputGroup:focus-within {
+  border-color: var(--color-input-focus);
+}
+
+/* --- EL INPUT DENTRO DEL GRUPO --- */
+.groupedInput {
+  width: 5rem;
+  text-align: center;
+  border: none !important;
+  outline: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* --- LA UNIDAD DE MEDIDA (El addon) --- */
+.inputAddon {
+  display: flex;
+  min-width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.75rem;
+  background-color: var(--color-header-bg);
+  border-left: 0.1rem solid var(--color-input-border);
+  color: var(--color-text-main);
+  font-weight: bold;
+  font-size: 0.85rem;
+  user-select: none;
+  transition: border-color 0.3s ease;
+}
+
+.inputGroup:hover .inputAddon {
+  border-left-color: var(--color-input-hover);
+}
+
+.inputGroup:focus-within .inputAddon {
+  border-left-color: var(--color-input-focus);
+}

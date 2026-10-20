@@ -1,0 +1,8 @@
+.rowInputs {
+  display: flex;
+  gap: 1rem;
+}
+
+.rowInputs > * {
+  flex: 1;
+}

@@ -1,15 +1,15 @@
 import React from "react";
-import styles from "./ManageSupplyModal.module.css";
+import styles from "./UserModal.module.css";
 import { Modal } from "../../../../components/ui";
-import ManageSupplyForm from "../ManageSupplyForm/ManageSupplyForm";
+import UserForm from "../UserForm/UserForm";
 
-function ManageSupplyModal({
+function UserModal({
   isOpen,
   onClose,
   onSave,
-  supplyToEdit,
-  formError = null,
-  fieldErrors = {},
+  userToEdit,
+  fieldErrors,
+  formError,
 }) {
   const handleFormSubmit = (formData, id) => {
     onSave(formData, id);
@@ -19,11 +19,11 @@ function ManageSupplyModal({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={supplyToEdit ? "Editar insumo" : "Registrar nuevo insumo"}
+      title={userToEdit ? "Editar usuario" : "Registrar nuevo usuario"}
     >
       <div className={styles.modalLayout}>
-        <ManageSupplyForm
-          supplyToEdit={supplyToEdit}
+        <UserForm
+          userToEdit={userToEdit}
           onSubmit={handleFormSubmit}
           onCancel={onClose}
           fieldErrors={fieldErrors}
@@ -34,4 +34,4 @@ function ManageSupplyModal({
   );
 }
 
-export default ManageSupplyModal;
+export default UserModal;

@@ -14,7 +14,7 @@
 .formError {
   background-color: var(--color-error-bg);
   color: var(--color-error-secondary);
-  padding: 12px;
+  padding: 0.75rem;
   border-radius: var(--border-radius);
   border: 1px solid var(--color-error-border);
   margin-bottom: 0.5rem;

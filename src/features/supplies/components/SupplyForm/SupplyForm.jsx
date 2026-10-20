@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import styles from "./ManageSupplyForm.module.css";
+import React from "react";
+import styles from "./SupplyForm.module.css";
 import {
   Form,
   Input,
@@ -9,61 +9,26 @@ import {
 } from "../../../../components/ui";
 import { UNIT_OPTIONS } from "../../utils/units";
 
-function ManageSupplyForm({
-  supplyToEdit,
+function SupplyForm({
+  formData,
   onSubmit,
+  onChange,
   onCancel,
+  isEditing,
   formError = null,
   fieldErrors = {},
 }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    unit: "",
-    price: "",
-    currentStock: "",
-    minStock: "",
-  });
-
-  useEffect(() => {
-    if (supplyToEdit) {
-      setFormData({
-        name: supplyToEdit.name || "",
-        unit: supplyToEdit.unit || "",
-        price: supplyToEdit.price || "",
-        currentStock: supplyToEdit.currentStock || "",
-        minStock: supplyToEdit.minStock || "",
-      });
-    } else {
-      setFormData({
-        name: "",
-        unit: "",
-        price: "",
-        currentStock: "",
-        minStock: "",
-      });
-    }
-  }, [supplyToEdit]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData, supplyToEdit ? supplyToEdit._id : null);
-  };
-
   return (
-    <Form onSubmit={handleSubmit} error={formError}>
+    <Form onSubmit={onSubmit} error={formError}>
       <Input
         label="Nombre del insumo"
         id="name"
         name="name"
-        value={formData.name}
-        onChange={handleChange}
+        value={formData.name} // <-- Lee directamente la prop
+        onChange={onChange} // <-- Usa la función del padre
         error={fieldErrors.name}
         required
+        maxLength={50}
       />
 
       <div className={styles.rowInputs}>
@@ -71,7 +36,7 @@ function ManageSupplyForm({
           id="unit"
           name="unit"
           value={formData.unit}
-          onChange={handleChange}
+          onChange={onChange}
           label="Unidad de medida"
           options={UNIT_OPTIONS}
           placeholder="Seleccione una unidad de medida..."
@@ -84,9 +49,10 @@ function ManageSupplyForm({
           name="price"
           inputMode="decimal"
           value={formData.price}
-          onChange={handleChange}
+          onChange={onChange}
           error={fieldErrors.price}
           required
+          maxLength={10}
         />
       </div>
 
@@ -97,26 +63,27 @@ function ManageSupplyForm({
           name="currentStock"
           inputMode="decimal"
           value={formData.currentStock}
-          onChange={handleChange}
+          onChange={onChange}
           error={fieldErrors.currentStock}
           required
+          maxLength={10}
         />
-
         <Input
           label="Stock mínimo"
           id="minStock"
           name="minStock"
           inputMode="decimal"
           value={formData.minStock}
-          onChange={handleChange}
+          onChange={onChange}
           error={fieldErrors.minStock}
           required
+          maxLength={10}
         />
       </div>
 
       <ButtonGroup>
         <Button
-          text={supplyToEdit ? "Guardar cambios" : "Registrar"}
+          text={isEditing ? "Guardar cambios" : "Registrar"}
           variant="primary"
           type="submit"
         />
@@ -131,4 +98,4 @@ function ManageSupplyForm({
   );
 }
 
-export default ManageSupplyForm;
+export default SupplyForm;

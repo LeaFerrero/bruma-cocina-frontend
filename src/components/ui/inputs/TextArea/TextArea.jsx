@@ -10,6 +10,7 @@ function TextArea({
   onChange,
   maxLength = 250,
   rows = 4,
+  error,
 }) {
   return (
     <div className={styles.field}>
@@ -26,8 +27,9 @@ function TextArea({
         onChange={onChange}
         maxLength={maxLength}
         rows={rows}
-        className={styles.basicTextarea}
+        className={`${styles.basicTextarea} ${error ? styles.errorInput : ""}`}
       />
+      {error && <span className={styles.errorMessage}>{error}</span>}
     </div>
   );
 }

@@ -24,7 +24,7 @@ function Input({
         className={`${styles.basicInput} ${errorClass} ${additionalClass}`.trim()}
         {...props}
       />
-      {error && <span className={styles.errorText}>{error}</span>}
+      {error && <span className={styles.errorMessage}>{error}</span>}
     </div>
   );
 }

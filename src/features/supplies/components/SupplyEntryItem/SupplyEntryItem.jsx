@@ -20,6 +20,7 @@ function SupplyEntryItem({ item, onQuantityChange, onRemove, error }) {
               onQuantityChange && onQuantityChange(item._id, e.target.value)
             }
             additionalClass={styles.groupedInput}
+            maxLength={10}
           />
           <span className={styles.inputAddon}>{unit}</span>
         </div>

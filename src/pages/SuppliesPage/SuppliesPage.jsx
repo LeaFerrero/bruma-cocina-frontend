@@ -11,7 +11,7 @@ import {
 import {
   SupplyCard,
   SupplyEntryModal,
-  ManageSupplyModal,
+  SupplyModal,
   addStock,
   createSupply,
   deleteSupply,
@@ -81,11 +81,19 @@ function SuppliesPage() {
     const validations = supplySchema.safeParse(formData);
 
     if (!validations.success) {
-      const fieldErrors = validations.error.flatten().fieldErrors;
       const formattedErrors = {};
-      for (const key in fieldErrors) {
-        formattedErrors[key] = fieldErrors[key][0];
-      }
+
+      validations.error.issues.forEach((issue) => {
+        if (issue.path.length === 0) {
+          setFormError(issue.message);
+        } else {
+          const key = issue.path.join(".");
+
+          if (!formattedErrors[key]) {
+            formattedErrors[key] = issue.message;
+          }
+        }
+      });
 
       setFieldErrors(formattedErrors);
       return;
@@ -239,7 +247,7 @@ function SuppliesPage() {
         )}
       </div>
 
-      <ManageSupplyModal
+      <SupplyModal
         isOpen={isManageModalOpen}
         onClose={handleCloseModal}
         onSave={handleSaveSupply}

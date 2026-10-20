@@ -47,7 +47,7 @@
   border-color: var(--color-error) !important;
 }
 
-.errorText {
+.errorMessage {
   color: var(--color-error-main);
   font-size: 0.85rem;
   margin-top: 0.25rem;

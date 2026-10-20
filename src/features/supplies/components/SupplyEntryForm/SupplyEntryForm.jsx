@@ -8,7 +8,12 @@ import {
 } from "../../../../components/ui";
 import styles from "./SupplyEntryForm.module.css";
 
-function SupplyEntryForm({ availableSupplies, onAdd, formError = null }) {
+function SupplyEntryForm({
+  availableSupplies,
+  onAdd,
+  formError = null,
+  fieldError = null,
+}) {
   const [inputValue, setInputValue] = useState("");
   const [localError, setLocalError] = useState(null);
 
@@ -32,13 +37,13 @@ function SupplyEntryForm({ availableSupplies, onAdd, formError = null }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit} error={localError || formError}>
+    <Form onSubmit={handleSubmit} error={formError}>
       <div className={styles.inputGroup}>
         <div className={styles.inputContainer}>
           <AutocompleteInput
             label="Seleccionar un insumo"
             options={availableSupplies.map((supply) => supply.name)}
-            placeholder="Nombre del insumo"
+            placeholder="Nombre del insumo..."
             value={inputValue}
             onChange={setInputValue}
           />
@@ -47,6 +52,9 @@ function SupplyEntryForm({ availableSupplies, onAdd, formError = null }) {
           <Button text="Agregar" variant="primary" type="submit" />
         </ButtonGroup>
       </div>
+      {(fieldError || localError) && (
+        <span className={styles.inlineError}>{fieldError || localError}</span>
+      )}
     </Form>
   );
 }

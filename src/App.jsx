@@ -7,11 +7,9 @@ import {
   Outlet,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import ManagementLayout from "./components/layout/ManagementLayout/ManagementLayout";
-import LoginLayout from "./components/layout/LoginLayout/LoginLayout";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import SuppliesPage from "./pages/SuppliesPage/SuppliesPage";
-import UsersPage from "./pages/UsersPage/UsersPage";
+import { ManagementLayout, LoginLayout } from "./components/layout";
+import { LoginPage, MealsPage, SuppliesPage, UsersPage } from "./pages";
+
 import { AuthContext } from "./context/AuthContext";
 
 const PrivateRoute = () => {
@@ -43,6 +41,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<ManagementLayout />}>
               <Route index element={<Navigate to="usuarios" replace />} />
+              <Route path="viandas" element={<MealsPage />} />
               <Route path="insumos" element={<SuppliesPage />} />
               <Route path="usuarios" element={<UsersPage />} />
             </Route>

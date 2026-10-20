@@ -1,0 +1,31 @@
+.mealsSection h2 {
+  color: var(--color-text-secondary);
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchContainer {
+  margin-top: 1rem;
+  max-width: 17.5rem;
+}
+
+.searchContainer label {
+  color: var(--color-text-secondary);
+}
+
+.mealsGrid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, 17.5rem);
+  justify-content: center;
+}
+
+@media (min-width: 1200px) {
+  .mealsGrid {
+    justify-content: flex-start;
+  }
+}

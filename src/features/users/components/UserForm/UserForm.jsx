@@ -8,7 +8,7 @@ import {
   ButtonGroup,
 } from "../../../../components/ui";
 
-function ManageUserForm({
+function UserForm({
   userToEdit,
   onSubmit,
   onCancel,
@@ -55,6 +55,7 @@ function ManageUserForm({
         onChange={handleChange}
         required
         error={fieldErrors.name}
+        maxLength={50}
       />
 
       <Input
@@ -65,6 +66,7 @@ function ManageUserForm({
         onChange={handleChange}
         required
         error={fieldErrors.lastName}
+        maxLength={50}
       />
 
       <DropdownInput
@@ -88,6 +90,8 @@ function ManageUserForm({
         onChange={handleChange}
         required={!userToEdit}
         error={fieldErrors.password}
+        minLength={8}
+        maxLength={16}
       />
 
       <ButtonGroup>
@@ -107,4 +111,4 @@ function ManageUserForm({
   );
 }
 
-export default ManageUserForm;
+export default UserForm;

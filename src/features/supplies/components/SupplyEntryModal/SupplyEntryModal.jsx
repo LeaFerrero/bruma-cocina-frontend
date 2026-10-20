@@ -14,6 +14,7 @@ function SupplyEntryModal({
 }) {
   const [selectedSupplies, setSelectedSupplies] = useState([]);
   const [localError, setLocalError] = useState(null);
+  const [fieldError, setFieldError] = useState(null);
 
   useEffect(() => {
     if (!isOpen) {
@@ -26,7 +27,7 @@ function SupplyEntryModal({
     const exists = selectedSupplies.find((item) => item._id === newItem._id);
 
     if (exists) {
-      setLocalError(`El insumo "${newItem.name}" ya está en la lista.`);
+      setFieldError(`El insumo "${newItem.name}" ya está en la lista.`);
       return;
     }
 
@@ -64,6 +65,7 @@ function SupplyEntryModal({
           availableSupplies={availableSupplies}
           onAdd={handleAddItem}
           formError={localError || formError}
+          fieldError={fieldError}
         />
 
         <ul className={styles.itemsList}>

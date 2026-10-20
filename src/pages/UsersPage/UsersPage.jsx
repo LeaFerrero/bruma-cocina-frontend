@@ -4,7 +4,7 @@ import styles from "./UsersPage.module.css";
 import { Button, AutocompleteInput, ConfirmModal } from "../../components/ui";
 import {
   UserCard,
-  ManageUserModal,
+  UserModal,
   getUsers,
   createUser,
   editUser,
@@ -174,7 +174,7 @@ function UsersPage() {
         ))}
       </div>
 
-      <ManageUserModal
+      <UserModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSave={handleSaveUser}

@@ -3,7 +3,13 @@ import { parseDecimal } from "../../../utils/parseDecimal";
 
 // 1. Validador para crear o editar un insumo
 const supplySchema = z.object({
-  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
+  name: z
+    .string({ required_error: "El nombre es obligatorio." })
+    .trim()
+    .min(1, "El nombre es obligatorio.")
+    .min(2, "El nombre debe tener al menos 2 caracteres.")
+    .min(50, "El nombre debe tener como máximo 50 caracteres."),
+
   unit: z.string().min(1, "Debes seleccionar una unidad de medida"),
 
   price: z

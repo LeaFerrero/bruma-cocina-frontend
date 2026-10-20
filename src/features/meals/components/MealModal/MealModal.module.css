@@ -1,0 +1,41 @@
+.modalLayout {
+  display: flex;
+  flex-direction: column;
+  width: 35rem;
+  max-width: 100%;
+  min-height: 20svh;
+}
+
+.inlineError {
+  color: var(--color-error-main);
+  font-size: 0.85rem;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  display: block;
+  font-weight: 500;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.inputContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recipeContainer {
+  margin-top: 1rem;
+}
+
+.errorMessage {
+  color: var(--color-error-main);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}

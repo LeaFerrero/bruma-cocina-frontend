@@ -24,6 +24,8 @@ function LoginForm({
         placeholder="nombre.apellido"
         required
         error={fieldErrors.userName}
+        minLength={5}
+        maxLength={50}
       />
 
       <Input
@@ -36,6 +38,8 @@ function LoginForm({
         placeholder="contraseña"
         required
         error={fieldErrors.password}
+        minLength={8}
+        maxLength={16}
       />
 
       <ButtonGroup>

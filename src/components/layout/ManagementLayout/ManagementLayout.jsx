@@ -14,6 +14,7 @@ function ManagementLayout() {
   };
 
   const menuLinks = [
+    { path: "/gestion/viandas", text: "Viandas" },
     { path: "/gestion/insumos", text: "Insumos" },
     { path: "/gestion/usuarios", text: "Usuarios" },
   ];
