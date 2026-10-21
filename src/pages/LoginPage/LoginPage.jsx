@@ -20,15 +20,10 @@ function LoginPage() {
 
     if (!validations.success) {
       const formattedErrors = {};
-
       validations.error.issues.forEach((issue) => {
-        if (issue.path.length === 0) {
-          setFormError(issue.message);
-        } else {
-          const key = issue.path.join(".");
-          if (!formattedErrors[key]) {
-            formattedErrors[key] = issue.message;
-          }
+        const key = issue.path.join(".");
+        if (!formattedErrors[key]) {
+          formattedErrors[key] = issue.message;
         }
       });
 

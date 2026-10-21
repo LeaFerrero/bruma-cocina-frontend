@@ -10,7 +10,7 @@ import {
 } from "../../../../components/ui";
 import IngredientItem from "../IngredientItem/IngredientItem";
 
-export default function MealForm({
+export function MealForm({
   mealToEdit,
   availableSupplies,
   onSave,
@@ -18,7 +18,7 @@ export default function MealForm({
   formError = null,
   fieldErrors = {},
 }) {
-  const [formData, setFormData] = useState({
+  const [mealData, setFormData] = useState({
     name: "",
     price: "",
     category: "",
@@ -34,7 +34,9 @@ export default function MealForm({
       setFormData({
         name: mealToEdit.name || "",
         price: mealToEdit.price || "",
-        category: mealToEdit.category || "",
+        category: Array.isArray(mealToEdit.category)
+          ? mealToEdit.category.join(", ")
+          : mealToEdit.category || "",
         description: mealToEdit.description || "",
       });
       setIngredients(mealToEdit.ingredients || []);
@@ -89,9 +91,23 @@ export default function MealForm({
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const categoriasArray =
+      typeof mealData.category === "string"
+        ? mealData.category
+            .split(",")
+            .map((cat) => cat.trim())
+            .filter((cat) => cat !== "")
+        : mealData.category;
+
+    const formattedIngredients = ingredients.map((ingredient) => ({
+      supply: ingredient._id,
+      quantity: ingredient.quantity,
+    }));
+
     const mealDataToSave = {
-      ...formData,
-      ingredients: ingredients,
+      ...mealData,
+      category: categoriasArray,
+      ingredients: formattedIngredients,
     };
 
     onSave(mealDataToSave, mealToEdit ? mealToEdit._id : null);
@@ -109,7 +125,7 @@ export default function MealForm({
         name="name"
         label="Nombre"
         placeholder="Ingrese nombre"
-        value={formData.name}
+        value={mealData.name}
         onChange={handleChange}
         maxLength={50}
         required
@@ -121,7 +137,7 @@ export default function MealForm({
           label="Precio"
           name="price"
           inputMode="decimal"
-          value={formData.price}
+          value={mealData.price}
           onChange={handleChange}
           error={fieldErrors.price}
           required
@@ -132,7 +148,7 @@ export default function MealForm({
           name="category"
           label="Categoría"
           placeholder="Ej: Vegano, Sin TACC"
-          value={formData.category}
+          value={mealData.category}
           onChange={handleChange}
           maxLength={100}
           required
@@ -144,7 +160,7 @@ export default function MealForm({
         name="description"
         label="Descripción"
         placeholder="Ingrese descripción"
-        value={formData.description}
+        value={mealData.description}
         onChange={handleChange}
         maxLength={250}
         rows={4}
@@ -154,7 +170,6 @@ export default function MealForm({
       <div className={styles.recipeSection}>
         <h3 className={styles.sectionTitle}>Receta de la Vianda</h3>
 
-        {/* Contenedor extra para proteger del gap del Form */}
         <div>
           <div className={styles.inputGroup}>
             <div className={styles.inputContainer}>
@@ -212,3 +227,5 @@ export default function MealForm({
     </Form>
   );
 }
+
+export default MealForm;

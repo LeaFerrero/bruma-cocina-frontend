@@ -65,12 +65,11 @@ function SupplyEntryForm({
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearchError(null);
-    onSave(selectedSupplies);
+    onSave({ items: selectedSupplies });
   };
 
   return (
     <Form onSubmit={handleSubmit} error={formError}>
-      {/* Contenedor extra para proteger del gap del Form */}
       <div>
         <div className={styles.inputGroup}>
           <div className={styles.inputContainer}>
@@ -91,8 +90,11 @@ function SupplyEntryForm({
             />
           </ButtonGroup>
         </div>
-        {searchError && (
-          <span className={styles.inlineError}>{searchError}</span>
+
+        {(searchError || fieldErrors.items) && (
+          <span className={styles.inlineError}>
+            {searchError || fieldErrors.items}
+          </span>
         )}
       </div>
 

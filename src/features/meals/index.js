@@ -5,5 +5,5 @@ export { default as MealModal } from "./components/MealModal/MealModal";
 export { default as MealCard } from "./components/MealCard/MealCard";
 
 // Servicios y Utilidades (Descomentar a medida que los crees)
-// export * from "./services/mealApi";
+export * from "./services/mealsApi";
 export * from "./utils/mealsValidation";

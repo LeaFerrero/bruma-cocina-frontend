@@ -4,7 +4,7 @@ import styles from "./Card.module.css";
 const Card = ({
   title,
   headingLevel = "h3",
-  variant = "default", // "default" | "danger" | "warning" | "success"
+  variant = "default",
   children,
   interactive = false,
 }) => {

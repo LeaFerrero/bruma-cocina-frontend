@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { parseDecimal } from "../../../utils/parseDecimal";
-import { stockItemSchema } from "../../supplies";
 
 const mealSchema = z.object({
   name: z
@@ -21,16 +20,8 @@ const mealSchema = z.object({
     ),
 
   category: z
-    .string({ required_error: "La categoría es obligatoria." })
-    .transform((val) =>
-      val
-        .split(",")
-        .map((cat) => cat.trim())
-        .filter((cat) => cat !== ""),
-    )
-    .pipe(
-      z.array(z.string()).min(1, "Debe ingresar al menos una categoría válida"),
-    ),
+    .array(z.string())
+    .min(1, "Debe ingresar al menos una categoría válida"),
 
   description: z
     .string({ required_error: "La descripción es obligatoria." })
@@ -39,7 +30,23 @@ const mealSchema = z.object({
     .max(250, "La descripción debe tener un máximo de 250 caracteres"),
 
   ingredients: z
-    .array(stockItemSchema)
+    .array(
+      z.object({
+        supply: z.string({ required_error: "Falta la referencia al insumo" }),
+        quantity: z
+          .any()
+          .transform((value) => parseDecimal(value, 3))
+          .refine(
+            (val) => !Number.isNaN(val),
+            "La cantidad debe ser un número válido",
+          )
+          .pipe(
+            z
+              .number({ required_error: "La cantidad es obligatoria" })
+              .positive("La cantidad debe ser mayor a 0"),
+          ),
+      }),
+    )
     .min(1, "Debe agregar al menos un ingrediente a la receta"),
 });
 

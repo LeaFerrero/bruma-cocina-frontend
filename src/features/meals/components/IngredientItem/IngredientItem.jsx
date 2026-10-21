@@ -3,8 +3,6 @@ import styles from "./IngredientItem.module.css";
 import { Button, Input } from "../../../../components/ui";
 
 function IngredientItem({ item, onQuantityChange, onRemove, error }) {
-  const unit = item.unit || "kg";
-
   return (
     <li className={styles.itemRow}>
       <div className={styles.nameContainer}>
@@ -22,7 +20,7 @@ function IngredientItem({ item, onQuantityChange, onRemove, error }) {
             additionalClass={styles.groupedInput}
             maxLength={10}
           />
-          <span className={styles.inputAddon}>{unit}</span>
+          <span className={styles.inputAddon}>{item.unit}</span>
         </div>
 
         <Button

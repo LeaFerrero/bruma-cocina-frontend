@@ -4,15 +4,17 @@ import meals from "../../data/mealsData";
 import { MealCard, MealModal } from "../../features/meals";
 import { AutocompleteInput, Button, ConfirmModal } from "../../components/ui";
 import { getSupplies } from "../../features/supplies";
-import { mealSchema } from "../../features/meals";
+
 import {
   getMeals,
   getMealById,
   createMeal,
   editMeal,
   deleteMeal,
-} from "../../features/meals/services/mealsApi";
+  mealSchema,
+} from "../../features/meals";
 import toast from "react-hot-toast";
+import { set } from "zod";
 
 function MealsPage() {
   const [meals, setMeals] = useState([]);
@@ -61,11 +63,25 @@ function MealsPage() {
   const handleOpenCreateModal = () => {
     setMealToEdit(null);
     setIsModalOpen(true);
+    setFieldErrors({});
+    setFormError(null);
   };
 
-  const editMeal = (meal) => {
-    setMealToEdit(meal);
-    setIsModalOpen(true);
+  const handleOpenEditModal = async (meal) => {
+    try {
+      setIsLoading(true);
+
+      const response = await getMealById(meal._id);
+
+      setMealToEdit(response.data);
+      setIsModalOpen(true);
+      setFieldErrors({});
+      setFormError(null);
+    } catch (error) {
+      toast.error(error.message || "Error al cargar los detalles de la vianda");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleOpenDeleteModal = (meal) => {
@@ -89,17 +105,14 @@ function MealsPage() {
     const validations = mealSchema.safeParse(formData);
 
     if (!validations.success) {
+      console.log("Error de Zod:", validations.error.format()); // <-- AGREGÁ ESTO
       const formattedErrors = {};
 
       validations.error.issues.forEach((issue) => {
-        if (issue.path.length === 0) {
-          setFormError(issue.message);
-        } else {
-          const key = issue.path.join(".");
+        const key = issue.path.join(".");
 
-          if (!formattedErrors[key]) {
-            formattedErrors[key] = issue.message;
-          }
+        if (!formattedErrors[key]) {
+          formattedErrors[key] = issue.message;
         }
       });
 
@@ -113,13 +126,25 @@ function MealsPage() {
       let response;
 
       if (id) {
-        response = await editMeal(id, formData);
+        response = await editMeal(id, cleanData);
       } else {
-        response = await createMeal(formData);
+        response = await createMeal(cleanData);
       }
-    } catch (error) {}
+      toast.success(response.message);
 
-    setIsModalOpen(false);
+      const mealsResponse = await getMeals();
+      setMeals(mealsResponse.data);
+
+      setIsModalOpen(false);
+    } catch (error) {
+      if (error.details) {
+        setFormError(error.details);
+      } else {
+        setFormError(
+          error.message || "Ocurrió un error inesperado al guardar.",
+        );
+      }
+    }
   };
 
   const handleDeleteMeal = async () => {
@@ -168,20 +193,20 @@ function MealsPage() {
       </div>
 
       {isLoading ? (
-        <p>Cargando datos...</p>
+        <p className={styles.statusMessage}>Cargando datos...</p>
       ) : (
         <div className={styles.mealsGrid}>
           {filteredMeals.length > 0 ? (
             filteredMeals.map((meal) => (
               <MealCard
-                key={meal.id}
+                key={meal._id}
                 meal={meal}
-                onEdit={() => editMeal(meal)}
+                onEdit={() => handleOpenEditModal(meal)}
                 onDelete={() => handleOpenDeleteModal(meal)}
               />
             ))
           ) : (
-            <p className={styles.emptyMessage}>No se encontraron viandas.</p>
+            <p className={styles.statusMessage}>No se encontraron viandas.</p>
           )}
         </div>
       )}

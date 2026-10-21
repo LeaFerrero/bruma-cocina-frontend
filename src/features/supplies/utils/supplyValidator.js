@@ -8,7 +8,7 @@ const supplySchema = z.object({
     .trim()
     .min(1, "El nombre es obligatorio.")
     .min(2, "El nombre debe tener al menos 2 caracteres.")
-    .min(50, "El nombre debe tener como máximo 50 caracteres."),
+    .max(50, "El nombre debe tener como máximo 50 caracteres."),
 
   unit: z.string().min(1, "Debes seleccionar una unidad de medida"),
 
@@ -65,8 +65,10 @@ const stockItemSchema = z.object({
 });
 
 // 3. Validador para la lista completa
-const stockEntryListSchema = z
-  .array(stockItemSchema)
-  .min(1, "Debe agregar al menos un insumo a la lista");
+const stockEntryListSchema = z.object({
+  items: z
+    .array(stockItemSchema)
+    .min(1, "Debe agregar al menos un insumo a la lista"),
+});
 
 export { supplySchema, stockItemSchema, stockEntryListSchema };

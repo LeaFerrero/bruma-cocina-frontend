@@ -84,14 +84,10 @@ function SuppliesPage() {
       const formattedErrors = {};
 
       validations.error.issues.forEach((issue) => {
-        if (issue.path.length === 0) {
-          setFormError(issue.message);
-        } else {
-          const key = issue.path.join(".");
+        const key = issue.path.join(".");
 
-          if (!formattedErrors[key]) {
-            formattedErrors[key] = issue.message;
-          }
+        if (!formattedErrors[key]) {
+          formattedErrors[key] = issue.message;
         }
       });
 

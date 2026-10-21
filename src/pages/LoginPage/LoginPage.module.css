@@ -13,7 +13,6 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* Trasladamos el ancho máximo a este contenedor */
   max-width: 31.25rem;
 }
 

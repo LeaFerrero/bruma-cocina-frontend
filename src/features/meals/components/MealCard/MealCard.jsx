@@ -8,7 +8,7 @@ function MealCard({ meal, onEdit, onDelete }) {
       <div className={styles.cardDetail}>
         <p>
           <strong>Stock actual: </strong>
-          {meal.stock}
+          {meal.currentStock}
         </p>
       </div>
       <ButtonGroup>
