@@ -4,7 +4,7 @@
   width: 35rem;
   max-width: 100%;
   min-height: 20svh;
-  max-height: 95vh; /* 95% del alto de la ventana del navegador */
+  max-height: 95vh;
   overflow-y: auto;
 }
 

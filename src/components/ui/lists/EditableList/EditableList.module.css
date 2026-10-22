@@ -1,5 +1,6 @@
 .editableListContainer {
   height: 50rem;
+  height: auto;
 }
 
 .inputGroup {

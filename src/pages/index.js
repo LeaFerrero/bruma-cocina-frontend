@@ -1,5 +1,7 @@
 export { default as LoginPage } from "./LoginPage/LoginPage";
+export { default as KitchenPage } from "./KitchenPage/KitchenPage";
 export { default as ProductionPage } from "./ProductionPage/ProductionPage";
+export { default as CheckoutPage } from "./CheckoutPage/CheckoutPage";
 export { default as MealsPage } from "./MealsPage/MealsPage";
 export { default as SuppliesPage } from "./SuppliesPage/SuppliesPage";
 export { default as UsersPage } from "./UsersPage/UsersPage";

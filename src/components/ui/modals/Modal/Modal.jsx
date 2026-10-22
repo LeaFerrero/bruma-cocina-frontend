@@ -19,19 +19,19 @@ function Modal({
   };
 
   return createPortal(
-    <div className={styles.overlay} onMouseDown={handleOverlayClick}>
+    <div className={styles.modalOverlay} onMouseDown={handleOverlayClick}>
       <div
         className={styles.modalContainer}
         onMouseDown={(e) => e.stopPropagation()}
       >
-        <div className={styles.header}>
-          {title && <h3 className={styles.title}>{title}</h3>}
+        <div className={styles.modalHeader}>
+          {title && <h3 className={styles.modalTitle}>{title}</h3>}
           <button className={styles.closeButton} onClick={onClose}>
             &times;
           </button>
         </div>
 
-        <div className={styles.childrenContainer}>{children}</div>
+        <div className={styles.modalChildrenContainer}>{children}</div>
       </div>
     </div>,
     document.body,

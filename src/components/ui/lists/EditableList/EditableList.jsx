@@ -3,7 +3,7 @@ import styles from "./EditableList.module.css";
 
 function EditableList({ title, isEmpty, emptyMessage, children }) {
   return (
-    <>
+    <div className={styles.editableListContainer}>
       <h4 className={styles.listTitle}>{title}</h4>
       <ul className={styles.itemsList}>
         {isEmpty ? (
@@ -14,7 +14,7 @@ function EditableList({ title, isEmpty, emptyMessage, children }) {
           children
         )}
       </ul>
-    </>
+    </div>
   );
 }
 

@@ -1,0 +1,15 @@
+.cardDetail {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1rem;
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.buttonsContainer {
+  padding-top: 1rem;
+}

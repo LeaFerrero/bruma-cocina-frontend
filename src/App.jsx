@@ -10,7 +10,9 @@ import { Toaster } from "react-hot-toast";
 import { ManagementLayout, LoginLayout } from "./components/layout";
 import {
   LoginPage,
+  KitchenPage,
   ProductionPage,
+  CheckoutPage,
   MealsPage,
   SuppliesPage,
   UsersPage,
@@ -47,7 +49,9 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<ManagementLayout />}>
               <Route index element={<Navigate to="usuarios" replace />} />
+              <Route path="cocina" element={<KitchenPage />} />
               <Route path="produccion" element={<ProductionPage />}></Route>
+              <Route path="caja" element={<CheckoutPage />} />
               <Route path="viandas" element={<MealsPage />} />
               <Route path="insumos" element={<SuppliesPage />} />
               <Route path="usuarios" element={<UsersPage />} />

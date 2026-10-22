@@ -1,0 +1,10 @@
+.modalLayout {
+  width: 30rem;
+  max-width: 100%;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
