@@ -14,24 +14,23 @@
 
 .modalContainer {
   background-color: var(--color-modal-bg);
-  padding: 1.5rem;
+  padding: 1rem;
   width: fit-content;
   max-width: 90vw;
 
-  border-radius: 0.25rem;
+  border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
   box-shadow: 0 0.625rem 1.5625rem rgba(0, 0, 0, 0.2);
-  overflow: auto;
-  scrollbar-gutter: stable;
   animation: slideIn 0.3s ease-out forwards;
+  border: 0.5rem solid transparent;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
+  padding: 0.5rem 0rem 1rem 0rem;
 }
 
 .closeButton {
@@ -48,15 +47,16 @@
   color: var(--color-btn-secondary-hover);
 }
 
-.content {
-  padding: 1.5rem;
+.childrenContainer {
+  padding: 1rem 0rem;
   overflow-y: visible;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   gap: 0.5rem;
   border-top: 0.1rem solid var(--color-detail);
-  padding-top: 1rem;
+  overflow-y: auto;
+  overflow: hidden;
 }
 
 @keyframes slideIn {

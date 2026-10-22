@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./MealsPage.module.css";
-import meals from "../../data/mealsData";
 import { MealCard, MealModal } from "../../features/meals";
 import { AutocompleteInput, Button, ConfirmModal } from "../../components/ui";
 import { getSupplies } from "../../features/supplies";

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { parseDecimal } from "../../../utils/parseDecimal";
+import { parseDecimal } from "../../../utils/parsers";
 
 const mealSchema = z.object({
   name: z

@@ -31,7 +31,7 @@ function Modal({
           </button>
         </div>
 
-        <div className={styles.content}>{children}</div>
+        <div className={styles.childrenContainer}>{children}</div>
       </div>
     </div>,
     document.body,

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { parseDecimal } from "../../../utils/parseDecimal";
+import { parseDecimal } from "../../../utils/parsers";
 
 // 1. Validador para crear o editar un insumo
 const supplySchema = z.object({

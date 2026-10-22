@@ -4,8 +4,9 @@ import {
   AutocompleteInput,
   Button,
   ButtonGroup,
+  EditableList,
+  EditableListItem,
 } from "../../../../components/ui";
-import SupplyEntryItem from "../SupplyEntryItem/SupplyEntryItem";
 import styles from "./SupplyEntryForm.module.css";
 
 function SupplyEntryForm({
@@ -98,31 +99,38 @@ function SupplyEntryForm({
         )}
       </div>
 
-      <ul className={styles.itemsList}>
-        {selectedSupplies.length > 0 ? (
-          selectedSupplies.map((item, index) => (
-            <SupplyEntryItem
-              key={item._id}
-              item={item}
-              onQuantityChange={handleQuantityChange}
-              onRemove={handleRemoveItem}
-              error={fieldErrors[`${index}.quantity`]}
-            />
-          ))
-        ) : (
-          <li className={styles.emptyMessage}>No hay insumos seleccionados</li>
-        )}
-      </ul>
+      <EditableList
+        title="Insumos seleccionados:"
+        isEmpty={selectedSupplies.length === 0}
+        emptyMessage="No hay insumos seleccionados"
+      >
+        {selectedSupplies.map((item, index) => (
+          <EditableListItem
+            key={item._id}
+            name={item.name}
+            quantity={item.quantity}
+            suffix={item.unit || "kg"}
+            error={fieldErrors[`items.${index}.quantity`]}
+            onQuantityChange={(newQuantity) =>
+              handleQuantityChange(item._id, newQuantity)
+            }
+            onRemove={() => handleRemoveItem(item._id)}
+          />
+        ))}
+      </EditableList>
 
-      <ButtonGroup>
-        <Button text="Registrar ingreso" variant="primary" type="submit" />
-        <Button
-          text="Cancelar"
-          variant="cancel"
-          type="button"
-          onClick={onCancel}
-        />
-      </ButtonGroup>
+      {/* Contenedor con margin-top dinámico para empujar los botones al fondo */}
+      <div style={{ marginTop: "auto" }}>
+        <ButtonGroup>
+          <Button text="Registrar ingreso" variant="primary" type="submit" />
+          <Button
+            text="Cancelar"
+            variant="cancel"
+            type="button"
+            onClick={onCancel}
+          />
+        </ButtonGroup>
+      </div>
     </Form>
   );
 }

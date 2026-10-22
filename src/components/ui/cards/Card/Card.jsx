@@ -20,7 +20,7 @@ const Card = ({
 
   return (
     <article className={cardClasses}>
-      <div>
+      <div className={styles.header}>
         {title && <TitleTag className={styles.title}>{title}</TitleTag>}
       </div>
       <div className={styles.childrenContainer}>{children}</div>

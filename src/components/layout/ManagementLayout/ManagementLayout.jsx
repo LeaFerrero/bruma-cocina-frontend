@@ -14,6 +14,9 @@ function ManagementLayout() {
   };
 
   const menuLinks = [
+    { path: "/gestion/cocina", text: "Cocina" },
+    { path: "/gestion/produccion", text: "Produccion" },
+    { path: "/gestion/caja", text: "Caja" },
     { path: "/gestion/viandas", text: "Viandas" },
     { path: "/gestion/insumos", text: "Insumos" },
     { path: "/gestion/usuarios", text: "Usuarios" },

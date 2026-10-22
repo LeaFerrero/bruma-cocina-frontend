@@ -51,6 +51,8 @@
 
   /* 8. Radios de Borde */
   --border-radius: 0.15rem;
+
+  --color-scrollbar-thumb: #cbd5e1;
 }
 
 *,
@@ -99,4 +101,11 @@ h3 {
   max-width: 31.25rem !important;
   text-align: center;
   border-radius: var(--border-radius);
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }

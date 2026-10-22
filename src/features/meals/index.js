@@ -1,5 +1,4 @@
 // Componentes
-export { default as IngredientItem } from "./components/IngredientItem/IngredientItem";
 export { default as MealForm } from "./components/MealForm/MealForm";
 export { default as MealModal } from "./components/MealModal/MealModal";
 export { default as MealCard } from "./components/MealCard/MealCard";

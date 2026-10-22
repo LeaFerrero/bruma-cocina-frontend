@@ -8,7 +8,13 @@ import {
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { ManagementLayout, LoginLayout } from "./components/layout";
-import { LoginPage, MealsPage, SuppliesPage, UsersPage } from "./pages";
+import {
+  LoginPage,
+  ProductionPage,
+  MealsPage,
+  SuppliesPage,
+  UsersPage,
+} from "./pages";
 
 import { AuthContext } from "./context/AuthContext";
 
@@ -41,6 +47,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route element={<ManagementLayout />}>
               <Route index element={<Navigate to="usuarios" replace />} />
+              <Route path="produccion" element={<ProductionPage />}></Route>
               <Route path="viandas" element={<MealsPage />} />
               <Route path="insumos" element={<SuppliesPage />} />
               <Route path="usuarios" element={<UsersPage />} />

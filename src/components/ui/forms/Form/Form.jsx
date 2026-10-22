@@ -8,7 +8,7 @@ function Form({ id, title, onSubmit, error, children }) {
 
       {error && <div className={styles.formError}>{error}</div>}
 
-      <div className={styles.content}>{children}</div>
+      <div className={styles.formChildren}>{children}</div>
     </form>
   );
 }

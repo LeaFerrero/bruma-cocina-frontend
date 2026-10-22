@@ -8,6 +8,7 @@ import {
   ButtonGroup,
 } from "../../../../components/ui";
 import { UNIT_OPTIONS } from "../../utils/units";
+import { formatForDisplay } from "../../../../utils/parsers";
 
 function SupplyForm({
   supplyToEdit,
@@ -29,9 +30,9 @@ function SupplyForm({
       setSupplyData({
         name: supplyToEdit.name || "",
         unit: supplyToEdit.unit || "",
-        price: supplyToEdit.price || "",
-        currentStock: supplyToEdit.currentStock || "",
-        minStock: supplyToEdit.minStock || "",
+        price: formatForDisplay(supplyToEdit.price, 2) || "",
+        currentStock: formatForDisplay(supplyToEdit.currentStock, 3) || "",
+        minStock: formatForDisplay(supplyToEdit.minStock, 3) || "",
       });
     } else {
       setSupplyData({

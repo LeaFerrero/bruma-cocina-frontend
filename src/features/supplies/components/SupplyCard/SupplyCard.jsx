@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./SupplyCard.module.css";
 import { Card, Button, ButtonGroup } from "../../../../components/ui";
+import { formatForDisplay } from "../../../../utils/parsers";
 
 function SupplyCard({ supply, onEdit, onDelete }) {
   const getStockVariant = () => {
@@ -14,13 +15,13 @@ function SupplyCard({ supply, onEdit, onDelete }) {
       <div className={styles.cardDetail}>
         <p className={styles.description}>
           <strong>Stock actual: </strong>
-          {supply.currentStock} {supply.unit}
+          {formatForDisplay(supply.currentStock, 3)} {supply.unit}
         </p>
         <p className={styles.description}>
           <strong>Stock mínimo: </strong>
-          {supply.minStock} {supply.unit}
+          {formatForDisplay(supply.minStock, 3)} {supply.unit}
         </p>
-        <p className={styles.price}>$ {supply.price}</p>
+        <p className={styles.price}>$ {formatForDisplay(supply.price, 2)}</p>
       </div>
 
       <ButtonGroup className={styles.buttonsContainer}>

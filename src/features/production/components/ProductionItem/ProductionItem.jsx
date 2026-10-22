@@ -1,10 +1,8 @@
 import React from "react";
-import styles from "./SupplyEntryItem.module.css";
-import { Button, Input } from "../../../../components/ui";
+import styles from "./ProductionItem.module.css";
+import { Input, Button } from "../../../../components/ui";
 
-function SupplyEntryItem({ item, onQuantityChange, onRemove, error }) {
-  const unit = item.unit || "kg";
-
+function ProductionItem({ item, onQuantityChange, onRemove, error }) {
   return (
     <li className={styles.itemRow}>
       <div className={styles.nameContainer}>
@@ -22,7 +20,7 @@ function SupplyEntryItem({ item, onQuantityChange, onRemove, error }) {
             additionalClass={styles.groupedInput}
             maxLength={10}
           />
-          <span className={styles.inputAddon}>{unit}</span>
+          <span className={styles.inputAddon}>cant.</span>
         </div>
 
         <Button
@@ -37,4 +35,4 @@ function SupplyEntryItem({ item, onQuantityChange, onRemove, error }) {
   );
 }
 
-export default SupplyEntryItem;
+export default ProductionItem;

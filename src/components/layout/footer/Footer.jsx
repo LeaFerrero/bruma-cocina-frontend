@@ -5,9 +5,8 @@ function Footer() {
   return (
     <div className={styles.footer}>
       <h4>Bruma Cocina</h4>
-      <p>
-        Dark Kitchen - Gastronomía de Autor - Buenos Aires, Argentina - 2026
-      </p>
+      <p>Dark Kitchen - Gastronomía de Autor</p>
+      <p>Buenos Aires, Argentina - 2026</p>
     </div>
   );
 }

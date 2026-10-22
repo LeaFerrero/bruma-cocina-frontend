@@ -248,8 +248,8 @@ function SuppliesPage() {
         onClose={handleCloseModal}
         onSave={handleSaveSupply}
         supplyToEdit={supplyToEdit}
-        fieldErrors={fieldErrors}
         formError={formError}
+        fieldErrors={fieldErrors}
       />
 
       <ConfirmModal

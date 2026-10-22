@@ -7,8 +7,9 @@ import {
   AutocompleteInput,
   Button,
   ButtonGroup,
+  EditableList,
+  EditableListItem,
 } from "../../../../components/ui";
-import IngredientItem from "../IngredientItem/IngredientItem";
 
 export function MealForm({
   mealToEdit,
@@ -196,23 +197,25 @@ export function MealForm({
           )}
         </div>
 
-        <ul className={styles.itemsList}>
-          {ingredients.length > 0 ? (
-            ingredients.map((item, index) => (
-              <IngredientItem
-                key={item._id}
-                item={item}
-                onQuantityChange={handleQuantityChange}
-                onRemove={handleRemoveIngredient}
-                error={fieldErrors[`ingredients.${index}.quantity`]}
-              />
-            ))
-          ) : (
-            <li className={styles.emptyMessage}>
-              No hay ingredientes en la receta
-            </li>
-          )}
-        </ul>
+        <EditableList
+          title="Ingredientes seleccionados:"
+          isEmpty={ingredients.length === 0}
+          emptyMessage="No hay ingredientes en la receta"
+        >
+          {ingredients.map((item, index) => (
+            <EditableListItem
+              key={item._id}
+              name={item.name}
+              quantity={item.quantity}
+              suffix={item.unit || "u."}
+              error={fieldErrors[`ingredients.${index}.quantity`]}
+              onQuantityChange={(newQuantity) =>
+                handleQuantityChange(item._id, newQuantity)
+              }
+              onRemove={() => handleRemoveIngredient(item._id)}
+            />
+          ))}
+        </EditableList>
       </div>
 
       <ButtonGroup>

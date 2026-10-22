@@ -13,6 +13,10 @@ export { default as DropdownInput } from "./inputs/DropdownInput/DropdownInput";
 export { default as Input } from "./inputs/Input/Input";
 export { default as TextArea } from "./inputs/TextArea/TextArea";
 
+// Listas
+export { default as EditableList } from "./lists/EditableList/EditableList";
+export { default as EditableListItem } from ".//lists/EditableListItem/EditableListItem";
+
 // Links
 export { default as NavItem } from "./links/NavItem/NavItem";
 

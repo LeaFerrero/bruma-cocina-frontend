@@ -21,7 +21,6 @@
   flex-grow: 1;
   font-size: 1rem;
   color: var(--color-text-main);
-  font-weight: bold;
 }
 
 .errorMessage {
@@ -81,12 +80,4 @@
   font-size: 0.85rem;
   user-select: none;
   transition: border-color 0.3s ease;
-}
-
-.inputGroup:hover .inputAddon {
-  border-left-color: var(--color-input-hover);
-}
-
-.inputGroup:focus-within .inputAddon {
-  border-left-color: var(--color-input-focus);
 }
