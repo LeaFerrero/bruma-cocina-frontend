@@ -1,3 +1,4 @@
+export { default as CatalogPage } from "./CatalogPage/CatalogPage";
 export { default as LoginPage } from "./LoginPage/LoginPage";
 export { default as KitchenPage } from "./KitchenPage/KitchenPage";
 export { default as ProductionPage } from "./ProductionPage/ProductionPage";

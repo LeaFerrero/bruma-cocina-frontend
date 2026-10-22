@@ -6,14 +6,7 @@ function KitchenOrderDetails({ order, children }) {
 
   return (
     <div className={styles.container}>
-      {order.notes && (
-        <div className={styles.section}>
-          <p className={styles.textRow}>
-            <strong>Nota:</strong> {order.notes}
-          </p>
-        </div>
-      )}
-
+      {/* 1. Primero el Detalle a Preparar */}
       <div className={styles.section}>
         <h3 className={styles.sectionTitle}>Detalle a Preparar</h3>
         <div className={styles.itemsList}>
@@ -27,6 +20,14 @@ function KitchenOrderDetails({ order, children }) {
           ))}
         </div>
       </div>
+
+      {order.notes && (
+        <div className={`${styles.section} ${styles.noteWarning}`}>
+          <p className={styles.textRow}>
+            <strong>Nota:</strong> {order.notes}
+          </p>
+        </div>
+      )}
 
       {children && <div className={styles.buttonsContainer}>{children}</div>}
     </div>

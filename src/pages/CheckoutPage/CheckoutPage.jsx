@@ -9,9 +9,10 @@ function Checkout() {
   const [selectedFilter, setSelectedFilter] = useState("Pendiente");
 
   const uniqueCategories = [...new Set(orders.map((order) => order.status))];
+
   const filterOptions = [
-    { value: "Todas", text: "Todas" },
-    ...uniqueCategories.map((cat) => ({ value: cat, text: cat })),
+    { value: "Todas", label: "Todas" },
+    ...uniqueCategories.map((cat) => ({ value: cat, label: cat })),
   ];
 
   const filteredOrders =

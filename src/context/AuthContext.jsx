@@ -1,7 +1,7 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { verifySession } from "../features/auth";
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
@@ -49,4 +49,14 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-export { AuthProvider };
+const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("useAuth debe ser usado dentro de un AuthProvider");
+  }
+
+  return context;
+};
+
+export { AuthProvider, AuthContext, useAuth };

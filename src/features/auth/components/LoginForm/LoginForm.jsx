@@ -39,7 +39,6 @@ function LoginForm({ onSubmit, formError, fieldErrors = {} }) {
         type="password"
         value={loginData.password}
         onChange={handleChange}
-        placeholder="contraseña"
         required
         error={fieldErrors.password}
         minLength={8}

@@ -1,0 +1,35 @@
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 0.0625rem solid black;
+}
+
+.itemName {
+  padding-right: 1rem;
+  color: var(--color-text-main);
+}
+
+.controlsContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantityBox {
+  width: 1.875rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.actionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.cartItem:last-child {
+  border-bottom: none;
+}

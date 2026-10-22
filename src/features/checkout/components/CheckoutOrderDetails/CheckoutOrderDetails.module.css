@@ -1,34 +1,32 @@
-.container {
+.checkoutOrderContainer {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 0.625rem 0.3125rem;
 }
 
-.section {
+.checkoutOrderSection {
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
 }
 
-.sectionTitle {
+.checkoutOrderOrderTitle {
   margin: 0;
   font-size: 1.15rem;
   font-weight: 600;
 }
 
-.textRow {
+.checkoutOrderTextRow {
   margin: 0;
   font-size: 0.95rem;
 }
 
-.itemsList {
+.checkoutOrderItemsList {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-.itemRow {
+.checkoutOrderItemRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,31 +39,24 @@
   margin: 0;
 }
 
-.totalContainer {
+.checkoutOrderTotalContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 0.3125rem;
 }
 
-.totalContainer  {
+.checkoutOrderTotalContainer {
   border-top: 1px solid var(--color-detail);
   margin: 0;
   font-size: 1.25rem;
   font-weight: bold;
 }
 
-.totalContainer p {
+.checkoutOrderTotalContainer p {
   margin-top: 0.5rem;
 }
 
-.totalAmount {
+.checkoutOrderTotalAmount {
   color: var(--color-text-price);
-}
-
-.buttonsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 0.625rem;
 }

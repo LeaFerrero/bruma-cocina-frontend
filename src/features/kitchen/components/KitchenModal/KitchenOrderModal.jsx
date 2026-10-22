@@ -9,7 +9,7 @@ function KitchenOrderModal({ order, isOpen, onClose, onDispatch, onCancel }) {
   return (
     <Modal title={order.orderId} isOpen={isOpen} onClose={onClose}>
       <div className={styles.modalLayout}>
-        <KitchenOrderDetTails order={order} showNotes={true}>
+        <KitchenOrderDetTails order={order}>
           <ButtonGroup>
             <Button text="Despachar" onClick={onDispatch} />
             <Button

@@ -1,0 +1,20 @@
+.cardDetail {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1rem;
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.buttonsContainer {
+  padding-top: 1rem;
+}

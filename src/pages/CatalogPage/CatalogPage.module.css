@@ -1,0 +1,39 @@
+.menuSection h2 {
+  color: var(--color-text-secondary);
+}
+
+.mealsGrid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fill, 17.5rem);
+  justify-content: center;
+}
+
+.floatingCartContainer {
+  position: sticky;
+  bottom: 1.5rem;
+  margin-top: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 900;
+  width: 90%;
+  max-width: 25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.filterContainer {
+  margin-top: 1rem;
+  max-width: 17.5rem;
+}
+
+.filterContainer label {
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 1200px) {
+  .mealsGrid {
+    justify-content: flex-start;
+  }
+}

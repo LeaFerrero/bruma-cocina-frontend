@@ -1,4 +1,6 @@
 .cardContainer {
+  display: flex; /* 1. Lo convertís en contenedor flex */
+  flex-direction: column;
   position: relative;
   background-color: var(--color-card-bg);
   border-radius: 0.25rem;

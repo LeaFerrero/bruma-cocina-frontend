@@ -1,6 +1,6 @@
 const meals = [
   {
-    id: 1,
+    _id: 1,
     name: "Risotto de Hongos",
     description: "Plato principal sellado al vacío, apto celíacos.",
     price: 15000,
@@ -13,7 +13,7 @@ const meals = [
     ],
   },
   {
-    id: 2,
+    _id: 2,
     name: "Pollo al Curry",
     description: "Acompañado con arroz basmati y sésamo tostado.",
     price: 13500,
@@ -26,7 +26,7 @@ const meals = [
     ],
   },
   {
-    id: 3,
+    _id: 3,
     name: "Wok Vegetariano",
     description: "Vegetales de estación salteados con salsa de soja.",
     price: 12500,
@@ -39,7 +39,7 @@ const meals = [
     ],
   },
   {
-    id: 4,
+    _id: 4,
     name: "Salmón Rosado en Costra de Hierbas",
     description: "Guarnición de vegetales asados alimonados.",
     price: 21000,

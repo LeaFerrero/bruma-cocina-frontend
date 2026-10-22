@@ -8,7 +8,7 @@ const orders = [
     customer: {
       name: "Lucía",
       lastName: "Gómez",
-      tel: "11-4567-8901",
+      phone: "11-4567-8901",
       address: "Av. Corrientes 1234",
     },
     notes: "Risotto: Apto celíacos, sin queso extra. Wok: Poca salsa de soja.",
@@ -37,7 +37,7 @@ const orders = [
     customer: {
       name: "Martín",
       lastName: "Pérez",
-      tel: "11-2345-6789",
+      phone: "11-2345-6789",
       address: "Callao 456",
     },
     notes: "Salmón: Punto de cocción a jugoso. Prioridad alta.",
@@ -60,7 +60,7 @@ const orders = [
     customer: {
       name: "Sofía",
       lastName: "Benítez",
-      tel: "11-9876-5432",
+      phone: "11-9876-5432",
       address: "Santa Fe 3210",
     },
     notes: "Acompañamiento extra de arroz basmati.",
@@ -83,7 +83,7 @@ const orders = [
     customer: {
       name: "Carlos",
       lastName: "Ruiz",
-      tel: "11-3344-5566",
+      phone: "11-3344-5566",
       address: "Rivadavia 5500",
     },
     notes: "Sin cubiertos descartables.",
@@ -106,7 +106,7 @@ const orders = [
     customer: {
       name: "Ana",
       lastName: "Torres",
-      tel: "11-7788-9900",
+      phone: "11-7788-9900",
       address: "Cabildo 2100",
     },
     notes: "Timbre 4B.",
@@ -135,7 +135,7 @@ const orders = [
     customer: {
       name: "Jorge",
       lastName: "Vega",
-      tel: "11-1122-3344",
+      phone: "11-1122-3344",
       address: "Belgrano 890",
     },
     notes: "El cliente canceló por demora.",

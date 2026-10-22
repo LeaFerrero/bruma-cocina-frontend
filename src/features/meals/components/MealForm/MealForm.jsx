@@ -125,7 +125,6 @@ export function MealForm({
         id="meal-name"
         name="name"
         label="Nombre"
-        placeholder="Ingrese nombre"
         value={mealData.name}
         onChange={handleChange}
         maxLength={50}
@@ -147,7 +146,7 @@ export function MealForm({
         <Input
           id="meal-category"
           name="category"
-          label="Categoría"
+          label="Categorías"
           placeholder="Ej: Vegano, Sin TACC"
           value={mealData.category}
           onChange={handleChange}
@@ -160,7 +159,6 @@ export function MealForm({
         id="meal-description"
         name="description"
         label="Descripción"
-        placeholder="Ingrese descripción"
         value={mealData.description}
         onChange={handleChange}
         maxLength={250}

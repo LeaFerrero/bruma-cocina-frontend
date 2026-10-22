@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -7,8 +6,15 @@ import {
   Outlet,
 } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { ManagementLayout, LoginLayout } from "./components/layout";
+
 import {
+  PublicLayout,
+  LoginLayout,
+  ManagementLayout,
+} from "./components/layout";
+
+import {
+  CatalogPage,
   LoginPage,
   KitchenPage,
   ProductionPage,
@@ -18,10 +24,10 @@ import {
   UsersPage,
 } from "./pages";
 
-import { AuthContext } from "./context/AuthContext";
+import { useAuth, CartProvider } from "./context";
 
 const PrivateRoute = () => {
-  const { isLogged } = useContext(AuthContext);
+  const { isLogged } = useAuth();
 
   if (!isLogged) {
     return <Navigate to="/gestion/login" replace />;
@@ -41,6 +47,17 @@ function App() {
       />
 
       <Routes>
+        <Route
+          path="/"
+          element={
+            <CartProvider>
+              <PublicLayout />
+            </CartProvider>
+          }
+        >
+          <Route index element={<CatalogPage />} />
+        </Route>
+
         <Route path="/gestion">
           <Route element={<LoginLayout />}>
             <Route path="login" element={<LoginPage />} />
@@ -50,7 +67,7 @@ function App() {
             <Route element={<ManagementLayout />}>
               <Route index element={<Navigate to="usuarios" replace />} />
               <Route path="cocina" element={<KitchenPage />} />
-              <Route path="produccion" element={<ProductionPage />}></Route>
+              <Route path="produccion" element={<ProductionPage />} />
               <Route path="caja" element={<CheckoutPage />} />
               <Route path="viandas" element={<MealsPage />} />
               <Route path="insumos" element={<SuppliesPage />} />
@@ -59,7 +76,8 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="*" element={<Navigate to="/gestion" replace />} />
+        {/* 4. Redirigimos URLs inválidas al catálogo para no espantar clientes */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
