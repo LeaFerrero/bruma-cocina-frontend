@@ -28,10 +28,10 @@ const deleteSupply = (id) => {
   });
 };
 
-const addStock = (items) => {
+const addStock = (data) => {
   return apiFetch("/supplies/", {
     method: "PATCH",
-    body: JSON.stringify({ items }),
+    body: JSON.stringify(data),
   });
 };
 

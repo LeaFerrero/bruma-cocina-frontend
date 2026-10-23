@@ -1,5 +1,10 @@
+import apiFetch from "../../../services/apiClient";
+
 const registerProduction = (meals) => {
-  console.log(meals);
+  return apiFetch("/production", {
+    method: "POST",
+    body: JSON.stringify(meals),
+  });
 };
 
 export { registerProduction };

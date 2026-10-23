@@ -17,15 +17,37 @@
 
 .columnTitle {
   margin-top: 0;
-  margin-bottom: 1.5rem;
 }
 
 .cartItemsContainer {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
   margin-bottom: 2rem;
+  min-height: 20rem;
+  max-height: 20rem;
+  overflow-y: auto;
+
+  scrollbar-gutter: stable;
+  padding-right: 0.5rem;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-scrollbar-thumb) transparent;
+}
+
+/* --- ESTILOS PARA LA BARRA EN CHROME/EDGE --- */
+.cartItemsContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cartItemsContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cartItemsContainer::-webkit-scrollbar-thumb {
+  background-color: var(--color-detail, #b0b0b0);
+  border-radius: 10px;
 }
 
 .subtotalGroup {
@@ -36,28 +58,21 @@
   font-weight: bold;
   padding-top: 1rem;
   border-top: 0.125rem solid var(--color-detail);
-  margin-bottom: 0.5rem;
 }
 
 .subtotalBox {
   color: var(--color-text-price);
 }
 
-.buttonsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 @media (min-width: 75rem) {
   .modalLayout {
     flex-direction: row;
+    width: 70rem;
   }
 
   .columnForm,
   .columnMeals {
     flex: 1;
-    overflow-y: auto;
   }
 
   .columnForm {

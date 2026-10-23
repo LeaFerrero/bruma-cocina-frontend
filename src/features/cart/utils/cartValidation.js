@@ -18,9 +18,10 @@ const cartItemSchema = z.object({
         .number({ required_error: "La cantidad es obligatoria" })
         .positive("La cantidad debe ser mayor a 0"),
     ),
+  price: z.number().optional(),
 });
 
-const cartSchema = z.object({
+const clientSchema = z.object({
   name: z
     .string({ required_error: "El nombre es obligatorio." })
     .trim()
@@ -40,25 +41,30 @@ const cartSchema = z.object({
     .trim()
     .min(1, "La dirección es obligatoria.")
     .min(2, "La dirección debe tener al menos 2 caracteres.")
-    .max(100, "La dirección debe tener como máximo 50 caracteres."),
+    .max(100, "La dirección debe tener como máximo 100 caracteres."),
 
   phone: z
-    .string()
-    .min(10, "El teléfono debe tener al menos 10 caracteres")
-    .max(15, "El teléfono debe tener como máximo 15 caracteres")
+    .string({ required_error: "El teléfono es obligatorio." })
+    .min(10, "El teléfono debe tener al menos 10 caracteres.")
+    .max(15, "El teléfono debe tener como máximo 15 caracteres.")
     .regex(
       /^\+?[0-9\s\-]+$/,
-      "Solo se permiten números, espacios, guiones y el símbolo +",
+      "Solo se permiten números, espacios, guiones y el símbolo +.",
     ),
 
   notes: z
     .string()
-    .max(250, "La nota debe tener un máximo de 250 caracteres")
+    .max(250, "Las notas deben tener como máximo 250 caracteres.")
     .optional(),
+});
 
+const orderSchema = z.object({
+  client: clientSchema,
   items: z
     .array(cartItemSchema)
     .min(1, "El carrito no puede estar vacío. Agregá al menos una vianda."),
+  total: z.number(),
+  date: z.string(),
 });
 
-export { cartItemSchema, cartSchema };
+export { cartItemSchema, clientSchema, orderSchema };

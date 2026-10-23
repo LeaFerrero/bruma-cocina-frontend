@@ -5,11 +5,17 @@ import CartForm from "../CartForm/CartForm";
 import CartItem from "../CartItem/CartItem";
 import { Modal, Button, ButtonGroup } from "../../../../components/ui";
 
-function CartModal({ isOpen, onClose }) {
+function CartModal({
+  isOpen,
+  onClose,
+  onSave,
+  fieldErrors = {},
+  formError = null,
+}) {
   const { cart, updateQuantity, removeFromCart, totalAmount, clearCart } =
     useCart();
 
-  const [formData, clientData] = useState({
+  const [clientData, setClientData] = useState({
     name: "",
     lastName: "",
     phone: "",
@@ -19,40 +25,50 @@ function CartModal({ isOpen, onClose }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    clientData((prev) => ({ ...prev, [name]: value }));
+    setClientData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAceptar = (e) => {
+  const handleSaveOrder = (e) => {
     e.preventDefault();
 
     const placedOrder = {
-      cliente: formData,
+      client: clientData,
       items: cart.map((item) => ({
-        _id: item._id,
+        _id: String(item._id),
         name: item.name,
         quantity: item.quantity,
         price: item.price,
       })),
       total: totalAmount,
-      fecha: new Date().toISOString(),
+      date: new Date().toISOString(),
     };
 
-    console.log("Enviando pedido a la base de datos:", placedOrder);
-    alert("Pedido enviado con éxito");
+    onSave(placedOrder);
+  };
+
+  const handleCancelOrder = () => {
+    setClientData({
+      name: "",
+      lastName: "",
+      phone: "",
+      address: "",
+      notes: "",
+    });
 
     clearCart();
-    clientData({ name: "", lastName: "", phone: "", address: "", notes: "" });
     onClose();
   };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Finalizar Pedido">
+    <Modal isOpen={isOpen} onClose={onClose} title="Pedido">
       <div className={styles.modalLayout}>
         <div className={styles.columnForm}>
           <CartForm
-            form="cart-order-form"
-            formData={formData}
+            id="cart-order-form"
+            clientData={clientData}
             onChange={handleInputChange}
-            onSubmit={handleAceptar}
+            onSubmit={handleSaveOrder}
+            fieldErrors={fieldErrors}
           />
         </div>
 
@@ -61,7 +77,7 @@ function CartModal({ isOpen, onClose }) {
 
           <div className={styles.cartItemsContainer}>
             {cart.length === 0 ? (
-              <p>El carrito está vacío.</p>
+              <p>The cart is empty.</p>
             ) : (
               cart.map((item) => (
                 <CartItem
@@ -79,17 +95,21 @@ function CartModal({ isOpen, onClose }) {
             <div className={styles.subtotalBox}>${totalAmount}</div>
           </div>
 
+          {formError && (
+            <p style={{ color: "red", fontSize: "0.875rem" }}>{formError}</p>
+          )}
+
           <ButtonGroup>
             <Button
               type="submit"
               form="cart-order-form"
               disabled={cart.length === 0}
-              text="Aceptar"
+              text="Confirmar pedido"
             />
             <Button
               type="button"
               variant="cancel"
-              onClick={onClose}
+              onClick={handleCancelOrder}
               text="Cancelar"
             />
           </ButtonGroup>

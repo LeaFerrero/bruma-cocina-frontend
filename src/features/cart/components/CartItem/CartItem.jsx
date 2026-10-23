@@ -3,7 +3,6 @@ import styles from "./CartItem.module.css";
 import { Button } from "../../../../components/ui";
 
 function CartItem({ item, onUpdateQuantity, onRemove }) {
-  console.log("Item en CartItem:", item);
   return (
     <div className={styles.cartItem}>
       <span className={styles.itemName}>{item.name}</span>

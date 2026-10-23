@@ -1,27 +1,29 @@
 import React from "react";
 import { Form, Input, TextArea } from "../../../../components/ui";
 
-function CartForm({ id, formData, onChange, onSubmit }) {
+function CartForm({ id, clientData, onChange, onSubmit, fieldErrors = {} }) {
   return (
     <Form id={id} title="Datos" onSubmit={onSubmit}>
       <Input
         id="cart-name"
         name="name"
         label="Nombre"
-        value={formData.name}
+        value={clientData.name}
         onChange={onChange}
         maxLength={50}
-        required={true}
+        required
+        error={fieldErrors.name}
       />
 
       <Input
         id="cart-last-name"
         name="lastName"
         label="Apellido"
-        value={formData.lastName}
+        value={clientData.lastName}
         onChange={onChange}
         maxLength={50}
-        required={true}
+        required
+        error={fieldErrors.lastName}
       />
 
       <Input
@@ -29,20 +31,21 @@ function CartForm({ id, formData, onChange, onSubmit }) {
         name="phone"
         label="Teléfono"
         type="tel"
-        value={formData.phone}
+        value={clientData.phone}
         onChange={onChange}
         maxLength={15}
-        required={true}
+        required
+        error={fieldErrors.phone}
       />
 
       <Input
         id="cart-address"
         name="address"
         label="Dirección"
-        value={formData.address}
+        value={clientData.address}
         onChange={onChange}
         maxLength={100}
-        required={true}
+        requirederror={fieldErrors.address}
       />
 
       <TextArea
@@ -50,10 +53,11 @@ function CartForm({ id, formData, onChange, onSubmit }) {
         name="notas"
         label="Notas"
         placeholder="Notas para el pedido (opcional)"
-        value={formData.notas}
+        value={clientData.notas}
         onChange={onChange}
         maxLength={250}
-        rows={4}
+        rows={7}
+        error={fieldErrors.notes}
       />
     </Form>
   );

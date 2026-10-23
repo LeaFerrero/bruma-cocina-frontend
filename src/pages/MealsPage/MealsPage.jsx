@@ -104,7 +104,6 @@ function MealsPage() {
     const validations = mealSchema.safeParse(formData);
 
     if (!validations.success) {
-      console.log("Error de Zod:", validations.error.format()); // <-- AGREGÁ ESTO
       const formattedErrors = {};
 
       validations.error.issues.forEach((issue) => {

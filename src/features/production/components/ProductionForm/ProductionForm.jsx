@@ -64,7 +64,23 @@ function ProductionForm({
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearchError(null);
-    onSave({ items: selectedMeals });
+
+    const cleanItems = selectedMeals.map((meal) => ({
+      _id: meal._id,
+      quantity: Number(meal.quantity),
+    }));
+
+    onSave({ items: cleanItems });
+  };
+
+  const handleCancel = () => {
+    setInputValue("");
+    setSelectedMeals([]);
+    setSearchError(null);
+
+    if (onCancel) {
+      onCancel();
+    }
   };
 
   return (
@@ -118,12 +134,17 @@ function ProductionForm({
       </EditableList>
 
       <ButtonGroup>
-        <Button text="Registrar" variant="primary" type="submit" />
+        <Button
+          text="Registrar"
+          variant="primary"
+          type="submit"
+          disabled={selectedMeals.length === 0}
+        />
         <Button
           text="Cancelar"
           variant="cancel"
           type="button"
-          onClick={onCancel}
+          onClick={handleCancel}
         />
       </ButtonGroup>
     </Form>

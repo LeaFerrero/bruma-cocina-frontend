@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./SuppliesPage.module.css";
 import toast from "react-hot-toast";
+import { socket } from "../../services/socket";
 import {
   Button,
   ButtonGroup,
@@ -71,7 +72,21 @@ function SuppliesPage() {
         toast.error(error.message);
       }
     };
+
     loadSupplies();
+
+    socket.on("production-updated", () => {
+      loadSupplies();
+    });
+
+    socket.on("supplies-updated", () => {
+      loadSupplies();
+    });
+
+    return () => {
+      socket.off("production-updated");
+      socket.off("supplies-updated");
+    };
   }, []);
 
   const handleSaveSupply = async (supplyData, id) => {
