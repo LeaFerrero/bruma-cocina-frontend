@@ -15,6 +15,7 @@ import {
 
 import {
   CatalogPage,
+  AboutUsPage,
   LoginPage,
   KitchenPage,
   ProductionPage,
@@ -56,6 +57,7 @@ function App() {
           }
         >
           <Route index element={<CatalogPage />} />
+          <Route path="nosotros" element={<AboutUsPage />} />
         </Route>
 
         <Route path="/gestion">

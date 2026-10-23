@@ -20,6 +20,7 @@
   --color-text-secondary: #f6f4f0;
   --color-text-price: #2d6a4f;
   --color-text-sidebar: #ffffff;
+  --color-text-muted: #555555;
   --color-btn-text: #ffffff;
 
   /* 4. Formularios e Inputs */
@@ -52,6 +53,7 @@
   /* 8. Radios de Borde */
   --border-radius: 0.15rem;
 
+  /* 9. Barra de desplazamiento */
   --color-scrollbar-thumb: #cbd5e1;
 }
 
