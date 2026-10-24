@@ -6,14 +6,14 @@ const API_URL = import.meta.env.VITE_API_URL;
  * Maneja automáticamente las credenciales, los headers y transforma
  * los errores nativos o del servidor en instancias de AppError.
  *
- * @param {string} endpoint - La ruta de la API (ej. "/users").
- * @param {object} [options={}] - Opciones nativas de fetch (method, body, etc.).
+ * @param {string} endpoint La ruta de la API (ej. "/users").
+ * @param {object} [options={}] Opciones nativas de fetch (method, body, etc.).
  * @returns {Promise<any>} Promesa que resuelve con los datos de la respuesta.
  */
 const apiFetch = async (endpoint, options = {}) => {
   try {
     const response = await fetch(`${API_URL}${endpoint}`, {
-      credentials: "include",
+      credentials: "include", // Indica que ya estás manejando cookies
       ...options,
       headers: {
         "Content-type": "application/json",
@@ -26,6 +26,14 @@ const apiFetch = async (endpoint, options = {}) => {
     if (!response.ok) {
       if (import.meta.env.MODE !== "production") {
         console.error(`[Error del Backend en ${endpoint}]:`, data);
+      }
+
+      if (
+        response.status === 401 ||
+        data.errorCode === "TOKEN_EXPIRED" ||
+        data.errorCode === "INVALID_TOKEN"
+      ) {
+        window.location.href = "/login";
       }
 
       throw new AppError(
