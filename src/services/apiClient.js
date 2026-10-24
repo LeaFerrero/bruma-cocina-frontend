@@ -33,7 +33,9 @@ const apiFetch = async (endpoint, options = {}) => {
         data.errorCode === "TOKEN_EXPIRED" ||
         data.errorCode === "INVALID_TOKEN"
       ) {
-        window.location.href = "/login";
+        if (window.location.pathname !== "/gestion/login") {
+          window.location.href = "/gestion/login";
+        }
       }
 
       throw new AppError(
