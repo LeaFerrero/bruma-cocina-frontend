@@ -155,8 +155,8 @@ function UsersPage() {
 
       <div className={styles.searchContainer}>
         <AutocompleteInput
-          label="Buscar por nombre"
-          placeholder="Nombre..."
+          label="Buscar por nombre de usuario"
+          placeholder="Nombre de usuario..."
           options={userNames}
           value={searchTerm}
           onChange={setSearchTerm}
