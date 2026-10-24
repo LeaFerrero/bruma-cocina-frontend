@@ -4,6 +4,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Outlet, useLocation } from "react-router-dom";
+import { FaWhatsapp } from "react-icons/fa"; // Importamos el icono
 
 function PublicLayout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,8 +20,10 @@ function PublicLayout() {
   ];
 
   const currentLink = menuLinks.find((link) => link.path === location.pathname);
-
   const pageTitle = currentLink ? currentLink.text : "";
+
+  // Cambiá este número por el real de Bruma Cocina (ej: 5491123456789)
+  const whatsappNumber = "5491100000000";
 
   return (
     <div className={styles.appContainer}>
@@ -29,6 +32,7 @@ function PublicLayout() {
         toggleMenu={toggleMenu}
         links={menuLinks}
       />
+
       <div className={styles.mainContainer}>
         <Header
           toggleMenu={toggleMenu}
@@ -49,6 +53,16 @@ function PublicLayout() {
 
         <Footer />
       </div>
+
+      <a
+        href={`https://wa.me/${whatsappNumber}`}
+        className={styles.whatsappFloat}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp"
+      >
+        <FaWhatsapp />
+      </a>
     </div>
   );
 }

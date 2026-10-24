@@ -27,7 +27,7 @@
 
 .brandDescription {
   font-size: 0.85rem;
-  color: var(--color-text-main);
+  color: var(--color-text-muted);
   line-height: 1.4;
   margin: 0 auto;
   max-width: 23.75rem;
@@ -55,17 +55,17 @@
 .linkList a {
   text-decoration: none;
   font-size: 0.85rem;
-  color: var(--color-text-main);
+  color: var(--color-text-muted);
   transition: color 0.2s;
 }
 
 .linkList a:hover {
-  color: var(--color-btn-primary-bg);
+  color: var(--color-footer-link-hover);
 }
 
 .contactInfo {
   font-size: 0.85rem;
-  color: var(--color-text-main);
+  color: var(--color-text-muted);
   margin: 0 0 0.5rem 0;
 }
 
@@ -76,14 +76,14 @@
 }
 
 .socialLinks a {
-  color: var(--color-text-main);
+  color: var(--color-text-muted);
   transition:
     transform 0.2s,
     color 0.2s;
 }
 
 .socialLinks a:hover {
-  color: var(--color-btn-primary-bg);
+  color: var(--color-footer-link-hover);
   transform: scale(1.1);
 }
 

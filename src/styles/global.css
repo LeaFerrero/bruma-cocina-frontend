@@ -8,6 +8,7 @@
   --color-modal-bg: #f6f4f0;
   --color-header-bg: #dfd7c7;
   --color-footer-bg: #dfd7c7;
+  --color-footer-link-hover: #32a3b9;
   --color-sidebar-bg: #2a3a48;
   --color-sidebar-hover: #374c5e;
   --color-sidebar-active-bg: #32a3b9;
@@ -55,6 +56,10 @@
 
   /* 9. Barra de desplazamiento */
   --color-scrollbar-thumb: #cbd5e1;
+
+  /* 10. Redes Sociales */
+  --color-whatsapp-bg: #25d366;
+  --color-whatsapp-hover-bg: #1ebe57;
 }
 
 *,

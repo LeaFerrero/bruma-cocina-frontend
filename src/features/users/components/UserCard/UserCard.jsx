@@ -1,9 +1,17 @@
 import React from "react";
 import styles from "./UserCard.module.css";
 import { Card, Button, ButtonGroup } from "../../../../components/ui";
-import { ROLE_NAMES } from "../../utils/roles";
+import { ROLES, ROLE_NAMES } from "../../utils/roles";
 
 function UserCard({ user, onEdit, onDelete }) {
+  const isAdmin = user.role === ROLES.ADMIN;
+
+  let tooltipMessage = "";
+
+  if (isAdmin) {
+    tooltipMessage = "No está permitido eliminar cuentas de Administrador";
+  }
+
   return (
     <Card title={user.userName} interactive>
       <div className={styles.cardDetail}>
@@ -20,9 +28,16 @@ function UserCard({ user, onEdit, onDelete }) {
           {ROLE_NAMES[user.role]}
         </p>
       </div>
+
       <ButtonGroup>
         <Button text={"Editar"} variant="secondary" onClick={onEdit} />
-        <Button text={"Eliminar"} variant="danger" onClick={onDelete} />
+
+        <Button
+          text={isAdmin ? "No se puede eliminar" : "Eliminar"}
+          variant="danger"
+          onClick={onDelete}
+          disabled={isAdmin}
+        />
       </ButtonGroup>
     </Card>
   );

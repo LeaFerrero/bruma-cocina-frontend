@@ -1,5 +1,5 @@
 import React from "react";
-import { FaInstagram, FaTiktok } from "react-icons/fa";
+import { FaInstagram, FaTiktok, FaEnvelope } from "react-icons/fa";
 import styles from "./Footer.module.css";
 
 function Footer() {
@@ -14,7 +14,6 @@ function Footer() {
           </p>
         </div>
 
-        {/* Columna 2: Navegación Rápida */}
         <div className={styles.linksColumn}>
           <h5 className={styles.columnTitle}>Explorar</h5>
           <ul className={styles.linkList}>
@@ -27,7 +26,6 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Columna 3: Contacto y Redes */}
         <div className={styles.socialColumn}>
           <h5 className={styles.columnTitle}>Contacto</h5>
           <p className={styles.contactInfo}>Buenos Aires, Argentina</p>
@@ -47,6 +45,13 @@ function Footer() {
               aria-label="TikTok"
             >
               <FaTiktok size={20} />
+            </a>
+            <a
+              href="mailto:contacto@brumacocina.com"
+              aria-label="Enviar correo"
+              className={styles.socialIcon}
+            >
+              <FaEnvelope size={20} />
             </a>
           </div>
         </div>

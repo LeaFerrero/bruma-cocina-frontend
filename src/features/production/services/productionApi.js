@@ -1,10 +1,10 @@
-import apiFetch from "../../../services/apiClient";
+  import apiFetch from "../../../services/apiClient";
 
-const registerProduction = (meals) => {
-  return apiFetch("/production", {
-    method: "POST",
-    body: JSON.stringify(meals),
-  });
-};
+  const registerProduction = (meals) => {
+    return apiFetch("/production", {
+      method: "POST",
+      body: JSON.stringify(meals),
+    });
+  };
 
-export { registerProduction };
+  export { registerProduction };

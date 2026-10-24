@@ -55,3 +55,39 @@
     transform: translateX(0);
   }
 }
+
+.whatsappFloat {
+  position: fixed;
+  bottom: 4rem;
+  right: 1.5rem;
+  width: 50px;
+  height: 50px;
+  font-size: 1.8rem;
+  background-color: var(--color-whatsapp-bg);
+  color: var(--color-text-secondary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition:
+    transform 0.2s ease-in-out,
+    background-color 0.2s ease;
+  text-decoration: none;
+}
+
+.whatsappFloat:hover {
+  transform: scale(1.1);
+  background-color: var(--color-whatsapp-hover-bg);
+}
+
+@media (min-width: 768px) {
+  .whatsappFloat {
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    font-size: 2.2rem;
+  }
+}
