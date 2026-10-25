@@ -3,6 +3,7 @@ import styles from "./MealsPage.module.css";
 import { MealCard, MealModal } from "../../features/meals";
 import { AutocompleteInput, Button, ConfirmModal } from "../../components/ui";
 import { getSupplies } from "../../features/supplies";
+import { socket } from "../../services/socket";
 
 import {
   getMeals,
@@ -40,6 +41,19 @@ function MealsPage() {
       }
     };
     loadMeals();
+
+    socket.on("production-updated", () => {
+      loadMeals();
+    });
+
+    socket.on("order-created", () => {
+      loadMeals();
+    });
+
+    return () => {
+      socket.off("production-updated");
+      socket.off("order-created");
+    };
   }, []);
 
   useEffect(() => {

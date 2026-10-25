@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./CartItem.module.css";
 import { Button } from "../../../../components/ui";
+import toast from "react-hot-toast";
 
 function CartItem({ item, onUpdateQuantity, onRemove }) {
   return (
@@ -24,7 +25,7 @@ function CartItem({ item, onUpdateQuantity, onRemove }) {
           variant="secondary"
           isSquare={true}
           ariaLabel="Aumentar cantidad"
-          onClick={() => onUpdateQuantity(item._id, 1)}
+          onClick={() => onUpdateQuantity(item._id, 1, item.currentStock)}
         />
 
         <Button

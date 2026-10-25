@@ -26,6 +26,7 @@ import {
 } from "./pages";
 
 import { useAuth, CartProvider } from "./context";
+import { ROLES } from "./features/users";
 
 const PrivateRoute = () => {
   const { isLogged } = useAuth();
@@ -34,6 +35,27 @@ const PrivateRoute = () => {
     return <Navigate to="/gestion/login" replace />;
   }
   return <Outlet />;
+};
+
+const RoleBasedRedirect = () => {
+  const { user } = useAuth();
+
+  if (!user || !user.role) return null;
+
+  const roleRoutes = {
+    [ROLES.ADMIN]: "/gestion/usuarios",
+    [ROLES.COCINA]: "/gestion/cocina",
+    [ROLES.CAJA]: "/gestion/caja",
+    [ROLES.STOCK]: "/gestion/insumos",
+  };
+
+  const targetRoute = roleRoutes[user.role];
+
+  if (!targetRoute) {
+    return <Navigate to="/gestion/login" replace />;
+  }
+
+  return <Navigate to={targetRoute} replace />;
 };
 
 function App() {
@@ -67,7 +89,7 @@ function App() {
 
           <Route element={<PrivateRoute />}>
             <Route element={<ManagementLayout />}>
-              <Route index element={<Navigate to="usuarios" replace />} />
+              <Route index element={<RoleBasedRedirect />} />
               <Route path="cocina" element={<KitchenPage />} />
               <Route path="produccion" element={<ProductionPage />} />
               <Route path="caja" element={<CheckoutPage />} />
@@ -78,7 +100,6 @@ function App() {
           </Route>
         </Route>
 
-        {/* 4. Redirigimos URLs inválidas al catálogo para no espantar clientes */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

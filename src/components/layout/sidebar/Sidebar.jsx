@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { logout } from "../../../features/auth";
 import { NavItem } from "../../ui";
+import { ROLE_NAMES } from "../../../features/users";
 import logo from "../../../assets/img/logo-mark.webp";
 
 function Sidebar({ isMenuOpen, toggleMenu, links = [], showUser = false }) {
@@ -38,7 +39,12 @@ function Sidebar({ isMenuOpen, toggleMenu, links = [], showUser = false }) {
 
       {showUser && (
         <div className={styles.userSection}>
-          <span className={styles.userName}> {user?.userName}</span>
+          <span className={styles.userName}>
+            <strong>Usuario:</strong> {user.userName}
+          </span>
+          <span className={styles.userName}>
+            <strong>Rol:</strong> {ROLE_NAMES[user.role]}
+          </span>
           <span className={styles.logoutLink} onClick={handleLogout}>
             Cerrar sesión
           </span>

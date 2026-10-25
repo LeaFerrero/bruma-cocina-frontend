@@ -3,8 +3,14 @@ import styles from "./MealCard.module.css";
 import { Card, Button, ButtonGroup } from "../../../../components/ui";
 
 function MealCard({ meal, onEdit, onDelete }) {
+  const getStockVariant = () => {
+    if (meal.currentStock <= 0) return "danger";
+    if (meal.currentStock <= 10) return "warning";
+    return "success";
+  };
+
   return (
-    <Card title={meal.name} interactive>
+    <Card title={meal.name} interactive variant={getStockVariant()}>
       <div className={styles.cardDetail}>
         <p>
           <strong>Stock actual: </strong>

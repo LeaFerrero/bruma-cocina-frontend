@@ -1,19 +1,13 @@
 import AppError from "../utils/AppError.js";
 const API_URL = import.meta.env.VITE_API_URL;
 
-/**
- * Wrapper estandarizado para peticiones fetch.
- * Maneja automáticamente las credenciales, los headers y transforma
- * los errores nativos o del servidor en instancias de AppError.
- *
- * @param {string} endpoint La ruta de la API (ej. "/users").
- * @param {object} [options={}] Opciones nativas de fetch (method, body, etc.).
- * @returns {Promise<any>} Promesa que resuelve con los datos de la respuesta.
- */
+// Bandera para evitar que múltiples peticiones concurrentes disparen errores superpuestos
+let isRedirecting = false;
+
 const apiFetch = async (endpoint, options = {}) => {
   try {
     const response = await fetch(`${API_URL}${endpoint}`, {
-      credentials: "include", // Indica que ya estás manejando cookies
+      credentials: "include",
       ...options,
       headers: {
         "Content-type": "application/json",
@@ -21,21 +15,36 @@ const apiFetch = async (endpoint, options = {}) => {
       },
     });
 
-    const data = await response.json();
+    let data = {};
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      try {
+        data = await response.json();
+      } catch (e) {
+        data = {};
+      }
+    }
 
     if (!response.ok) {
-      if (import.meta.env.MODE !== "production") {
-        console.error(`[Error del Backend en ${endpoint}]:`, data);
-      }
-
       if (
         response.status === 401 ||
+        response.status === 403 ||
         data.errorCode === "TOKEN_EXPIRED" ||
-        data.errorCode === "INVALID_TOKEN"
+        data.errorCode === "INVALID_TOKEN" ||
+        data.errorCode === "UNAUTHORIZED" ||
+        data.errorCode === "NO_TOKEN"
       ) {
-        if (window.location.pathname !== "/gestion/login") {
-          window.location.href = "/gestion/login";
+        if (
+          window.location.pathname.startsWith("/gestion") &&
+          window.location.pathname !== "/gestion/login"
+        ) {
+          if (!isRedirecting) {
+            isRedirecting = true;
+            window.location.href = "/gestion/login";
+          }
+          return new Promise(() => {});
         }
+        return { success: false, unauthorized: true, data: null };
       }
 
       throw new AppError(

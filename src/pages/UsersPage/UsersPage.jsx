@@ -15,23 +15,25 @@ import {
 
 function UsersPage() {
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
-
   const [userToDelete, setUserToDelete] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   useEffect(() => {
     const loadUsers = async () => {
       try {
+        setIsLoading(true);
         const response = await getUsers();
         setUsers(response.data);
       } catch (error) {
         toast.error(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
     loadUsers();
@@ -164,7 +166,9 @@ function UsersPage() {
       </div>
 
       <div className={styles.usersGrid}>
-        {filteredUsers.length > 0 ? (
+        {isLoading ? (
+          <p className={styles.statusMessage}>Cargando usuarios...</p>
+        ) : filteredUsers.length > 0 ? (
           filteredUsers.map((user) => (
             <UserCard
               key={user._id}
@@ -174,7 +178,7 @@ function UsersPage() {
             />
           ))
         ) : (
-          <p className={styles.emptyMessage}>No se encontraron usuarios.</p>
+          <p className={styles.statusMessage}>No se encontraron usuarios.</p>
         )}
       </div>
 

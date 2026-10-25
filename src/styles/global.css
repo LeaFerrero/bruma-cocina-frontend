@@ -105,9 +105,11 @@ h3 {
   color: var(--color-text-main);
   font-size: 1.125rem !important;
   padding: 1rem 1.5rem !important;
+  width: 31.25rem !important;
   max-width: 31.25rem !important;
   text-align: center;
   border-radius: var(--border-radius);
+  word-break: break-word;
 }
 
 ul,

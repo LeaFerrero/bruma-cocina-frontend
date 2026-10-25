@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./CatalogPage.module.css";
 import { useCart } from "../../context/CartContext";
 import { CatalogCard } from "../../features/catalog";
-// Importamos el modal de éxito junto con el del carrito
 import { CartModal, OrderSuccessModal } from "../../features/cart";
-
 import { DropdownInput, Button, ConfirmModal } from "../../components/ui";
-import meals from "../../data/mealsData";
 import { orderSchema } from "../../features/cart/utils/cartValidation";
+import { getMeals } from "../../features/meals";
+import { createOrder } from "../../features/cart";
+import { socket } from "../../services/socket";
 import toast from "react-hot-toast";
 
 function CatalogPage() {
   const { cart, addToCart, clearCart } = useCart();
 
+  const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Todas");
@@ -21,10 +22,49 @@ function CatalogPage() {
   const [formError, setFormError] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [pendingOrder, setPendingOrder] = useState(null);
-
+  const [orderTotal, setOrderTotal] = useState(0);
   const [successOrderCode, setSuccessOrderCode] = useState(null);
 
-  const uniqueCategories = [...new Set(meals.map((meal) => meal.category))];
+  useEffect(() => {
+    const loadMeals = async () => {
+      try {
+        setIsLoading(true);
+        const response = await getMeals();
+        setMeals(response.data);
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadMeals();
+
+    socket.on("production-updated", () => {
+      loadMeals();
+    });
+
+    socket.on("order-created", () => {
+      loadMeals();
+    });
+
+    return () => {
+      socket.off("production-updated");
+      socket.off("order-created");
+    };
+  }, []);
+
+  const uniqueCategories = [
+    ...new Map(
+      meals
+        .flatMap((meal) =>
+          Array.isArray(meal.category) ? meal.category : [meal.category],
+        )
+        .map((cat) => {
+          const trimmed = cat.trim();
+          return [trimmed.toLowerCase(), trimmed];
+        }),
+    ).values(),
+  ].sort((a, b) => a.localeCompare(b, "es", { sensitivity: "base" }));
 
   const filterOptions = [
     { value: "Todas", label: "Todas" },
@@ -34,7 +74,11 @@ function CatalogPage() {
   const filteredMeals =
     selectedFilter === "Todas"
       ? meals
-      : meals.filter((meal) => meal.category === selectedFilter);
+      : meals.filter((meal) =>
+          Array.isArray(meal.category)
+            ? meal.category.includes(selectedFilter)
+            : meal.category === selectedFilter,
+        );
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -46,22 +90,24 @@ function CatalogPage() {
 
     if (!validations.success) {
       const formattedErrors = {};
+
       validations.error.issues.forEach((issue) => {
-        if (issue.path.length === 0) {
-          setFormError(issue.message);
-        } else {
-          let key = issue.path.join(".");
-          if (key.startsWith("client.")) {
-            key = key.replace("client.", "");
-          }
-          if (!formattedErrors[key]) {
-            formattedErrors[key] = issue.message;
-          }
+        const key = issue.path.join(".");
+
+        if (!formattedErrors[key]) {
+          formattedErrors[key] = issue.message;
         }
       });
+
       setFieldErrors(formattedErrors);
       return;
     }
+
+    const calculatedTotal = cart.reduce(
+      (acc, item) => acc + item.price * item.quantity,
+      0,
+    );
+    setOrderTotal(calculatedTotal);
 
     setPendingOrder(validations.data);
     setIsModalOpen(false);
@@ -70,25 +116,26 @@ function CatalogPage() {
 
   const handleConfirmOrder = async () => {
     try {
-      console.log("Enviando orden a la BD:", pendingOrder);
-
-      // Acá irá tu petición real: const response = await createOrder(pendingOrder);
-      // Simulamos la respuesta del backend con un código generado:
-      const generatedCode = `ORD-${Math.floor(Math.random() * 100000)}`;
+      const response = await createOrder(pendingOrder);
 
       clearCart();
       setIsConfirmOpen(false);
       setPendingOrder(null);
 
-      // Abrimos el modal de éxito pasándole el código
-      setSuccessOrderCode(generatedCode);
+      setSuccessOrderCode(response.data.orderCode);
     } catch (error) {
-      // Manejo del error de stock sin borrar el carrito
-      const errorMessage =
-        error.response?.data?.message ||
-        "No hay stock suficiente para algunas viandas elegidas.";
-      toast.error(errorMessage, { duration: 5000 });
       setIsConfirmOpen(false);
+      setIsModalOpen(true);
+
+      if (error.details) {
+        error.details.forEach((detail) => {
+          toast.error(detail, { duration: Infinity });
+        });
+      } else {
+        const fallbackMessage =
+          error.message || "Ocurrió un error inesperado al guardar.";
+        toast.error(fallbackMessage);
+      }
     }
   };
 
@@ -96,7 +143,19 @@ function CatalogPage() {
     setIsModalOpen(false);
     setFieldErrors({});
     setFormError(null);
+    toast.dismiss();
   };
+
+  if (isLoading) {
+    return (
+      <section className={styles.menuSection}>
+        <h2>Viandas disponibles</h2>
+        <div className={styles.loadingContainer}>
+          <p>Cargando viandas...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.menuSection}>
@@ -142,9 +201,12 @@ function CatalogPage() {
       <ConfirmModal
         title="Confirmar Pedido"
         isOpen={isConfirmOpen}
-        onClose={() => setIsConfirmOpen(false)}
+        onClose={() => {
+          setIsConfirmOpen(false);
+          setIsModalOpen(true);
+        }}
         onConfirm={handleConfirmOrder}
-        message={`¿Estás seguro de confirmar tu pedido por un total de $${pendingOrder?.total}?`}
+        message={`¿Quiere confirmar su pedido por un total de $${orderTotal}?`}
       />
 
       <OrderSuccessModal

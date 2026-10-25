@@ -25,6 +25,7 @@ import {
 
 function SuppliesPage() {
   const [supplies, setSupplies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
@@ -66,10 +67,13 @@ function SuppliesPage() {
   useEffect(() => {
     const loadSupplies = async () => {
       try {
+        setIsLoading(true);
         const response = await getSupplies();
         setSupplies(response.data);
       } catch (error) {
         toast.error(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -244,7 +248,9 @@ function SuppliesPage() {
       </div>
 
       <div className={styles.suppliesGrid}>
-        {filteredSupplies.length > 0 ? (
+        {isLoading ? (
+          <p className={styles.statusMessage}>Cargando insumos...</p>
+        ) : filteredSupplies.length > 0 ? (
           filteredSupplies.map((supply) => (
             <SupplyCard
               key={supply._id}
@@ -254,7 +260,7 @@ function SuppliesPage() {
             />
           ))
         ) : (
-          <p className={styles.emptyMessage}>No se encontraron insumos.</p>
+          <p className={styles.statusMessage}>No se encontraron insumos.</p>
         )}
       </div>
 

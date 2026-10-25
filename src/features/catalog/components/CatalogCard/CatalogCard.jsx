@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CatalogCard.module.css";
-import { Card, Button } from "../../../../components/ui";
+import { Card, Button, ButtonGroup } from "../../../../components/ui";
 
 function CatalogCard({ meal, onClick }) {
   return (
@@ -9,9 +9,13 @@ function CatalogCard({ meal, onClick }) {
         <p className={styles.description}>{meal.description}</p>
         <span className={styles.price}>${meal.price}</span>
       </div>
-      <div className={styles.buttonsContainer}>
-        <Button text={"Agregar"} onClick={onClick} />
-      </div>
+      <ButtonGroup>
+        <Button
+          text={meal.currentStock === 0 ? "Sin stock" : "Agregar al carrito"}
+          onClick={onClick}
+          disabled={meal.currentStock === 0}
+        />
+      </ButtonGroup>
     </Card>
   );
 }

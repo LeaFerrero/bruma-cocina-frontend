@@ -91,7 +91,6 @@ export function MealForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const categoriasArray =
       typeof mealData.category === "string"
         ? mealData.category
@@ -101,7 +100,7 @@ export function MealForm({
         : mealData.category;
 
     const formattedIngredients = ingredients.map((ingredient) => ({
-      supply: ingredient._id,
+      _id: ingredient._id,
       quantity: ingredient.quantity,
     }));
 
@@ -217,7 +216,12 @@ export function MealForm({
       </div>
 
       <ButtonGroup>
-        <Button text="Guardar Vianda" variant="primary" type="submit" />
+        <Button
+          text="Guardar Vianda"
+          variant="primary"
+          type="submit"
+          disabled={ingredients.length === 0}
+        />
         <Button
           text="Cancelar"
           variant="cancel"

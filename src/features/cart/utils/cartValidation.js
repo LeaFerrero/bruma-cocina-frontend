@@ -1,27 +1,7 @@
 import { z } from "zod";
 import { parseInteger } from "../../../utils/parsers";
 
-const cartItemSchema = z.object({
-  _id: z
-    .string({ required_error: "El ID de la vianda es obligatorio" })
-    .min(1, "El ID de la vianda es obligatorio"),
-  name: z.string().optional(),
-  quantity: z
-    .any()
-    .transform((value) => parseInteger(value))
-    .refine(
-      (val) => !Number.isNaN(val),
-      "La cantidad debe ser un número válido",
-    )
-    .pipe(
-      z
-        .number({ required_error: "La cantidad es obligatoria" })
-        .positive("La cantidad debe ser mayor a 0"),
-    ),
-  price: z.number().optional(),
-});
-
-const clientSchema = z.object({
+const orderSchema = z.object({
   name: z
     .string({ required_error: "El nombre es obligatorio." })
     .trim()
@@ -56,15 +36,26 @@ const clientSchema = z.object({
     .string()
     .max(250, "Las notas deben tener como máximo 250 caracteres.")
     .optional(),
+
+  meals: z
+    .array(
+      z.object({
+        _id: z.string({ required_error: "Falta la referencia a la vianda" }),
+        quantity: z
+          .any()
+          .transform((value) => parseInteger(value))
+          .refine(
+            (val) => !Number.isNaN(val),
+            "La cantidad debe ser un número válido",
+          )
+          .pipe(
+            z
+              .number({ required_error: "La cantidad es obligatoria" })
+              .positive("La cantidad debe ser mayor a 0"),
+          ),
+      }),
+    )
+    .min(1, "Debe agregar una vianda al carrito"),
 });
 
-const orderSchema = z.object({
-  client: clientSchema,
-  items: z
-    .array(cartItemSchema)
-    .min(1, "El carrito no puede estar vacío. Agregá al menos una vianda."),
-  total: z.number(),
-  date: z.string(),
-});
-
-export { cartItemSchema, clientSchema, orderSchema };
+export { orderSchema };

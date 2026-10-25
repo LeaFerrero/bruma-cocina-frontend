@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
+import toast from "react-hot-toast";
 
 const CartContext = createContext();
 
@@ -20,24 +21,47 @@ function CartProvider({ children }) {
   const addToCart = (meal) => {
     setCart((prevCart) => {
       const existingMeal = prevCart.find((item) => item._id === meal._id);
+      const stockLimit = meal.currentStock;
 
       if (existingMeal) {
+        const newQuantity = existingMeal.quantity + 1;
+
+        if (newQuantity > stockLimit) {
+          toast.error(
+            `Ha alcanzado el stock disponible para "${meal.name}": ${stockLimit} unidades.`,
+          );
+          return prevCart;
+        }
+
         return prevCart.map((item) =>
-          item._id === meal._id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item,
+          item._id === meal._id ? { ...item, quantity: newQuantity } : item,
         );
       }
+
+      if (stockLimit < 1) {
+        toast.error(`No hay stock disponible para "${meal.name}".`);
+        return prevCart;
+      }
+
       return [...prevCart, { ...meal, quantity: 1 }];
     });
   };
 
   // Función para sumar o restar la cantidad desde el modal
-  const updateQuantity = (id, amount) => {
+  const updateQuantity = (id, amount, max) => {
     setCart((prevCart) =>
       prevCart.map((item) => {
         if (item._id === id) {
           const newQuantity = item.quantity + amount;
+
+          if (newQuantity > max) {
+            console.log(max);
+            toast.error(
+              `Ha alcanzado el stock disponible para "${item.name}": ${max} unidades.`,
+            );
+            return { ...item, quantity: max };
+          }
+
           return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
         }
         return item;

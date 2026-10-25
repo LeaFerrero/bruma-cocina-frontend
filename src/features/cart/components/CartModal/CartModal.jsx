@@ -15,6 +15,7 @@ function CartModal({
   const { cart, updateQuantity, removeFromCart, totalAmount, clearCart } =
     useCart();
 
+  // El modal guarda y retiene los datos del cliente aquí
   const [clientData, setClientData] = useState({
     name: "",
     lastName: "",
@@ -23,30 +24,8 @@ function CartModal({
     notes: "",
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setClientData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSaveOrder = (e) => {
-    e.preventDefault();
-
-    const placedOrder = {
-      client: clientData,
-      items: cart.map((item) => ({
-        _id: String(item._id),
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-      total: totalAmount,
-      date: new Date().toISOString(),
-    };
-
-    onSave(placedOrder);
-  };
-
   const handleCancelOrder = () => {
+    clearCart();
     setClientData({
       name: "",
       lastName: "",
@@ -54,8 +33,6 @@ function CartModal({
       address: "",
       notes: "",
     });
-
-    clearCart();
     onClose();
   };
 
@@ -65,10 +42,10 @@ function CartModal({
         <div className={styles.columnForm}>
           <CartForm
             id="cart-order-form"
-            clientData={clientData}
-            onChange={handleInputChange}
-            onSubmit={handleSaveOrder}
+            onSave={onSave}
             fieldErrors={fieldErrors}
+            initialData={clientData}
+            onClientDataChange={setClientData}
           />
         </div>
 
@@ -77,7 +54,7 @@ function CartModal({
 
           <div className={styles.cartItemsContainer}>
             {cart.length === 0 ? (
-              <p>The cart is empty.</p>
+              <p>El carrito esta vacio.</p>
             ) : (
               cart.map((item) => (
                 <CartItem

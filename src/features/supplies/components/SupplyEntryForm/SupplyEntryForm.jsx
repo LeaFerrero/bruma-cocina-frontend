@@ -119,10 +119,14 @@ function SupplyEntryForm({
         ))}
       </EditableList>
 
-      {/* Contenedor con margin-top dinámico para empujar los botones al fondo */}
       <div style={{ marginTop: "auto" }}>
         <ButtonGroup>
-          <Button text="Registrar ingreso" variant="primary" type="submit" />
+          <Button
+            text="Registrar ingreso"
+            variant="primary"
+            type="submit"
+            disabled={selectedSupplies.length === 0}
+          />
           <Button
             text="Cancelar"
             variant="cancel"

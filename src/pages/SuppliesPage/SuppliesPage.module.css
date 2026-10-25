@@ -24,7 +24,7 @@
   justify-content: center;
 }
 
-.emptyMessage {
+.statusMessage {
   color: var(--color-text-secondary);
   font-size: 1.2rem;
   font-weight: 600;

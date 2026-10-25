@@ -32,7 +32,7 @@ const mealSchema = z.object({
   ingredients: z
     .array(
       z.object({
-        supply: z.string({ required_error: "Falta la referencia al insumo" }),
+        _id: z.string({ required_error: "Falta la referencia al insumo" }),
         quantity: z
           .any()
           .transform((value) => parseDecimal(value, 3))
