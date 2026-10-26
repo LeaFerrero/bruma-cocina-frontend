@@ -1,4 +1,10 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+} from "react";
 import { verifySession } from "../features/auth";
 
 const AuthContext = createContext();
@@ -8,23 +14,41 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await verifySession();
+  // checkAuth estabilizado con useCallback
+  const checkAuth = useCallback(async () => {
+    try {
+      const response = await verifySession();
+      setIsLogged(true);
+      setUser(response.data.user);
+    } catch (error) {
+      setIsLogged(false);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
-        setIsLogged(true);
-        setUser(response.data.user);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLogged(false);
-        setUser(null);
-        setIsLoading(false);
+  // 1. Verificación inicial al cargar la app
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  // 2. Verificación automática cuando el usuario vuelve a la pestaña
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (
+        document.visibilityState === "visible" &&
+        !window.location.pathname.includes("/login")
+      ) {
+        checkAuth(); // Si la sesión murió en segundo plano, apiFetch se encarga de la redirección dura
       }
     };
 
-    checkAuth();
-  }, []);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [checkAuth]);
 
   const loginContext = (userData) => {
     setIsLogged(true);
@@ -42,7 +66,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLogged, user, loginContext, logoutContext }}
+      value={{ isLogged, user, loginContext, logoutContext, checkAuth }}
     >
       {children}
     </AuthContext.Provider>

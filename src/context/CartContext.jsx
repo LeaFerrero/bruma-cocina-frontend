@@ -9,7 +9,6 @@ const initCart = () => {
 };
 
 function CartProvider({ children }) {
-  // Inicializamos usando la función auxiliar en lugar de un array vacío
   const [cart, setCart] = useState(initCart);
 
   // Guardamos en localStorage cada vez que el carrito cambia

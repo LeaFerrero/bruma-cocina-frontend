@@ -13,6 +13,8 @@ import {
   ManagementLayout,
 } from "./components/layout";
 
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+
 import {
   CatalogPage,
   AboutUsPage,
@@ -27,15 +29,6 @@ import {
 
 import { useAuth, CartProvider } from "./context";
 import { ROLES } from "./features/users";
-
-const PrivateRoute = () => {
-  const { isLogged } = useAuth();
-
-  if (!isLogged) {
-    return <Navigate to="/gestion/login" replace />;
-  }
-  return <Outlet />;
-};
 
 const RoleBasedRedirect = () => {
   const { user } = useAuth();
@@ -87,7 +80,7 @@ function App() {
             <Route path="login" element={<LoginPage />} />
           </Route>
 
-          <Route element={<PrivateRoute />}>
+          <Route element={<ProtectedRoute />}>
             <Route element={<ManagementLayout />}>
               <Route index element={<RoleBasedRedirect />} />
               <Route path="cocina" element={<KitchenPage />} />

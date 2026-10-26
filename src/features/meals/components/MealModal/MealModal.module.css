@@ -1,11 +1,8 @@
 .modalLayout {
   display: flex;
   flex-direction: column;
-  width: 35rem;
+  width: 60rem;
   max-width: 100%;
-  min-height: 20svh;
-  max-height: 95vh;
-  overflow-y: auto;
 }
 
 .inlineError {

@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/AuthContext";
@@ -7,10 +7,19 @@ import { Card } from "../../components/ui";
 import { LoginForm, login, loginSchema } from "../../features/auth";
 
 function LoginPage() {
+  const [searchParams] = useSearchParams();
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
   const { loginContext } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (searchParams.get("expired") === "true") {
+      setFormError(
+        "Tu sesión ha expirado por inactividad. Por favor, volvé a ingresar.",
+      );
+    }
+  }, [searchParams]);
 
   const handleLogin = async (loginData) => {
     setFieldErrors({});

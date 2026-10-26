@@ -15,6 +15,12 @@
   margin-bottom: 0.5rem;
 }
 
+.fieldsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .inputGroup {
   display: flex;
   flex-direction: column;
@@ -34,11 +40,23 @@
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   max-height: 15rem;
-  overflow-y: auto;
 }
 
 .emptyMessage {
   margin-top: 1.5rem;
+}
+
+.formGridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.dataContainer,
+.recipeContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 750px) {
@@ -51,5 +69,12 @@
   .inputContainer {
     flex: 1;
     min-width: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .formGridContainer {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }

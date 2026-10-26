@@ -4,6 +4,7 @@ import {
   Form,
   Input,
   TextArea,
+  ImageInput,
   AutocompleteInput,
   Button,
   ButtonGroup,
@@ -24,6 +25,7 @@ export function MealForm({
     price: "",
     category: "",
     description: "",
+    image: null,
   });
 
   const [ingredients, setIngredients] = useState([]);
@@ -39,6 +41,7 @@ export function MealForm({
           ? mealToEdit.category.join(", ")
           : mealToEdit.category || "",
         description: mealToEdit.description || "",
+        image: mealToEdit.image || null,
       });
       setIngredients(mealToEdit.ingredients || []);
     }
@@ -114,107 +117,122 @@ export function MealForm({
   };
 
   return (
-    <Form
-      id="meal-form"
-      onSubmit={handleSubmit}
-      title="Datos de la Vianda"
-      error={formError}
-    >
-      <Input
-        id="meal-name"
-        name="name"
-        label="Nombre"
-        value={mealData.name}
-        onChange={handleChange}
-        maxLength={50}
-        required
-        error={fieldErrors.name}
-      />
-      <div className={styles.rowInputs}>
-        <Input
-          id="price"
-          label="Precio"
-          name="price"
-          inputMode="decimal"
-          value={mealData.price}
-          onChange={handleChange}
-          error={fieldErrors.price}
-          required
-          maxLength={10}
-        />
-        <Input
-          id="meal-category"
-          name="category"
-          label="Categorías"
-          placeholder="Ej: Vegano, Sin TACC"
-          value={mealData.category}
-          onChange={handleChange}
-          maxLength={100}
-          required
-          error={fieldErrors.category}
-        />
-      </div>
-      <TextArea
-        id="meal-description"
-        name="description"
-        label="Descripción"
-        value={mealData.description}
-        onChange={handleChange}
-        maxLength={250}
-        rows={4}
-        error={fieldErrors.description}
-      />
+    <Form id="meal-form" onSubmit={handleSubmit} error={formError}>
+      {/* Contenedor de dos columnas */}
+      <div className={styles.formGridContainer}>
+        <div className={styles.dataContainer}>
+          <h3 className={styles.sectionTitle}>Datos de la vianda</h3>
 
-      <div className={styles.recipeSection}>
-        <h3 className={styles.sectionTitle}>Receta de la Vianda</h3>
-
-        <div>
-          <div className={styles.inputGroup}>
-            <div className={styles.inputContainer}>
-              <AutocompleteInput
-                label="Seleccionar un insumo"
-                options={availableSupplies.map((supply) => supply.name)}
-                placeholder="Nombre del insumo..."
-                value={inputValue}
-                onChange={setInputValue}
+          {/* Div que envuelve a todos los inputs de la sección */}
+          <div className={styles.fieldsContainer}>
+            <Input
+              id="meal-name"
+              name="name"
+              label="Nombre"
+              value={mealData.name}
+              onChange={handleChange}
+              maxLength={50}
+              required
+              error={fieldErrors.name}
+            />
+            <div className={styles.rowInputs}>
+              <Input
+                id="price"
+                label="Precio"
+                name="price"
+                inputMode="decimal"
+                value={mealData.price}
+                onChange={handleChange}
+                error={fieldErrors.price}
+                required
+                maxLength={10}
+              />
+              <Input
+                id="meal-category"
+                name="category"
+                label="Categorías"
+                placeholder="Ej: Vegano, Sin TACC"
+                value={mealData.category}
+                onChange={handleChange}
+                maxLength={100}
+                required
+                error={fieldErrors.category}
               />
             </div>
-            <ButtonGroup>
-              <Button
-                text="Agregar"
-                variant="primary"
-                type="button"
-                onClick={handleAddIngredient}
-              />
-            </ButtonGroup>
-          </div>
+            <TextArea
+              id="meal-description"
+              name="description"
+              label="Descripción"
+              value={mealData.description}
+              onChange={handleChange}
+              maxLength={250}
+              rows={4}
+              error={fieldErrors.description}
+            />
 
-          {searchError && (
-            <span className={styles.inlineError}>{searchError}</span>
-          )}
+            <ImageInput
+              label="Imagen de la vianda"
+              value={mealData.image}
+              onChange={(file) =>
+                setFormData((prev) => ({ ...prev, image: file }))
+              }
+              error={fieldErrors.image}
+            />
+          </div>
         </div>
 
-        <EditableList
-          title="Ingredientes seleccionados:"
-          isEmpty={ingredients.length === 0}
-          emptyMessage="No hay ingredientes en la receta"
-        >
-          {ingredients.map((item, index) => (
-            <EditableListItem
-              key={item._id}
-              name={item.name}
-              quantity={item.quantity}
-              suffix={item.unit || "u."}
-              error={fieldErrors[`ingredients.${index}.quantity`]}
-              onQuantityChange={(newQuantity) =>
-                handleQuantityChange(item._id, newQuantity)
-              }
-              onRemove={() => handleRemoveIngredient(item._id)}
-            />
-          ))}
-        </EditableList>
+        {/* COLUMNA DERECHA: Receta e ingredientes */}
+        <div className={styles.recipeContainer}>
+          <h3 className={styles.sectionTitle}>Receta de la Vianda</h3>
+          <div>
+            <div className={styles.inputGroup}>
+              <div className={styles.inputContainer}>
+                <AutocompleteInput
+                  label="Seleccionar un insumo"
+                  options={availableSupplies.map((supply) => supply.name)}
+                  placeholder="Nombre del insumo..."
+                  value={inputValue}
+                  onChange={setInputValue}
+                />
+              </div>
+              <ButtonGroup>
+                <Button
+                  text="Agregar"
+                  variant="primary"
+                  type="button"
+                  onClick={handleAddIngredient}
+                />
+              </ButtonGroup>
+            </div>
+
+            {searchError && (
+              <span className={styles.inlineError}>{searchError}</span>
+            )}
+          </div>
+
+          <EditableList
+            title="Ingredientes seleccionados:"
+            isEmpty={ingredients.length === 0}
+            emptyMessage="No hay ingredientes en la receta"
+          >
+            {ingredients.map((item, index) => (
+              <EditableListItem
+                key={item._id}
+                name={item.name}
+                quantity={item.quantity}
+                suffix={item.unit || "u."}
+                error={fieldErrors[`ingredients.${index}.quantity`]}
+                onQuantityChange={(newQuantity) =>
+                  handleQuantityChange(item._id, newQuantity)
+                }
+                onRemove={() => handleRemoveIngredient(item._id)}
+              />
+            ))}
+          </EditableList>
+        </div>
       </div>
 
+      {/* BOTONES GLOBALES ABAJO */}
       <ButtonGroup>
         <Button
           text="Guardar Vianda"

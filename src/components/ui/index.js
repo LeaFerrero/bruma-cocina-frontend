@@ -11,6 +11,7 @@ export { default as OrderCard } from "./cards/OrderCard/OrderCard";
 export { default as Form } from "./forms/Form/Form";
 export { default as Input } from "./inputs/Input/Input";
 export { default as DateInput } from "./inputs/DateInput/DateInput";
+export { default as ImageInput } from "./inputs/ImageInput/ImageInput";
 export { default as AutocompleteInput } from "./inputs/AutocompleteInput/AutocompleteInput";
 export { default as DropdownInput } from "./inputs/DropdownInput/DropdownInput";
 export { default as TextArea } from "./inputs/TextArea/TextArea";

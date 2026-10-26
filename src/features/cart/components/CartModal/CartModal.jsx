@@ -15,7 +15,6 @@ function CartModal({
   const { cart, updateQuantity, removeFromCart, totalAmount, clearCart } =
     useCart();
 
-  // El modal guarda y retiene los datos del cliente aquí
   const [clientData, setClientData] = useState({
     name: "",
     lastName: "",

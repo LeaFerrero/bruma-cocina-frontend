@@ -40,7 +40,7 @@ const apiFetch = async (endpoint, options = {}) => {
         ) {
           if (!isRedirecting) {
             isRedirecting = true;
-            window.location.href = "/gestion/login";
+            window.location.href = "/gestion/login?expired=true";
           }
           return new Promise(() => {});
         }
