@@ -6,16 +6,10 @@ import {
   DropdownInput,
   ButtonGroup,
 } from "../../../../components/ui";
+import { PAYMENT_METHODS_OPTIONS } from "../../utils/paymentMethods";
 
 function PaymentForm({ order, onConfirm, onCancel }) {
   const [paymentMethod, setPaymentMethod] = useState("efectivo");
-
-  const paymentOptions = [
-    { value: "efectivo", text: "Efectivo" },
-    { value: "debito", text: "Tarjeta de Débito" },
-    { value: "credito", text: "Tarjeta de Crédito" },
-    { value: "mercadopago", text: "MercadoPago / Transferencia" },
-  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,7 +27,7 @@ function PaymentForm({ order, onConfirm, onCancel }) {
         id="paymentMethod"
         label="Método de pago"
         value={paymentMethod}
-        options={paymentOptions}
+        options={PAYMENT_METHODS_OPTIONS}
         onChange={(e) => setPaymentMethod(e.target.value)}
       />
 

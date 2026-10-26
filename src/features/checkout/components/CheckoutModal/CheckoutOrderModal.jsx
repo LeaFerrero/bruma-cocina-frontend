@@ -3,6 +3,7 @@ import styles from "./CheckoutOrderModal.module.css";
 import { Modal, Button, ButtonGroup } from "../../../../components/ui";
 import CheckoutOrderDetails from "../CheckoutOrderDetails/CheckoutOrderDetails";
 import PaymentForm from "../PaymentForm/PaymentForm";
+import { getBusinessDate } from "../../../../utils/dates";
 
 function CheckoutOrderModal({
   order,
@@ -19,8 +20,21 @@ function CheckoutOrderModal({
 
   if (!order) return null;
 
+  const handleConfirmPayment = (paymentMethod) => {
+    onProcessPayment({
+      order: order._id,
+      totalAmount: order.total,
+      paymentMethod: paymentMethod,
+      paidAt: getBusinessDate(),
+    });
+  };
+
   return (
-    <Modal title={order.orderId} isOpen={isOpen} onClose={onClose}>
+    <Modal
+      title={`Comanda: ${order.orderCode}`}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <div className={styles.modalLayout}>
         {!isPaying ? (
           <CheckoutOrderDetails
@@ -40,9 +54,7 @@ function CheckoutOrderModal({
         ) : (
           <PaymentForm
             order={order}
-            onConfirm={(paymentMethod) => {
-              onProcessPayment(order.orderId, paymentMethod);
-            }}
+            onConfirm={handleConfirmPayment}
             onCancel={() => setIsPaying(false)}
           />
         )}

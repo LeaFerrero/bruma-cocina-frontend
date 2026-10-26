@@ -2,6 +2,19 @@
   color: var(--color-text-secondary);
 }
 
+.filtersToolbar {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filterContainer {
+  color: var(--color-text-secondary);
+  min-width: 17.5rem;
+  max-width: 17.5rem;
+}
+
 .ordersGrid {
   display: grid;
   gap: 2rem;
@@ -10,17 +23,26 @@
   justify-content: center;
 }
 
-.filterContainer {
-  margin-top: 1rem;
-  max-width: 17.5rem;
-}
-
 .filterContainer label {
   color: var(--color-text-secondary);
+}
+
+.statusMessage {
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 @media (min-width: 1200px) {
   .ordersGrid {
     justify-content: flex-start;
+  }
+
+  .filtersToolbar {
+    gap: 2rem;
+  }
+
+  .filtersToolbar {
+    flex-direction: row;
   }
 }

@@ -19,7 +19,7 @@ function KitchenOrderDetails({ order, children }) {
         </div>
       </div>
 
-      {order.meals.notes && (
+      {order.notes && (
         <div className={`${styles.section} ${styles.noteWarning}`}>
           <p className={styles.textRow}>
             <strong>Nota:</strong> {order.notes}

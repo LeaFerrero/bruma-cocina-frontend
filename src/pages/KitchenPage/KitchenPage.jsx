@@ -14,16 +14,8 @@ import {
   cancelOrder,
 } from "../../services/ordersApi";
 import toast from "react-hot-toast";
-
-const getTodayString = () => {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/Argentina/Buenos_Aires",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date());
-};
-
+import { getBusinessDate } from "../../utils/dates";
+import { socket } from "../../services/socket";
 const filterOptions = [
   { value: "Todas", label: "Todas" },
   { value: "PENDIENTE", label: "Pendiente" },
@@ -36,7 +28,7 @@ function Kitchen() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("PENDIENTE");
-  const [selectedDate, setSelectedDate] = useState(getTodayString());
+  const [selectedDate, setSelectedDate] = useState(getBusinessDate());
   const [searchTerm, setSearchTerm] = useState("");
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
@@ -60,6 +52,19 @@ function Kitchen() {
     };
 
     loadOrders();
+
+    socket.on("order-created", () => {
+      loadOrders();
+    });
+
+    socket.on("order-updated", () => {
+      loadOrders();
+    });
+
+    return () => {
+      socket.off("order-created");
+      socket.off("order-updated");
+    };
   }, [selectedFilter, selectedDate]);
 
   const orderCodes = orders.map((order) => order.orderCode);
