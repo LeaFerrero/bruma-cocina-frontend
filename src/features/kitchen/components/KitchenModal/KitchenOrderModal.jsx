@@ -7,7 +7,11 @@ function KitchenOrderModal({ order, isOpen, onClose, onDispatch, onCancel }) {
   if (!order) return null;
 
   return (
-    <Modal title={order.orderId} isOpen={isOpen} onClose={onClose}>
+    <Modal
+      title={`Comanda: ${order.orderCode}`}
+      isOpen={isOpen}
+      onClose={onClose}
+    >
       <div className={styles.modalLayout}>
         <KitchenOrderDetTails order={order}>
           <ButtonGroup>

@@ -3,16 +3,20 @@ import styles from "./OrderCard.module.css";
 import Card from "../Card/Card";
 import Button from "../../buttons/Button/Button";
 import ButtonGroup from "../../buttons/ButtonGroup/ButtonGroup";
+import { formatTime, formatDateForDisplay } from "../../../../utils/dates";
 
 function OrderCard({ order, onDetails }) {
   return (
-    <Card title={order.orderId} interactive>
+    <Card title={order.orderCode} interactive>
       <div className={styles.cardDetail}>
         <p className={styles.description}>
-          <strong>Hora:</strong> {order.time}
+          <strong>Hora:</strong> {formatTime(order.createdAt)}
+        </p>
+        <p>
+          <strong>Fecha:</strong> {formatDateForDisplay(order.dateOnly)}
         </p>
         <p className={styles.status}>
-          <strong>Estado:</strong> {order.status}
+          <strong>Estado:</strong> {order.orderStatus}
         </p>
       </div>
       <ButtonGroup>

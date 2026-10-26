@@ -1,4 +1,4 @@
-.field {
+.inputContainer {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -9,7 +9,7 @@
   margin-bottom: 0.2rem;
 }
 
-.basicInput {
+.input {
   padding: 0 0.5rem;
   border: 0.15rem solid var(--color-input-border);
   border-radius: 0.15rem;
@@ -19,22 +19,22 @@
   resize: none;
 }
 
-.basicInput:focus {
+.input:focus {
   outline: none;
   border-color: var(--color-input-focus);
 }
 
-.basicInput:hover {
+.input:hover {
   border-color: var(--color-input-hover);
 }
 
-.basicInput::-webkit-outer-spin-button,
-.basicInput::-webkit-inner-spin-button {
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.basicInput[type="number"] {
+.input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }

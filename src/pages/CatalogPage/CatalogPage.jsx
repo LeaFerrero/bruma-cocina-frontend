@@ -6,7 +6,7 @@ import { CartModal, OrderSuccessModal } from "../../features/cart";
 import { DropdownInput, Button, ConfirmModal } from "../../components/ui";
 import { orderSchema } from "../../features/cart/utils/cartValidation";
 import { getMeals } from "../../features/meals";
-import { createOrder } from "../../features/cart";
+import { createOrder } from "../../services/ordersApi";
 import { socket } from "../../services/socket";
 import toast from "react-hot-toast";
 

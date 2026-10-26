@@ -12,7 +12,7 @@ function Input({
   const errorClass = error ? styles.inputError : "";
 
   return (
-    <div className={styles.field}>
+    <div className={styles.inputContainer}>
       {label && (
         <label htmlFor={id} className={styles.label}>
           {label}
@@ -21,7 +21,7 @@ function Input({
       <input
         id={id}
         type={type}
-        className={`${styles.basicInput} ${errorClass} ${additionalClass}`.trim()}
+        className={`${styles.input} ${errorClass} ${additionalClass}`.trim()}
         {...props}
       />
       {error && <span className={styles.errorMessage}>{error}</span>}

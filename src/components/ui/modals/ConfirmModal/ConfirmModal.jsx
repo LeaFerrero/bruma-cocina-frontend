@@ -1,8 +1,8 @@
+import React from "react";
 import Modal from "../Modal/Modal";
 import styles from "./ConfirmModal.module.css";
 import Button from "../../buttons/Button/Button";
-
-import React from "react";
+import ButtonGroup from "../../buttons/ButtonGroup/ButtonGroup";
 
 function ConfirmModal({
   title,
@@ -11,22 +11,24 @@ function ConfirmModal({
   onConfirm,
   isDanger = false,
   message,
+  confirmText,
+  cancelText = "Cancelar",
 }) {
-  return (
-    <>
-      <Modal title={title} isOpen={isOpen} onClose={onClose}>
-        <p className={styles.messageText}>{message}</p>
-        <div className={styles.buttonsContainer}>
-          {isDanger ? (
-            <Button text="Borrar" variant="danger" onClick={onConfirm} />
-          ) : (
-            <Button text="Confirmar" variant="primary" onClick={onConfirm} />
-          )}
+  const defaultConfirmText = isDanger ? "Borrar" : "Confirmar";
+  const finalConfirmText = confirmText || defaultConfirmText;
 
-          <Button text="Cancelar" variant="cancel" onClick={onClose} />
-        </div>
-      </Modal>
-    </>
+  return (
+    <Modal title={title} isOpen={isOpen} onClose={onClose}>
+      <p className={styles.messageText}>{message}</p>
+      <ButtonGroup>
+        <Button
+          text={finalConfirmText}
+          variant={isDanger ? "danger" : "primary"}
+          onClick={onConfirm}
+        />
+        <Button text={cancelText} variant="cancel" onClick={onClose} />
+      </ButtonGroup>
+    </Modal>
   );
 }
 

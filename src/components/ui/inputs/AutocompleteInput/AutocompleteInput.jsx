@@ -8,7 +8,7 @@ function AutocompleteInput({
   onChange,
   placeholder,
   label,
-  error,  
+  error,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -17,7 +17,7 @@ function AutocompleteInput({
   );
 
   return (
-    <div className={styles.container}>
+    <div className={styles.acutocompleteInputContainer}>
       <Input
         label={label}
         type="text"

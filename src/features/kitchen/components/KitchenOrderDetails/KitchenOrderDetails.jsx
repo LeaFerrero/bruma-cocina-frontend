@@ -6,22 +6,20 @@ function KitchenOrderDetails({ order, children }) {
 
   return (
     <div className={styles.container}>
-      {/* 1. Primero el Detalle a Preparar */}
       <div className={styles.section}>
         <h3 className={styles.sectionTitle}>Detalle a Preparar</h3>
         <div className={styles.itemsList}>
-          {order.items.map((orderItem, index) => (
-            <div key={orderItem.id || index} className={styles.itemRow}>
+          {order.meals.map((meal, index) => (
+            <div key={meal._id || index} className={styles.itemRow}>
               <p>
-                {orderItem.name || orderItem.title}{" "}
-                <strong>x{orderItem.quantity}</strong>
+                {meal.name} <strong>x{meal.quantity}</strong>
               </p>
             </div>
           ))}
         </div>
       </div>
 
-      {order.notes && (
+      {order.meals.notes && (
         <div className={`${styles.section} ${styles.noteWarning}`}>
           <p className={styles.textRow}>
             <strong>Nota:</strong> {order.notes}
