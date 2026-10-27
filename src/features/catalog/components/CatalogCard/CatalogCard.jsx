@@ -3,8 +3,11 @@ import styles from "./CatalogCard.module.css";
 import { Card, Button, ButtonGroup } from "../../../../components/ui";
 
 function CatalogCard({ meal, onClick }) {
+<<<<<<< HEAD
   // Obtenemos la URL base desde la variable de entorno de Vite
   // Agregamos un fallback por seguridad
+=======
+>>>>>>> feature/carrusel-clientes
   const API_URL = import.meta.env.VITE_STATIC_URL || "http://localhost:3000";
   console.log(meal.image);
 

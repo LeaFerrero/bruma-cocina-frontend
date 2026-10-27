@@ -16,6 +16,7 @@ import {
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import {
+  LandingPage,
   CatalogPage,
   AboutUsPage,
   LoginPage,
@@ -71,7 +72,8 @@ function App() {
             </CartProvider>
           }
         >
-          <Route index element={<CatalogPage />} />
+          <Route index element={<LandingPage />} />{" "}
+          <Route path="menu" element={<CatalogPage />} />
           <Route path="nosotros" element={<AboutUsPage />} />
         </Route>
 

@@ -7,11 +7,13 @@ const Card = ({
   variant = "default",
   children,
   interactive = false,
+  className = "",
 }) => {
   const cardClasses = [
     styles.cardContainer,
     styles[variant],
     interactive ? styles.interactive : "",
+    className,
   ]
     .filter(Boolean)
     .join(" ");
@@ -20,9 +22,11 @@ const Card = ({
 
   return (
     <article className={cardClasses}>
-      <div className={styles.header}>
-        {title && <TitleTag className={styles.title}>{title}</TitleTag>}
-      </div>
+      {title && (
+        <div className={styles.header}>
+          <TitleTag className={styles.title}>{title}</TitleTag>
+        </div>
+      )}
       <div className={styles.childrenContainer}>{children}</div>
     </article>
   );

@@ -1,7 +1,7 @@
 import React from "react";
-import { FaFire, FaClock, FaSeedling, FaRocket } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import styles from "./AboutUsPage.module.css";
-import { Card } from "../../components/ui";
+import { Card, Button } from "../../components/ui";
 
 function SobreNosotros() {
   return (
@@ -29,55 +29,83 @@ function SobreNosotros() {
             </p>
           </section>
 
-          <section className={styles.missionVisionGrid}>
-            <article className={styles.infoBlock}>
-              <h3 className={styles.blockTitle}>Nuestra Misión</h3>
-              <div className={styles.blockContent}>
-                <p>
-                  Simplificarte la rutina con platos sabrosos, prácticos y
-                  equilibrados. Buscamos que comer rico siempre sea tu mejor
-                  pausa del día.
-                </p>
-              </div>
-            </article>
+          <section className={styles.missionVisionSection}>
+            <h3 className={styles.subtitle}>Propósito y Propuesta</h3>
+            <p className={styles.sectionDescription}>
+              Lo que nos motiva día a día y hacia dónde proyectamos nuestro
+              modelo de gastronomía digital.
+            </p>
 
-            <article className={styles.infoBlock}>
-              <h3 className={styles.blockTitle}>Nuestra Visión</h3>
-              <div className={styles.blockContent}>
-                <p>
-                  Liderar el concepto de gastronomía nativa digital en CABA,
-                  siendo la opción predilecta por nuestra calidad y constante
-                  innovación.
-                </p>
-              </div>
-            </article>
+            <div className={styles.missionVisionGrid}>
+              <Card
+                title="Nuestra Misión"
+                headingLevel="h4"
+                className={styles.highlightCard}
+              >
+                <div className={styles.blockContent}>
+                  <p>
+                    Simplificarte la rutina con platos sabrosos, prácticos y
+                    equilibrados. Buscamos que comer rico siempre sea tu mejor
+                    pausa del día.
+                  </p>
+                </div>
+              </Card>
+
+              <Card
+                title="Nuestra Visión"
+                headingLevel="h4"
+                className={styles.highlightCard}
+              >
+                <div className={styles.blockContent}>
+                  <p>
+                    Liderar el concepto de gastronomía nativa digital en CABA,
+                    siendo la opción predilecta por nuestra calidad y constante
+                    innovación.
+                  </p>
+                </div>
+              </Card>
+            </div>
           </section>
 
           <section className={styles.valuesSection}>
-            <h2 className={styles.subtitle}>Nuestros Valores</h2>
+            <h3 className={styles.subtitle}>Nuestros Valores</h3>
+            <p className={styles.sectionDescription}>
+              Los pilares fundamentales sobre los que preparamos cada una de
+              nuestras recetas.
+            </p>
+
             <div className={styles.valuesGrid}>
-              <article className={styles.infoBlock}>
-                <h4 className={styles.blockTitle}>Ingredientes Frescos</h4>
+              <Card
+                title="Ingredientes Frescos"
+                headingLevel="h4"
+                className={styles.highlightCard}
+              >
                 <div className={styles.blockContent}>
                   <p>
                     Nos mueve la pasión por la materia prima de primera calidad
                     y el respeto por el producto.
                   </p>
                 </div>
-              </article>
+              </Card>
 
-              <article className={styles.infoBlock}>
-                <h4 className={styles.blockTitle}>Empatía con tu día</h4>
+              <Card
+                title="Empatía con tu día"
+                headingLevel="h4"
+                className={styles.highlightCard}
+              >
                 <div className={styles.blockContent}>
                   <p>
                     Entendemos tu rutina. Creamos soluciones para que no pierdas
                     tiempo sin resignar sabor.
                   </p>
                 </div>
-              </article>
+              </Card>
 
-              <article className={styles.infoBlock}>
-                <h4 className={styles.blockTitle}>Compromiso Inclusivo</h4>
+              <Card
+                title="Compromiso Inclusivo"
+                headingLevel="h4"
+                className={styles.highlightCard}
+              >
                 <div className={styles.blockContent}>
                   <p>
                     Casi toda nuestra carta está adaptada de forma segura para
@@ -85,9 +113,15 @@ function SobreNosotros() {
                     cocina debe ser para todos.
                   </p>
                 </div>
-              </article>
+              </Card>
             </div>
           </section>
+
+          <div className={styles.ctaContainer}>
+            <Link to="/menu" className={styles.menuButtonLink}>
+              <Button text="Ver Menú" />
+            </Link>
+          </div>
         </div>
       </Card>
     </section>
