@@ -4,6 +4,10 @@ const getMeals = () => {
   return apiFetch("/meals");
 };
 
+const getMealImages = () => {
+  return apiFetch("/meals/images");
+};
+
 const getMealById = (id) => {
   return apiFetch(`/meals/${id}`);
 };
@@ -28,4 +32,11 @@ const deleteMeal = (id) => {
   });
 };
 
-export { getMeals, getMealById, createMeal, editMeal, deleteMeal };
+export {
+  getMeals,
+  getMealImages,
+  getMealById,
+  createMeal,
+  editMeal,
+  deleteMeal,
+};

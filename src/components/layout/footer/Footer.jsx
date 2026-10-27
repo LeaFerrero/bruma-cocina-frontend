@@ -21,6 +21,9 @@ function Footer() {
               <a href="#menu">Menú</a>
             </li>
             <li>
+              <a href="#menu">Menú</a>
+            </li>
+            <li>
               <a href="#nosotros">Sobre Nosotros</a>
             </li>
           </ul>

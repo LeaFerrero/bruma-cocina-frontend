@@ -10,61 +10,6 @@ import { createOrder } from "../../services/ordersApi";
 import { socket } from "../../services/socket";
 import toast from "react-hot-toast";
 
-
-const imageModules = import.meta.glob(
-  "../../assets/carousel/*.{png,jpg,jpeg,webp}",
-  { eager: true }
-);
-
-const carouselImages = Object.values(imageModules).map(
-  (module) => module.default
-);
-
-
-function ImageCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (carouselImages.length === 0) return;
-
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
-    }, 4000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  if (carouselImages.length === 0) {
-    return null; 
-  }
-
-  return (
-    <div className={styles.carouselContainer}>
-      <div
-        className={styles.carouselSlide}
-        style={{ backgroundImage: `url(${carouselImages[currentIndex]})` }}
-      >
-        <div className={styles.carouselOverlay}>
-          <h3>Bruma Cocina</h3>
-          <p>Alta cocina de autor al vacío • 100% Sin TACC</p>
-        </div>
-      </div>
-
-      <div className={styles.dotsContainer}>
-        {carouselImages.map((_, index) => (
-          <span
-            key={index}
-            className={`${styles.dot} ${
-              index === currentIndex ? styles.activeDot : ""
-            }`}
-            onClick={() => setCurrentIndex(index)}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function CatalogPage() {
   const { cart, addToCart, clearCart } = useCart();
 
@@ -205,7 +150,6 @@ function CatalogPage() {
     return (
       <section className={styles.menuSection}>
         <h2>Viandas disponibles</h2>
-        <ImageCarousel />
         <div className={styles.loadingContainer}>
           <p>Cargando viandas...</p>
         </div>
@@ -216,8 +160,6 @@ function CatalogPage() {
   return (
     <section className={styles.menuSection}>
       <h2>Viandas disponibles</h2>
-
-      <ImageCarousel />
 
       <div className={styles.filterContainer}>
         <DropdownInput

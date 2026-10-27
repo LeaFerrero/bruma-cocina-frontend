@@ -1,0 +1,96 @@
+.landingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 100vw;
+  height: 100%;
+  padding: 0.25rem 1rem; /* Reducimos ligeramente el padding vertical */
+  gap: 0.5rem; /* Reducimos un poco el espacio entre secciones */
+  box-sizing: border-box;
+  overflow: hidden; /* Oculta cualquier desborde accidental */
+}
+
+.heroSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.aboutSummarySection {
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.summaryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.heroText {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--color-text-main, #334155);
+  margin: 0;
+}
+
+.highlightsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.2rem;
+}
+
+.highlightCard {
+  border: 1px solid var(--color-border, #e2e8f0) !important;
+  border-radius: var(--border-radius, 8px) !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.highlightCard h4,
+.highlightCard :global(h4) {
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  color: var(--color-primary, #0088a9) !important;
+  margin: 0 0 0.2rem 0 !important;
+}
+
+.highlightCard p,
+.highlightCard :global(p) {
+  font-size: 0.85rem !important;
+  line-height: 1.3 !important;
+  color: var(--color-text-muted, #64748b) !important;
+  margin: 0 !important;
+}
+
+.ctaContainer {
+  margin-top: 10rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.menuButtonLink {
+  text-decoration: none;
+}
+
+.aboutLink {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary, #0088a9);
+  text-decoration: none;
+}
+
+.aboutLink:hover {
+  text-decoration: underline;
+}

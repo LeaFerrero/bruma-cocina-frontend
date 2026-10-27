@@ -16,6 +16,9 @@ export { default as AutocompleteInput } from "./inputs/AutocompleteInput/Autocom
 export { default as DropdownInput } from "./inputs/DropdownInput/DropdownInput";
 export { default as TextArea } from "./inputs/TextArea/TextArea";
 
+// Carrusel
+export { default as ImageCarousel } from "./carousel/ImageCarousel/ImageCarousel";
+
 // Listas
 export { default as EditableList } from "./lists/EditableList/EditableList";
 export { default as EditableListItem } from ".//lists/EditableListItem/EditableListItem";

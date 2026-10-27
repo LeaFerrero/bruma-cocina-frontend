@@ -4,7 +4,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Outlet, useLocation } from "react-router-dom";
-import { FaWhatsapp } from "react-icons/fa"; // Importamos el icono
+import { FaWhatsapp } from "react-icons/fa";
 
 function PublicLayout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,14 +15,14 @@ function PublicLayout() {
   };
 
   const menuLinks = [
-    { path: "/", text: "Menú" },
+    { path: "/", text: "Inicio" },
+    { path: "/menu", text: "Menú" },
     { path: "/nosotros", text: "Sobre Nosotros" },
   ];
 
   const currentLink = menuLinks.find((link) => link.path === location.pathname);
   const pageTitle = currentLink ? currentLink.text : "";
 
-  // Cambiá este número por el real de Bruma Cocina (ej: 5491123456789)
   const whatsappNumber = "5491100000000";
 
   return (
