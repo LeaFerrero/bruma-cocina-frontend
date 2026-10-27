@@ -65,12 +65,12 @@ function ProductionForm({
     e.preventDefault();
     setSearchError(null);
 
-    const cleanItems = selectedMeals.map((meal) => ({
+    const cleanMeals = selectedMeals.map((meal) => ({
       _id: meal._id,
-      quantity: Number(meal.quantity),
+      quantity: meal.quantity,
     }));
 
-    onSave({ items: cleanItems });
+    onSave({ meals: cleanMeals });
   };
 
   const handleCancel = () => {
@@ -106,9 +106,9 @@ function ProductionForm({
           </ButtonGroup>
         </div>
 
-        {(searchError || fieldErrors.items) && (
+        {(searchError || fieldErrors.meals) && (
           <span className={styles.inlineError}>
-            {searchError || fieldErrors.items}
+            {searchError || fieldErrors.meals}
           </span>
         )}
       </div>
@@ -124,7 +124,8 @@ function ProductionForm({
             name={meal.name}
             quantity={meal.quantity}
             suffix="cant."
-            error={fieldErrors[`items.${index}.quantity`]}
+            /* Apuntamos a meals.${index}.quantity que es la clave que genera Zod */
+            error={fieldErrors[`meals.${index}.quantity`]}
             onQuantityChange={(newQuantity) =>
               handleQuantityChange(meal._id, newQuantity)
             }

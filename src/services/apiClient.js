@@ -6,13 +6,23 @@ let isRedirecting = false;
 
 const apiFetch = async (endpoint, options = {}) => {
   try {
+    // 1. Detectamos si el body es un FormData
+    const isFormData = options.body instanceof FormData;
+
+    // 2. Construimos los headers dinámicamente
+    const headers = {
+      ...options.headers,
+    };
+
+    // 3. Solo agregamos application/json si NO es FormData
+    if (!isFormData) {
+      headers["Content-type"] = "application/json";
+    }
+
     const response = await fetch(`${API_URL}${endpoint}`, {
       credentials: "include",
       ...options,
-      headers: {
-        "Content-type": "application/json",
-        ...options.headers,
-      },
+      headers, // Usamos los headers condicionales
     });
 
     let data = {};

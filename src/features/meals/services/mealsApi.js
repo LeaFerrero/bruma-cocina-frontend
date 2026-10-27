@@ -11,14 +11,14 @@ const getMealById = (id) => {
 const createMeal = (mealData) => {
   return apiFetch("/meals", {
     method: "POST",
-    body: JSON.stringify(mealData),
+    body: mealData,
   });
 };
 
 const editMeal = (id, mealData) => {
   return apiFetch(`/meals/${id}`, {
     method: "PATCH",
-    body: JSON.stringify(mealData),
+    body: mealData,
   });
 };
 

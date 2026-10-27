@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 import toast from "react-hot-toast";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/";
 import { Card } from "../../components/ui";
-import { LoginForm, login, loginSchema } from "../../features/auth";
+import { LoginForm, loginSchema } from "../../features/auth";
 
 function LoginPage() {
   const [searchParams] = useSearchParams();
@@ -15,9 +15,7 @@ function LoginPage() {
 
   useEffect(() => {
     if (searchParams.get("expired") === "true") {
-      setFormError(
-        "Tu sesión ha expirado por inactividad. Por favor, volvé a ingresar.",
-      );
+      setFormError("Su sesión ha expirado por inactividad.");
     }
   }, [searchParams]);
 
@@ -41,8 +39,7 @@ function LoginPage() {
     }
 
     try {
-      const response = await login(validations.data);
-      loginContext(response.data.user);
+      const response = await loginContext(validations.data);
       toast.success(response.message);
       navigate("/gestion", { replace: true });
     } catch (error) {

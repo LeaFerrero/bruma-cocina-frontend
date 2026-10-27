@@ -5,7 +5,11 @@ import {
   useContext,
   useCallback,
 } from "react";
-import { verifySession } from "../features/auth";
+import {
+  login as apiLogin,
+  logout as apiLogout,
+  verifySession,
+} from "../features/auth/services/loginapi";
 
 const AuthContext = createContext();
 
@@ -14,7 +18,6 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // checkAuth estabilizado con useCallback
   const checkAuth = useCallback(async () => {
     try {
       const response = await verifySession();
@@ -28,19 +31,17 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // 1. Verificación inicial al cargar la app
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
 
-  // 2. Verificación automática cuando el usuario vuelve a la pestaña
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (
         document.visibilityState === "visible" &&
         !window.location.pathname.includes("/login")
       ) {
-        checkAuth(); // Si la sesión murió en segundo plano, apiFetch se encarga de la redirección dura
+        checkAuth();
       }
     };
 
@@ -50,14 +51,23 @@ const AuthProvider = ({ children }) => {
     };
   }, [checkAuth]);
 
-  const loginContext = (userData) => {
+  const loginContext = async (credentials) => {
+    const response = await apiLogin(credentials);
     setIsLogged(true);
-    setUser(userData);
+    setUser(response.data.user);
+    return response;
   };
 
-  const logoutContext = () => {
-    setIsLogged(false);
-    setUser(null);
+  const logoutContext = async () => {
+    try {
+      await apiLogout();
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    } finally {
+      setIsLogged(false);
+      setUser(null);
+      window.location.href = "/gestion/login";
+    }
   };
 
   if (isLoading) {
@@ -75,11 +85,9 @@ const AuthProvider = ({ children }) => {
 
 const useAuth = () => {
   const context = useContext(AuthContext);
-
   if (!context) {
     throw new Error("useAuth debe ser usado dentro de un AuthProvider");
   }
-
   return context;
 };
 

@@ -1,5 +1,8 @@
 import { z } from "zod";
 import { parseDecimal } from "../../../utils/parsers";
+import { ACCEPTED_IMAGE_TYPES } from "./imageTypes";
+
+const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
 const mealSchema = z.object({
   name: z
@@ -48,6 +51,28 @@ const mealSchema = z.object({
       }),
     )
     .min(1, "Debe agregar al menos un ingrediente a la receta"),
+
+  image: z
+    .union([z.instanceof(File), z.string(), z.null(), z.undefined()])
+    .optional()
+    .superRefine((file, ctx) => {
+      if (file instanceof File) {
+        if (file.size > MAX_FILE_SIZE) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message:
+              "El archivo es demasiado pesado. El límite máximo es de 2MB.",
+          });
+        }
+        if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message:
+              "Por favor, seleccioná un archivo de imagen válido (JPEG, PNG, WEBP).",
+          });
+        }
+      }
+    }),
 });
 
 export { mealSchema };

@@ -133,13 +133,27 @@ function MealsPage() {
 
     const cleanData = validations.data;
 
+    const payload = {
+      name: cleanData.name,
+      price: cleanData.price,
+      description: cleanData.description,
+      category: cleanData.category,
+      ingredients: cleanData.ingredients,
+    };
+    const dataToSend = new FormData();
+
+    dataToSend.append("mealData", JSON.stringify(payload));
+    if (cleanData.image instanceof File) {
+      dataToSend.append("image", cleanData.image);
+    }
+    console.log(dataToSend);
     try {
       let response;
 
       if (id) {
-        response = await editMeal(id, cleanData);
+        response = await editMeal(id, dataToSend);
       } else {
-        response = await createMeal(cleanData);
+        response = await createMeal(dataToSend);
       }
       toast.success(response.message);
 

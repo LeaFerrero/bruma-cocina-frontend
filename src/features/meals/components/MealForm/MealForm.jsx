@@ -106,7 +106,6 @@ export function MealForm({
       _id: ingredient._id,
       quantity: ingredient.quantity,
     }));
-
     const mealDataToSave = {
       ...mealData,
       category: categoriasArray,
@@ -123,7 +122,6 @@ export function MealForm({
         <div className={styles.dataContainer}>
           <h3 className={styles.sectionTitle}>Datos de la vianda</h3>
 
-          {/* Div que envuelve a todos los inputs de la sección */}
           <div className={styles.fieldsContainer}>
             <Input
               id="meal-name"
@@ -181,7 +179,6 @@ export function MealForm({
           </div>
         </div>
 
-        {/* COLUMNA DERECHA: Receta e ingredientes */}
         <div className={styles.recipeContainer}>
           <h3 className={styles.sectionTitle}>Receta de la Vianda</h3>
           <div>
@@ -232,7 +229,6 @@ export function MealForm({
         </div>
       </div>
 
-      {/* BOTONES GLOBALES ABAJO */}
       <ButtonGroup>
         <Button
           text="Guardar Vianda"
