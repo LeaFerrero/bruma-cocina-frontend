@@ -10,6 +10,7 @@ function Input({
   ...props
 }) {
   const errorClass = error ? styles.inputError : "";
+  const errorId = error ? `${id}-error` : undefined;
 
   return (
     <div className={styles.inputContainer}>
@@ -22,9 +23,15 @@ function Input({
         id={id}
         type={type}
         className={`${styles.input} ${errorClass} ${additionalClass}`.trim()}
+        aria-invalid={error ? "true" : "false"}
+        aria-describedby={errorId}
         {...props}
       />
-      {error && <span className={styles.errorMessage}>{error}</span>}
+      {error && (
+        <span id={errorId} className={styles.errorMessage}>
+          {error}
+        </span>
+      )}
     </div>
   );
 }

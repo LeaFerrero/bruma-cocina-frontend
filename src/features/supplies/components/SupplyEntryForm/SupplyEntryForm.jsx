@@ -109,7 +109,7 @@ function SupplyEntryForm({
             key={item._id}
             name={item.name}
             quantity={item.quantity}
-            suffix={item.unit || "kg"}
+            suffix={item.unit}
             error={fieldErrors[`items.${index}.quantity`]}
             onQuantityChange={(newQuantity) =>
               handleQuantityChange(item._id, newQuantity)

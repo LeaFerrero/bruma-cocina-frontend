@@ -31,15 +31,16 @@
   align-items: center;
   padding: 0rem 0rem 1rem 0rem;
 }
-
 .closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
-  font-size: 2rem;
+  padding: 0;
   cursor: pointer;
   color: var(--color-btn-secondary-bg);
   transition: color 0.2s ease;
-  line-height: 1;
 }
 
 .closeButton:hover {

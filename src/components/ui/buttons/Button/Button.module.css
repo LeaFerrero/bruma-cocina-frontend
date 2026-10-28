@@ -21,7 +21,6 @@
   cursor: not-allowed;
 }
 
-/* --- Modificador de Forma --- */
 .square {
   width: 2.5rem;
   height: 2.5rem;
@@ -29,7 +28,6 @@
   padding: 0;
 }
 
-/* --- Variantes de Color Principales --- */
 .primary {
   background-color: var(--color-btn-primary-bg);
 }
@@ -60,4 +58,18 @@
 
 .danger:hover:not(:disabled) {
   background-color: var(--color-btn-danger-hover);
+}
+
+.ghost,
+.ghost:hover {
+  background: none;
+  border: none;
+}
+
+.ghost {
+  color: var(--color-btn-secondary-bg);
+}
+
+.ghost:hover {
+  color: var(--color-btn-secondary-hover);
 }

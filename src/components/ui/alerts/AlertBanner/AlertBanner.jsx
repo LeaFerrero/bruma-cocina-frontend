@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./AlertBanner.module.css";
+import Button from "../../buttons/Button/Button";
 import { MdError, MdWarning, MdClose } from "react-icons/md";
 
 function AlertBanner({ variant = "warning", title, items = [], onClose }) {
@@ -30,13 +31,13 @@ function AlertBanner({ variant = "warning", title, items = [], onClose }) {
       </div>
 
       {onClose && (
-        <button
-          className={styles.closeBtn}
+        <Button
+          text={<MdClose size={18} aria-hidden="true" />}
+          variant="ghost"
+          isSquare={true}
+          ariaLabel="Cerrar"
           onClick={onClose}
-          aria-label="Cerrar"
-        >
-          <MdClose size={18} />
-        </button>
+        />
       )}
     </div>
   );

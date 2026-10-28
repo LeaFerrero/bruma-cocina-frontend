@@ -1,6 +1,8 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import styles from "./Modal.module.css";
+import Button from "../../buttons/Button/Button";
+import { MdClose } from "react-icons/md";
 
 function Modal({
   title,
@@ -26,9 +28,13 @@ function Modal({
       >
         <div className={styles.modalHeader}>
           {title && <h3 className={styles.modalTitle}>{title}</h3>}
-          <button className={styles.closeButton} onClick={onClose}>
-            &times;
-          </button>
+          <Button
+            text={<MdClose size={24} aria-hidden="true" />}
+            variant="ghost"
+            isSquare={true}
+            ariaLabel="Cerrar"
+            onClick={onClose}
+          />
         </div>
 
         <div className={styles.modalChildrenContainer}>{children}</div>

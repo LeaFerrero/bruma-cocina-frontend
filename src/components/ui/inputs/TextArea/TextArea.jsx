@@ -12,6 +12,8 @@ function TextArea({
   rows = 4,
   error,
 }) {
+  const errorId = error ? `${id}-error` : undefined;
+
   return (
     <div className={styles.field}>
       {label && (
@@ -28,8 +30,14 @@ function TextArea({
         maxLength={maxLength}
         rows={rows}
         className={`${styles.basicTextarea} ${error ? styles.errorInput : ""}`}
+        aria-invalid={error ? "true" : "false"}
+        aria-describedby={errorId}
       />
-      {error && <span className={styles.errorMessage}>{error}</span>}
+      {error && (
+        <span id={errorId} className={styles.errorMessage}>
+          {error}
+        </span>
+      )}
     </div>
   );
 }

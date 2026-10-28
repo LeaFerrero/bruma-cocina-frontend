@@ -13,6 +13,8 @@ function DropdownInput({
   additionalClass = "",
   ...props
 }) {
+  const errorId = error ? `${id}-error` : undefined;
+
   return (
     <div className={styles.field}>
       {label && (
@@ -26,6 +28,8 @@ function DropdownInput({
         value={value}
         onChange={onChange}
         className={`${styles.basicInput} ${error ? styles.inputError : ""} ${additionalClass}`.trim()}
+        aria-invalid={error ? "true" : "false"}
+        aria-describedby={errorId}
         {...props}
       >
         <option value="" disabled>
@@ -39,7 +43,11 @@ function DropdownInput({
         ))}
       </select>
 
-      {error && <span className={styles.errorMessage}>{error}</span>}
+      {error && (
+        <span id={errorId} className={styles.errorMessage}>
+          {error}
+        </span>
+      )}
     </div>
   );
 }
