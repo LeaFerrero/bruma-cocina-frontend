@@ -18,6 +18,9 @@ export { default as TextArea } from "./inputs/TextArea/TextArea";
 // Carrusel
 export { default as ImageCarousel } from "./carousel/ImageCarousel/ImageCarousel";
 
+// Banner de alerta
+export { default as AlertBanner } from "./alerts/AlertBanner/AlertBanner";
+
 // Listas
 export { default as EditableList } from "./lists/EditableList/EditableList";
 export { default as EditableListItem } from ".//lists/EditableListItem/EditableListItem";

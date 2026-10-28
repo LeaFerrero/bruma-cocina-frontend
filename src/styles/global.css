@@ -40,13 +40,23 @@
   --color-btn-danger-bg: #d9534f;
   --color-btn-danger-hover: #a83b37;
 
-  /* 6. Estados Semánticos y Alertas (Bordes de tarjetas, Badges, Errores) */
-  --color-danger: #d9534f;
-  --color-warning: #e69500;
-  --color-success: #2d6a4f;
+  /* 6. Estados y Alertas Semánticas */
+  --color-success-main: #2d6a4f;
   --color-neutral: #8c98a4;
 
-  /* 7. Alertas de Error (Global Form Errors, Textos de validación) */
+  /* Warning (Stock Bajo) */
+  --color-warning-main: #e69500;
+  --color-warning-secondary: #7a5200;
+  --color-warning-bg: #fff8e6;
+  --color-warning-border: #ffeeba;
+
+  /* Danger (Stock Agotado / Acciones Críticas / Tarjetas) */
+  --color-danger-main: #d9534f;
+  --color-danger-secondary: #991b1b;
+  --color-danger-bg: #fee2e2;
+  --color-danger-border: #f87171;
+
+  /* Error (Formularios / Inputs / Validaciones) */
   --color-error-main: #d9534f;
   --color-error-secondary: #991b1b;
   --color-error-bg: #fee2e2;

@@ -7,6 +7,7 @@ import {
   ButtonGroup,
   AutocompleteInput,
   ConfirmModal,
+  AlertBanner,
 } from "../../components/ui";
 
 import {
@@ -34,6 +35,10 @@ function SuppliesPage() {
   const [supplyToEdit, setSupplyToEdit] = useState(null);
   const [supplyToDelete, setSuplyToDelete] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  // Estados para controlar la visibilidad de las alertas
+  const [showErrorAlert, setShowErrorAlert] = useState(true);
+  const [showWarningAlert, setShowWarningAlert] = useState(true);
 
   const handleOpenCreateModal = () => {
     setSupplyToEdit(null);
@@ -213,29 +218,70 @@ function SuppliesPage() {
     supply.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
+  const formatSupplyItem = (supply) => {
+    const current = Number(supply.currentStock ?? supply.currentQuantity ?? 0);
+
+    return {
+      name: supply.name,
+      stockValue: current.toFixed(3),
+      unit: supply.unit || "unidades",
+    };
+  };
+
+  const outOfStockSupplies = supplies
+    .filter((supply) => Number(supply.currentStock ?? 0) === 0)
+    .map(formatSupplyItem);
+
+  const lowStockSupplies = supplies
+    .filter((supply) => {
+      const current = Number(
+        supply.currentStock ?? supply.currentQuantity ?? 0,
+      );
+      const min = Number(supply.minStock ?? 0);
+      return current > 0 && current <= min;
+    })
+    .map(formatSupplyItem);
+
   return (
     <section className={styles.suppliesSection}>
       <div className={styles.titleContainer}>
         <h2>Insumos</h2>
-        <div className={styles.buttonsContainer}>
-          <ButtonGroup layout="row">
-            <div>
-              <Button
-                text="Registrar insumo"
-                variant="primary"
-                onClick={handleOpenCreateModal}
-              />
-            </div>
-            <div>
-              <Button
-                text="Ingresar insumos"
-                variant="primary"
-                onClick={() => setIsEntryModalOpen(true)}
-              />
-            </div>
-          </ButtonGroup>
-        </div>
+
+        <ButtonGroup layout="row" additionalClass={styles.buttonsContainer}>
+          <div>
+            <Button
+              text="Registrar insumo"
+              variant="primary"
+              onClick={handleOpenCreateModal}
+            />
+          </div>
+          <div>
+            <Button
+              text="Ingresar insumos"
+              variant="primary"
+              onClick={() => setIsEntryModalOpen(true)}
+            />
+          </div>
+        </ButtonGroup>
       </div>
+
+      {!isLoading && showErrorAlert && outOfStockSupplies.length > 0 && (
+        <AlertBanner
+          variant="error"
+          title="Insumos Agotados"
+          items={outOfStockSupplies}
+          onClose={() => setShowErrorAlert(false)}
+        />
+      )}
+
+      {!isLoading && showWarningAlert && lowStockSupplies.length > 0 && (
+        <AlertBanner
+          variant="warning"
+          title="Insumos con Stock Bajo"
+          items={lowStockSupplies}
+          onClose={() => setShowWarningAlert(false)}
+        />
+      )}
 
       <div className={styles.searchContainer}>
         <AutocompleteInput

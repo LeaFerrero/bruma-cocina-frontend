@@ -17,7 +17,7 @@ const parseDecimal = (value, decimals) => {
 
   if (isNaN(parsedNumber)) return NaN;
 
-  return parsedNumber.toFixed(decimals);
+  return Number(parsedNumber.toFixed(decimals));
 };
 
 /**

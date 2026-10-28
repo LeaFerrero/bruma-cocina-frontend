@@ -30,6 +30,10 @@
   font-weight: 600;
 }
 
+.buttonsContainer {
+  margin: 0 !important;
+}
+
 @media (min-width: 1200px) {
   .suppliesGrid {
     justify-content: flex-start;

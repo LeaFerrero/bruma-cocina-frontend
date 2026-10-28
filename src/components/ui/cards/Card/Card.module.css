@@ -38,13 +38,13 @@
 }
 
 .danger {
-  border-color: var(--color-danger);
+  border-color: var(--color-danger-main);
 }
 
 .warning {
-  border-color: var(--color-warning);
+  border-color: var(--color-warning-main);
 }
 
 .success {
-  border-color: var(--color-success);
+  border-color: var(--color-success-main);
 }

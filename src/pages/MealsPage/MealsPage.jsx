@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./MealsPage.module.css";
 import { MealCard, MealModal } from "../../features/meals";
-import { AutocompleteInput, Button, ConfirmModal } from "../../components/ui";
+import {
+  AutocompleteInput,
+  Button,
+  ConfirmModal,
+  AlertBanner,
+} from "../../components/ui";
 import { getSupplies } from "../../features/supplies";
 import { socket } from "../../services/socket";
 
@@ -26,6 +31,10 @@ function MealsPage() {
   const [fieldErrors, setFieldErrors] = useState({});
   const [mealToDelete, setMealToDelete] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  // Estados para controlar la visibilidad de las alertas
+  const [showErrorAlert, setShowErrorAlert] = useState(true);
+  const [showWarningAlert, setShowWarningAlert] = useState(true);
 
   useEffect(() => {
     const loadMeals = async () => {
@@ -58,14 +67,10 @@ function MealsPage() {
   useEffect(() => {
     const loadAvileableSupplies = async () => {
       try {
-        setIsLoading(true);
         const suppliesData = await getSupplies();
-
         setAvileableSupplies(suppliesData.data);
       } catch (error) {
         console.error("Error al cargar los datos:", error);
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -82,7 +87,6 @@ function MealsPage() {
   const handleOpenEditModal = async (meal) => {
     try {
       setIsLoading(true);
-
       const response = await getMealById(meal._id);
 
       setMealToEdit(response.data);
@@ -146,7 +150,7 @@ function MealsPage() {
     if (cleanData.image instanceof File) {
       dataToSend.append("image", cleanData.image);
     }
-    console.log(dataToSend);
+
     try {
       let response;
 
@@ -188,6 +192,27 @@ function MealsPage() {
     }
   };
 
+  const formatMealItem = (meal) => {
+    const currentStock = Number(meal.currentStock ?? 0);
+
+    return {
+      name: meal.name,
+      stockValue: currentStock,
+      unit: "unidades",
+    };
+  };
+
+  const outOfStockItems = meals
+    .filter((meal) => Number(meal.currentStock ?? 0) === 0)
+    .map(formatMealItem);
+
+  const lowStockItems = meals
+    .filter((meal) => {
+      const current = Number(meal.currentStock ?? 0);
+      return current > 0 && current <= 10;
+    })
+    .map(formatMealItem);
+
   const mealsNames = meals.map((meal) => meal.name);
 
   const filteredMeals = meals.filter((meal) =>
@@ -206,6 +231,24 @@ function MealsPage() {
           />
         </div>
       </div>
+
+      {!isLoading && showErrorAlert && outOfStockItems.length > 0 && (
+        <AlertBanner
+          variant="error"
+          title="Viandas Agotadas"
+          items={outOfStockItems}
+          onClose={() => setShowErrorAlert(false)}
+        />
+      )}
+
+      {!isLoading && showWarningAlert && lowStockItems.length > 0 && (
+        <AlertBanner
+          variant="warning"
+          title="Viandas con Stock Bajo"
+          items={lowStockItems}
+          onClose={() => setShowWarningAlert(false)}
+        />
+      )}
 
       <div className={styles.searchContainer}>
         <AutocompleteInput
