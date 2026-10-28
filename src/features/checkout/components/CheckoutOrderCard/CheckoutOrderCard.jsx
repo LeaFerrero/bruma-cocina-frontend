@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./OrderCard.module.css";
-import Card from "../Card/Card";
-import Button from "../../buttons/Button/Button";
-import ButtonGroup from "../../buttons/ButtonGroup/ButtonGroup";
+import styles from "./CheckoutOrderCard.module.css";
+import { Card, Button, ButtonGroup } from "../../../../components/ui";
 import { formatTime, formatDateForDisplay } from "../../../../utils/dates";
+import { PAYMENT_STATUS_NAMES } from "../../utils/paymentStatus";
+import { ORDER_STATUS_NAMES } from "../../../kitchen";
 
 function OrderCard({ order, onDetails }) {
   return (
@@ -16,7 +16,12 @@ function OrderCard({ order, onDetails }) {
           <strong>Fecha:</strong> {formatDateForDisplay(order.dateOnly)}
         </p>
         <p className={styles.status}>
-          <strong>Estado:</strong> {order.orderStatus}
+          <strong>Estado de comanda:</strong>{" "}
+          {ORDER_STATUS_NAMES[order.orderStatus]}
+        </p>
+        <p className={styles.status}>
+          <strong>Estado de pago:</strong>{" "}
+          {PAYMENT_STATUS_NAMES[order.paymentStatus]}
         </p>
       </div>
       <ButtonGroup>

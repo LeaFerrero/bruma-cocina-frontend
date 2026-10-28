@@ -3,11 +3,10 @@ import styles from "./KitchenPage.module.css";
 import {
   DateInput,
   DropdownInput,
-  OrderCard,
   AutocompleteInput,
   ConfirmModal,
 } from "../../components/ui";
-import { KitchenOrderModal } from "../../features/kitchen";
+import { KitchenOrderModal, KitchenOrderCard } from "../../features/kitchen";
 import {
   getOrders,
   dispatchOrder,
@@ -16,12 +15,7 @@ import {
 import toast from "react-hot-toast";
 import { getBusinessDate } from "../../utils/dates";
 import { socket } from "../../services/socket";
-const filterOptions = [
-  { value: "Todas", label: "Todas" },
-  { value: "PENDIENTE", label: "Pendiente" },
-  { value: "DESPACHADO", label: "Despachado" },
-  { value: "CANCELADO", label: "Cancelado" },
-];
+import { ORDER_STATUS_OPTIONS } from "../../features/kitchen";
 
 function Kitchen() {
   const [orders, setOrders] = useState([]);
@@ -129,7 +123,7 @@ function Kitchen() {
           <DropdownInput
             id="order-filter"
             label="Filtrar por estado"
-            options={filterOptions}
+            options={ORDER_STATUS_OPTIONS}
             value={selectedFilter}
             onChange={(e) => setSelectedFilter(e.target.value)}
           />
@@ -151,7 +145,7 @@ function Kitchen() {
         <div className={styles.ordersGrid}>
           {filteredOrders.length > 0 ? (
             filteredOrders.map((order) => (
-              <OrderCard
+              <KitchenOrderCard
                 key={order._id}
                 order={order}
                 onDetails={() => handleDetails(order)}

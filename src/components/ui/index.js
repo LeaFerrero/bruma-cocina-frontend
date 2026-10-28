@@ -5,7 +5,6 @@ export { default as HamburgerButton } from "./buttons/HamburgerButton/HamburgerB
 
 // Cards
 export { default as Card } from "./cards/Card/Card";
-export { default as OrderCard } from "./cards/OrderCard/OrderCard";
 
 // Formularios e Inputs
 export { default as Form } from "./forms/Form/Form";

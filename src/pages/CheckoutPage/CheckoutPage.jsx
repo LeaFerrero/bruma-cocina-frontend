@@ -4,31 +4,27 @@ import {
   DateInput,
   AutocompleteInput,
   DropdownInput,
-  OrderCard,
   ConfirmModal,
 } from "../../components/ui";
 import { getOrders, cancelOrder } from "../../services/ordersApi";
-import { CheckoutOrderModal, createPayment } from "../../features/checkout";
+import {
+  CheckoutOrderModal,
+  CheckoutOrderCard,
+  createPayment,
+} from "../../features/checkout";
 import { getBusinessDate } from "../../utils/dates";
 import { socket } from "../../services/socket";
 import toast from "react-hot-toast";
+import { ORDER_STATUS_OPTIONS } from "../../features/kitchen";
 
 function Checkout() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState("PENDIENTE");
-
   const [selectedDate, setSelectedDate] = useState(getBusinessDate());
   const [searchTerm, setSearchTerm] = useState("");
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
-  const filterOptions = [
-    { value: "Todas", label: "Todas" },
-    { value: "PENDIENTE", label: "Pendiente" },
-    { value: "DESPACHADO", label: "Despachado" },
-    { value: "CANCELADO", label: "Cancelado" },
-  ];
 
   useEffect(() => {
     const loadOrders = async () => {
@@ -124,7 +120,7 @@ function Checkout() {
           <DropdownInput
             id="order-filter"
             label="Filtrar por estado"
-            options={filterOptions}
+            options={ORDER_STATUS_OPTIONS}
             value={selectedFilter}
             onChange={(e) => setSelectedFilter(e.target.value)}
           />
@@ -146,7 +142,7 @@ function Checkout() {
         <div className={styles.ordersGrid}>
           {filteredOrders.length > 0 ? (
             filteredOrders.map((order) => (
-              <OrderCard
+              <CheckoutOrderCard
                 key={order._id}
                 order={order}
                 onDetails={() => handleDetails(order)}

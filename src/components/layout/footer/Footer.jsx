@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaInstagram, FaTiktok, FaEnvelope } from "react-icons/fa";
 import styles from "./Footer.module.css";
 
@@ -18,13 +19,13 @@ function Footer() {
           <h5 className={styles.columnTitle}>Explorar</h5>
           <ul className={styles.linkList}>
             <li>
-              <a href="#menu">Menú</a>
+              <Link to="/">Inicio</Link>{" "}
             </li>
             <li>
-              <a href="#menu">Menú</a>
+              <Link to="/menu">Menú</Link>
             </li>
             <li>
-              <a href="#nosotros">Sobre Nosotros</a>
+              <Link to="/nosotros">Sobre Nosotros</Link>
             </li>
           </ul>
         </div>

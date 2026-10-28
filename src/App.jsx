@@ -11,9 +11,8 @@ import {
   PublicLayout,
   LoginLayout,
   ManagementLayout,
+  ProtectedRoute,
 } from "./components/layout";
-
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 import {
   LandingPage,

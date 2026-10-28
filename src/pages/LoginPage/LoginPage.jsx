@@ -15,7 +15,9 @@ function LoginPage() {
 
   useEffect(() => {
     if (searchParams.get("expired") === "true") {
-      setFormError("Su sesión ha expirado por inactividad.");
+      setFormError(
+        "Su sesión ha excedido el tiempo límite. Por favor, acceda de nuevo.",
+      );
     }
   }, [searchParams]);
 
