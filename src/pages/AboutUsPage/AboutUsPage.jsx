@@ -49,7 +49,7 @@ function SobreNosotros() {
                     pausa del día.
                   </p>
                 </div>
-              </Card>
+              </Card> 
 
               <Card
                 title="Nuestra Visión"

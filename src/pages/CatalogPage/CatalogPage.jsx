@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./CatalogPage.module.css";
 import { useCart } from "../../context/CartContext";
 import { CatalogCard } from "../../features/catalog";
+import CatalogModal from "../../features/catalog/components/CatalogModal/CatalogModal";
 import { CartModal, OrderSuccessModal } from "../../features/cart";
 import { DropdownInput, Button, ConfirmModal } from "../../components/ui";
 import { orderSchema } from "../../features/cart/utils/cartValidation";
@@ -17,6 +18,9 @@ function CatalogPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Todas");
+
+  // Estado para el modal de detalle del plato/producto seleccionado
+  const [selectedMeal, setSelectedMeal] = useState(null);
 
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
@@ -177,6 +181,7 @@ function CatalogPage() {
             key={meal._id}
             meal={meal}
             onClick={() => addToCart(meal)}
+            onDetails={() => setSelectedMeal(meal)}
           />
         ))}
       </div>
@@ -189,6 +194,12 @@ function CatalogPage() {
           />
         </div>
       )}
+
+      <CatalogModal
+        meal={selectedMeal}
+        isOpen={!!selectedMeal}
+        onClose={() => setSelectedMeal(null)}
+      />
 
       <CartModal
         isOpen={isModalOpen}

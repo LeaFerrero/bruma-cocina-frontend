@@ -2,9 +2,8 @@ import React from "react";
 import styles from "./CatalogCard.module.css";
 import { Card, Button, ButtonGroup } from "../../../../components/ui";
 
-function CatalogCard({ meal, onClick }) {
+function CatalogCard({ meal, onClick, onDetails }) {
   const API_URL = import.meta.env.VITE_STATIC_URL || "http://localhost:3000";
-  console.log(meal.image);
 
   return (
     <Card title={meal.name} interactive>
@@ -24,6 +23,8 @@ function CatalogCard({ meal, onClick }) {
       </div>
 
       <ButtonGroup>
+        <Button text="Detalles" onClick={onDetails} variant="secondary" />
+
         <Button
           text={meal.currentStock === 0 ? "Sin stock" : "Agregar al carrito"}
           onClick={onClick}

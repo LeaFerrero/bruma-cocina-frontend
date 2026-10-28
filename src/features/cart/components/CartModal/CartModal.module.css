@@ -36,7 +36,6 @@
   scrollbar-color: var(--color-scrollbar-thumb) transparent;
 }
 
-/* --- ESTILOS PARA LA BARRA EN CHROME/EDGE --- */
 .cartItemsContainer::-webkit-scrollbar {
   width: 6px;
 }

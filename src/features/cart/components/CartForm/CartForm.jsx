@@ -105,7 +105,7 @@ export function CartForm({
         value={clientData.notes}
         onChange={handleInputChange}
         maxLength={250}
-        rows={4}
+        rows={8}
         error={fieldErrors.notes}
       />
     </Form>
