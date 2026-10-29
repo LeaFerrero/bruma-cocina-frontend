@@ -22,7 +22,7 @@ function MealCard({ meal, onEdit, onDelete }) {
           {meal.minStock}
         </p>
         <p>
-          <strong>{formatForDisplay(meal.price, 2)}</strong>
+          <strong>Precio:</strong> $ {formatForDisplay(meal.price, 2)}
         </p>
       </div>
       <ButtonGroup>

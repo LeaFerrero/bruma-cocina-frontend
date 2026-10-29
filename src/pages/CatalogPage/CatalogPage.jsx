@@ -10,18 +10,15 @@ import { getMeals } from "../../features/meals";
 import { createOrder } from "../../services/ordersApi";
 import { socket } from "../../services/socket";
 import toast from "react-hot-toast";
+import { formatForDisplay } from "../../utils/parsers";
 
 function CatalogPage() {
   const { cart, addToCart, clearCart } = useCart();
-
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState("Todas");
-
-  // Estado para el modal de detalle del plato/producto seleccionado
   const [selectedMeal, setSelectedMeal] = useState(null);
-
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -217,7 +214,7 @@ function CatalogPage() {
           setIsModalOpen(true);
         }}
         onConfirm={handleConfirmOrder}
-        message={`¿Quiere confirmar su pedido por un total de $${orderTotal}?`}
+        message={`¿Quiere confirmar su pedido por un total de $${formatForDisplay(orderTotal, 2)}?`}
       />
 
       <OrderSuccessModal

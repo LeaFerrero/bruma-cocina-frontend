@@ -14,7 +14,13 @@ export function LandingPage() {
       try {
         setIsLoading(true);
         const response = await getMealImages();
-        setCarouselImages(response.data || []);
+        const rawData = response.data || [];
+
+        const validImages = rawData.filter(
+          (item) => item.image && item.image.trim() !== "",
+        );
+
+        setCarouselImages(validImages);
       } catch (error) {
         toast.error("Error al cargar las imágenes de portada");
       } finally {
@@ -34,7 +40,6 @@ export function LandingPage() {
       <section className={styles.aboutSummarySection}>
         <Card title="La Experiencia Bruma" headingLevel="h2">
           <div className={styles.summaryContainer}>
-            {/* 1. Extracto de la historia */}
             <p className={styles.heroText}>
               Nacidos en Palermo Hollywood, somos una Dark Kitchen de vanguardia
               que fusiona la alta cocina con tecnología de envasado al vacío.
@@ -42,7 +47,6 @@ export function LandingPage() {
               <strong>8 a 10 minutos</strong>.
             </p>
 
-            {/* 2. Destacados rápidos con el componente Card */}
             <div className={styles.highlightsGrid}>
               <Card
                 title="100% Sin TACC"
@@ -72,7 +76,6 @@ export function LandingPage() {
               </Card>
             </div>
 
-            {/* 3. Call To Actions: Menú y Sobre Nosotros */}
             <div className={styles.ctaContainer}>
               <Link to="/menu" className={styles.menuButtonLink}>
                 <Button text="Ver Menú" />

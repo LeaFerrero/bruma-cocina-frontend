@@ -15,13 +15,13 @@ import {
 import { getBusinessDate } from "../../utils/dates";
 import { socket } from "../../services/socket";
 import toast from "react-hot-toast";
-import { ORDER_STATUS_OPTIONS } from "../../features/kitchen";
+import { ORDER_STATUS, ORDER_STATUS_OPTIONS } from "../../features/kitchen";
 
 function Checkout() {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [selectedFilter, setSelectedFilter] = useState("PENDIENTE");
+  const [selectedFilter, setSelectedFilter] = useState(ORDER_STATUS.PENDIENTE);
   const [selectedDate, setSelectedDate] = useState(getBusinessDate());
   const [searchTerm, setSearchTerm] = useState("");
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);

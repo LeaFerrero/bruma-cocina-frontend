@@ -3,7 +3,7 @@ import styles from "./MealModal.module.css";
 import { Modal } from "../../../../components/ui";
 import MealForm from "../MealForm/MealForm";
 
-export default function MealModal({
+function MealModal({
   isOpen,
   onClose,
   mealToEdit,
@@ -31,3 +31,5 @@ export default function MealModal({
     </Modal>
   );
 }
+
+export default MealModal;

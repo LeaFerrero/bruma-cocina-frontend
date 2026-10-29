@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CatalogModal.module.css";
 import { Modal, Button, ButtonGroup } from "../../../../components/ui";
-import { parseDecimal } from "../../../../utils/parsers";
+import { formatForDisplay } from "../../../../utils/parsers";
 
 function CatalogModal({ meal, isOpen, onClose }) {
   const API_URL = import.meta.env.VITE_STATIC_URL || "http://localhost:3000";
@@ -39,7 +39,7 @@ function CatalogModal({ meal, isOpen, onClose }) {
           </p>
 
           <p>
-            <strong>Precio:</strong> $ {parseDecimal(meal.price, 2)}
+            <strong>Precio:</strong> $ {formatForDisplay(meal.price, 2)}
           </p>
 
           <p>

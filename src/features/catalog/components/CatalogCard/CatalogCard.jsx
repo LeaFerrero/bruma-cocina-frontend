@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./CatalogCard.module.css";
 import { Card, Button, ButtonGroup } from "../../../../components/ui";
+import { formatForDisplay } from "../../../../utils/parsers";
 
 function CatalogCard({ meal, onClick, onDetails }) {
   const API_URL = import.meta.env.VITE_STATIC_URL || "http://localhost:3000";
@@ -19,7 +20,9 @@ function CatalogCard({ meal, onClick, onDetails }) {
 
       <div className={styles.cardDetail}>
         <p className={styles.description}>{meal.description}</p>
-        <span className={styles.price}>${meal.price}</span>
+        <span className={styles.price}>
+          $ {formatForDisplay(meal.price, 2)}
+        </span>
       </div>
 
       <ButtonGroup>

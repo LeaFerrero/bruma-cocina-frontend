@@ -1,10 +1,12 @@
 import { z } from "zod";
 import { parseDecimal } from "../../../utils/parsers";
 
+const notEmpty = (value) => String(value ?? "").trim() !== "";
+
 // 1. Validador para crear o editar un insumo
 const supplySchema = z.object({
   name: z
-    .string({ required_error: "El nombre es obligatorio." })
+    .string()
     .trim()
     .min(1, "El nombre es obligatorio.")
     .min(2, "El nombre debe tener al menos 2 caracteres.")
@@ -14,36 +16,27 @@ const supplySchema = z.object({
 
   price: z
     .any()
+    .refine(notEmpty, "El precio es obligatorio")
     .transform((value) => parseDecimal(value, 2))
     .refine((val) => !Number.isNaN(val), "El precio tiene que ser numérico")
-    .pipe(
-      z
-        .number({ required_error: "El precio es obligatorio" })
-        .positive("El precio debe ser mayor a 0"),
-    ),
+    .pipe(z.number().positive("El precio debe ser mayor a 0")),
 
   currentStock: z
     .any()
+    .refine(notEmpty, "El stock actual es obligatorio")
     .transform((value) => parseDecimal(value, 3))
     .refine((val) => !Number.isNaN(val), "El stock tiene que ser numérico")
-    .pipe(
-      z
-        .number({ required_error: "El stock es obligatorio" })
-        .min(0, "El stock no puede ser negativo"),
-    ),
+    .pipe(z.number().min(0, "El stock no puede ser negativo")),
 
   minStock: z
     .any()
+    .refine(notEmpty, "El stock mínimo es obligatorio")
     .transform((value) => parseDecimal(value, 3))
     .refine(
       (val) => !Number.isNaN(val),
       "El stock mínimo tiene que ser numérico",
     )
-    .pipe(
-      z
-        .number({ required_error: "El stock mínimo es obligatorio" })
-        .min(0, "El stock mínimo no puede ser negativo"),
-    ),
+    .pipe(z.number().min(0.001, "El stock mínimo debe ser mayor a 0")),
 });
 
 // 2. Validador individual para los ítems del ingreso de stock
@@ -52,16 +45,13 @@ const stockItemSchema = z.object({
   name: z.string().optional(),
   quantity: z
     .any()
+    .refine(notEmpty, "La cantidad es obligatoria")
     .transform((value) => parseDecimal(value, 3))
     .refine(
       (val) => !Number.isNaN(val),
       "La cantidad debe ser un número válido",
     )
-    .pipe(
-      z
-        .number({ required_error: "La cantidad es obligatoria" })
-        .positive("La cantidad debe ser mayor a 0"),
-    ),
+    .pipe(z.number().positive("La cantidad debe ser mayor a 0")),
 });
 
 // 3. Validador para la lista completa

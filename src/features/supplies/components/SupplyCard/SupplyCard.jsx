@@ -13,18 +13,19 @@ function SupplyCard({ supply, onEdit, onDelete }) {
   return (
     <Card title={supply.name} interactive variant={getStockVariant()}>
       <div className={styles.cardDetail}>
-        <p className={styles.description}>
+        <p>
           <strong>Stock actual: </strong>
           {formatForDisplay(supply.currentStock, 3)} {supply.unit}
         </p>
-        <p className={styles.description}>
+        <p>
           <strong>Stock mínimo: </strong>
           {formatForDisplay(supply.minStock, 3)} {supply.unit}
         </p>
-        <p className={styles.price}>$ {formatForDisplay(supply.price, 2)}</p>
+        <p>
+          <strong>Precio: </strong>$ {formatForDisplay(supply.price, 2)}
+        </p>
       </div>
-
-      <ButtonGroup className={styles.buttonsContainer}>
+      <ButtonGroup>
         <Button text={"Editar"} variant="secondary" onClick={onEdit} />
         <Button text={"Eliminar"} variant="danger" onClick={onDelete} />
       </ButtonGroup>

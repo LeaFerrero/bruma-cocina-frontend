@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./CheckoutOrderDetails.module.css";
+import { formatForDisplay } from "../../../../utils/parsers";
 
 function CheckoutOrderDetails({ order, children }) {
   if (!order) return null;
@@ -36,7 +37,7 @@ function CheckoutOrderDetails({ order, children }) {
                 <p>
                   {meal.name} x{meal.quantity}
                 </p>
-                <p>${meal.price * meal.quantity}</p>
+                <p>${formatForDisplay(meal.price * meal.quantity, 2)}</p>
               </div>
             ))}
         </div>
@@ -44,7 +45,9 @@ function CheckoutOrderDetails({ order, children }) {
 
       <div className={styles.checkoutOrderTotalContainer}>
         <p className={styles.checkoutOrderTotal}>Total:</p>
-        <p className={styles.checkoutOrderTotalAmount}>${order.total}</p>
+        <p className={styles.checkoutOrderTotalAmount}>
+          ${formatForDisplay(order.total, 2)}
+        </p>
       </div>
 
       {children && <div className={styles.buttonsContainer}>{children}</div>}

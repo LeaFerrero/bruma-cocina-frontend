@@ -15,8 +15,8 @@
   border-bottom: 0.0625rem solid var(--color-detail);
 }
 
-.columnTitle {
-  margin-top: 0;
+.columnMeals {
+  margin-top: 1rem;
 }
 
 .cartItemsContainer {
@@ -81,6 +81,7 @@
   }
 
   .columnMeals {
+    margin-top: 0rem;
     padding-left: 2rem;
   }
 }

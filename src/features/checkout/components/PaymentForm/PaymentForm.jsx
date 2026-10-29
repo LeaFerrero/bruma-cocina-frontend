@@ -7,6 +7,7 @@ import {
   ButtonGroup,
 } from "../../../../components/ui";
 import { PAYMENT_METHODS_OPTIONS } from "../../utils/paymentMethods";
+import { formatForDisplay } from "../../../../utils/parsers";
 
 function PaymentForm({ order, onConfirm, onCancel }) {
   const [paymentMethod, setPaymentMethod] = useState("efectivo");
@@ -20,7 +21,9 @@ function PaymentForm({ order, onConfirm, onCancel }) {
     <Form title="Registrar Cobro" onSubmit={handleSubmit}>
       <div className={styles.totalBox}>
         <p>Total a cobrar:</p>
-        <p className={styles.totalAmount}>${order.total}</p>
+        <p className={styles.totalAmount}>
+          ${formatForDisplay(order.total, 2)}
+        </p>
       </div>
 
       <DropdownInput

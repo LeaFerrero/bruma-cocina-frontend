@@ -4,9 +4,11 @@ import { ACCEPTED_IMAGE_TYPES } from "./imageTypes";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
+const notEmpty = (value) => String(value ?? "").trim() !== "";
+
 const mealSchema = z.object({
   name: z
-    .string({ required_error: "El nombre es obligatorio." })
+    .string()
     .trim()
     .min(1, "El nombre es obligatorio.")
     .min(2, "El nombre debe tener al menos 2 caracteres.")
@@ -14,34 +16,29 @@ const mealSchema = z.object({
 
   price: z
     .any()
+    .refine(notEmpty, "El precio es obligatorio")
     .transform((value) => parseDecimal(value, 2))
     .refine((val) => !Number.isNaN(val), "El precio tiene que ser numérico")
-    .pipe(
-      z
-        .number({ required_error: "El precio es obligatorio" })
-        .positive("El precio debe ser mayor a 0"),
-    ),
+    .pipe(z.number().positive("El precio debe ser mayor a 0")),
 
   minStock: z
     .any()
+    .refine(notEmpty, "El stock mínimo es obligatorio")
     .transform((value) => parseInteger(value))
     .refine(
       (val) => !Number.isNaN(val),
       "El stock mínimo tiene que ser numérico",
     )
-    .pipe(
-      z
-        .number({ required_error: "El stock mínimo es obligatorio" })
-        .min(1, "El stock mínimo no puede ser 0"),
-    ),
+    .pipe(z.number().min(1, "El stock mínimo debe ser mayor a 0")),
 
   category: z
     .array(z.string())
     .min(1, "Debe ingresar al menos una categoría válida"),
 
   description: z
-    .string({ required_error: "La descripción es obligatoria." })
+    .string()
     .trim()
+    .min(1, "La descripción es obligatoria.")
     .min(10, "La descripción debe tener al menos 10 caracteres")
     .max(250, "La descripción debe tener un máximo de 250 caracteres"),
 

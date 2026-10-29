@@ -4,10 +4,10 @@ import { Modal, Button, ButtonGroup } from "../../../../components/ui";
 
 function OrderSuccessModal({ isOpen, onClose, orderCode }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="¡Pedido Confirmado!">
+    <Modal isOpen={isOpen} onClose={onClose} title="Pedido Confirmado">
       <div className={styles.successContainer}>
-        <h2 className={styles.successTitle}>¡Gracias por su compra!</h2>
-        <p>Hemos recibido tu pedido.</p>
+        <h2 className={styles.successTitle}>¡Gracias por su pedido!</h2>
+        <p>Hemos recibido su orden correctamente.</p>
 
         <div className={styles.codeBox}>
           <p className={styles.codeLabel}>Su código de pedido es:</p>

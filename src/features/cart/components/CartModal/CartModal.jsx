@@ -4,6 +4,7 @@ import { useCart } from "../../../../context/CartContext";
 import CartForm from "../CartForm/CartForm";
 import CartItem from "../CartItem/CartItem";
 import { Modal, Button, ButtonGroup } from "../../../../components/ui";
+import { formatForDisplay } from "../../../../utils/parsers";
 
 function CartModal({
   isOpen,
@@ -49,7 +50,7 @@ function CartModal({
         </div>
 
         <div className={styles.columnMeals}>
-          <h3 className={styles.columnTitle}>Viandas</h3>
+          <h3>Viandas</h3>
 
           <div className={styles.cartItemsContainer}>
             {cart.length === 0 ? (
@@ -68,12 +69,12 @@ function CartModal({
 
           <div className={styles.subtotalGroup}>
             <label>Subtotal</label>
-            <div className={styles.subtotalBox}>${totalAmount}</div>
+            <div className={styles.subtotalBox}>
+              ${formatForDisplay(totalAmount, 2)}
+            </div>
           </div>
 
-          {formError && (
-            <p style={{ color: "red", fontSize: "0.875rem" }}>{formError}</p>
-          )}
+          {formError && <p>{formError}</p>}
 
           <ButtonGroup>
             <Button
