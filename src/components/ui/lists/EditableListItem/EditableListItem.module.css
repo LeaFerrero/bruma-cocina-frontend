@@ -1,4 +1,3 @@
-/* --- LAYOUT DE LA FILA --- */
 .itemRow {
   display: flex;
   justify-content: space-between;
@@ -36,7 +35,6 @@
   gap: 0.5rem;
 }
 
-/* --- INPUT GROUP (Input + Unidad) --- */
 .inputGroup {
   display: flex;
   align-items: stretch;
@@ -56,7 +54,6 @@
   border-color: var(--color-input-focus);
 }
 
-/* --- EL INPUT DENTRO DEL GRUPO --- */
 .groupedInput {
   width: 5rem;
   text-align: center;
@@ -66,7 +63,6 @@
   box-shadow: none !important;
 }
 
-/* --- LA UNIDAD DE MEDIDA (El addon) --- */
 .inputAddon {
   display: flex;
   min-width: 2.5rem;

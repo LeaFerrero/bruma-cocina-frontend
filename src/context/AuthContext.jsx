@@ -10,6 +10,7 @@ import {
   logout as apiLogout,
   verifySession,
 } from "../features/auth/services/loginapi";
+import AppError from "../utils/AppError"; // <--- Importas tu clase
 
 const AuthContext = createContext();
 
@@ -21,8 +22,20 @@ const AuthProvider = ({ children }) => {
   const checkAuth = useCallback(async () => {
     try {
       const response = await verifySession();
+      const userData = response?.user || response?.data?.user;
+
+      if (!userData) {
+        throw new AppError(
+          "Sesión inválida o expirada",
+          401,
+          "fail",
+          null,
+          "UNAUTHORIZED",
+        );
+      }
+
       setIsLogged(true);
-      setUser(response.data.user);
+      setUser(userData);
     } catch (error) {
       setIsLogged(false);
       setUser(null);
@@ -52,10 +65,37 @@ const AuthProvider = ({ children }) => {
   }, [checkAuth]);
 
   const loginContext = async (credentials) => {
-    const response = await apiLogin(credentials);
-    setIsLogged(true);
-    setUser(response.data.user);
-    return response;
+    try {
+      const response = await apiLogin(credentials);
+
+      const userData = response?.user || response?.data?.user;
+
+      if (!userData) {
+        throw new AppError(
+          "Usuario y/o contraseña incorrectos",
+          401,
+          "fail",
+          null,
+          "INVALID_CREDENTIALS",
+        );
+      }
+
+      setIsLogged(true);
+      setUser(userData);
+      return response;
+    } catch (error) {
+      if (error instanceof AppError) {
+        throw error;
+      }
+
+      throw new AppError(
+        error.response?.data?.message || "Usuario y/o contraseña incorrectos",
+        error.response?.status || 401,
+        "fail",
+        error.response?.data?.details || null,
+        error.response?.data?.errorCode || "LOGIN_FAILED",
+      );
+    }
   };
 
   const logoutContext = async () => {
@@ -86,7 +126,13 @@ const AuthProvider = ({ children }) => {
 const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth debe ser usado dentro de un AuthProvider");
+    throw new AppError(
+      "useAuth debe ser usado dentro de un AuthProvider",
+      500,
+      "error",
+      null,
+      "AUTH_CONTEXT_ERROR",
+    );
   }
   return context;
 };

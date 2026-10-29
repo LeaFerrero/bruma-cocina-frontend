@@ -219,7 +219,7 @@ function SuppliesPage() {
   );
 
   const formatSupplyItem = (supply) => {
-    const current = Number(supply.currentStock ?? supply.currentQuantity ?? 0);
+    const current = Number(supply.currentStock);
 
     return {
       name: supply.name,
@@ -229,16 +229,12 @@ function SuppliesPage() {
   };
 
   const outOfStockSupplies = supplies
-    .filter((supply) => Number(supply.currentStock ?? 0) === 0)
+    .filter((supply) => Number(supply.currentStock) === 0)
     .map(formatSupplyItem);
 
   const lowStockSupplies = supplies
     .filter((supply) => {
-      const current = Number(
-        supply.currentStock ?? supply.currentQuantity ?? 0,
-      );
-      const min = Number(supply.minStock ?? 0);
-      return current > 0 && current <= min;
+      return supply.currentStock > 0 && supply.currentStock <= supply.minStock;
     })
     .map(formatSupplyItem);
 

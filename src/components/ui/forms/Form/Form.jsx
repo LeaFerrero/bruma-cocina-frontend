@@ -8,7 +8,7 @@ function Form({ id, title, onSubmit, error, children }) {
 
       {error && (
         <div className={styles.formError} role="alert">
-          {error}
+          <p>{error}</p>
         </div>
       )}
 

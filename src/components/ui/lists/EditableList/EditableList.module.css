@@ -21,10 +21,12 @@
 }
 
 .itemsList {
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   overflow-y: auto;
-  min-height: 18.75rem;
-  max-height: 18.75rem;
+  min-height: 0;
+  max-height: 26rem;
   padding-right: 0.5rem;
   scrollbar-width: thin;
   scrollbar-color: var(--scroll-bar-thumb) transparent;

@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./MealCard.module.css";
 import { Card, Button, ButtonGroup } from "../../../../components/ui";
+import { formatForDisplay } from "../../../../utils/parsers";
 
 function MealCard({ meal, onEdit, onDelete }) {
   const getStockVariant = () => {
     if (meal.currentStock <= 0) return "danger";
-    if (meal.currentStock <= 10) return "warning";
+    if (meal.currentStock <= meal.minStock) return "warning";
     return "success";
   };
 
@@ -15,6 +16,13 @@ function MealCard({ meal, onEdit, onDelete }) {
         <p>
           <strong>Stock actual: </strong>
           {meal.currentStock}
+        </p>
+        <p>
+          <strong>Stock mínimo: </strong>
+          {meal.minStock}
+        </p>
+        <p>
+          <strong>{formatForDisplay(meal.price, 2)}</strong>
         </p>
       </div>
       <ButtonGroup>

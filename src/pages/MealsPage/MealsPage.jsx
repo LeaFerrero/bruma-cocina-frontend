@@ -140,6 +140,7 @@ function MealsPage() {
     const payload = {
       name: cleanData.name,
       price: cleanData.price,
+      minStock: cleanData.minStock,
       description: cleanData.description,
       category: cleanData.category,
       ingredients: cleanData.ingredients,
@@ -147,6 +148,7 @@ function MealsPage() {
     const dataToSend = new FormData();
 
     dataToSend.append("mealData", JSON.stringify(payload));
+
     if (cleanData.image instanceof File) {
       dataToSend.append("image", cleanData.image);
     }
@@ -167,7 +169,7 @@ function MealsPage() {
       setIsModalOpen(false);
     } catch (error) {
       if (error.details) {
-        setFormError(error.details);
+        setFieldErrors(error.details);
       } else {
         setFormError(
           error.message || "Ocurrió un error inesperado al guardar.",
@@ -193,7 +195,7 @@ function MealsPage() {
   };
 
   const formatMealItem = (meal) => {
-    const currentStock = Number(meal.currentStock ?? 0);
+    const currentStock = Number(meal.currentStock);
 
     return {
       name: meal.name,
@@ -203,13 +205,12 @@ function MealsPage() {
   };
 
   const outOfStockItems = meals
-    .filter((meal) => Number(meal.currentStock ?? 0) === 0)
+    .filter((meal) => Number(meal.currentStock) === 0)
     .map(formatMealItem);
 
   const lowStockItems = meals
     .filter((meal) => {
-      const current = Number(meal.currentStock ?? 0);
-      return current > 0 && current <= 10;
+      return meal.currentStock > 0 && meal.currentStock <= meal.minStock;
     })
     .map(formatMealItem);
 

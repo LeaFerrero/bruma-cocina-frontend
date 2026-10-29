@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { parseDecimal } from "../../../utils/parsers";
+import { parseDecimal, parseInteger } from "../../../utils/parsers";
 import { ACCEPTED_IMAGE_TYPES } from "./imageTypes";
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
@@ -20,6 +20,19 @@ const mealSchema = z.object({
       z
         .number({ required_error: "El precio es obligatorio" })
         .positive("El precio debe ser mayor a 0"),
+    ),
+
+  minStock: z
+    .any()
+    .transform((value) => parseInteger(value))
+    .refine(
+      (val) => !Number.isNaN(val),
+      "El stock mínimo tiene que ser numérico",
+    )
+    .pipe(
+      z
+        .number({ required_error: "El stock mínimo es obligatorio" })
+        .min(1, "El stock mínimo no puede ser 0"),
     ),
 
   category: z

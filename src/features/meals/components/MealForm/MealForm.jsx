@@ -23,6 +23,7 @@ export function MealForm({
   const [mealData, setFormData] = useState({
     name: "",
     price: "",
+    minStock: "",
     category: "",
     description: "",
     image: null,
@@ -37,6 +38,10 @@ export function MealForm({
       setFormData({
         name: mealToEdit.name || "",
         price: mealToEdit.price || "",
+        minStock:
+          mealToEdit.minStock !== undefined && mealToEdit.minStock !== null
+            ? mealToEdit.minStock
+            : "",
         category: Array.isArray(mealToEdit.category)
           ? mealToEdit.category.join(", ")
           : mealToEdit.category || "",
@@ -146,17 +151,28 @@ export function MealForm({
                 maxLength={10}
               />
               <Input
-                id="meal-category"
-                name="category"
-                label="Categorías"
-                placeholder="Ej: Vegano, Sin TACC"
-                value={mealData.category}
+                id="meal-min-stock"
+                name="minStock"
+                label="Stock mínimo"
+                inputMode="numeric"
+                value={mealData.minStock}
                 onChange={handleChange}
-                maxLength={100}
+                maxLength={10}
                 required
-                error={fieldErrors.category}
+                error={fieldErrors.minStock}
               />
             </div>
+            <Input
+              id="meal-category"
+              name="category"
+              label="Categorías"
+              placeholder="Ej: Vegano, Sin TACC"
+              value={mealData.category}
+              onChange={handleChange}
+              maxLength={100}
+              required
+              error={fieldErrors.category}
+            />
             <TextArea
               id="meal-description"
               name="description"
@@ -207,25 +223,27 @@ export function MealForm({
             )}
           </div>
 
-          <EditableList
-            title="Ingredientes seleccionados:"
-            isEmpty={ingredients.length === 0}
-            emptyMessage="No hay ingredientes en la receta"
-          >
-            {ingredients.map((item, index) => (
-              <EditableListItem
-                key={item._id}
-                name={item.name}
-                quantity={item.quantity}
-                suffix={item.unit || "u."}
-                error={fieldErrors[`ingredients.${index}.quantity`]}
-                onQuantityChange={(newQuantity) =>
-                  handleQuantityChange(item._id, newQuantity)
-                }
-                onRemove={() => handleRemoveIngredient(item._id)}
-              />
-            ))}
-          </EditableList>
+          <div className={styles.editableListContainer}>
+            <EditableList
+              title="Ingredientes seleccionados:"
+              isEmpty={ingredients.length === 0}
+              emptyMessage="No hay ingredientes en la receta"
+            >
+              {ingredients.map((item, index) => (
+                <EditableListItem
+                  key={item._id}
+                  name={item.name}
+                  quantity={item.quantity}
+                  suffix={item.unit || "u."}
+                  error={fieldErrors[`ingredients.${index}.quantity`]}
+                  onQuantityChange={(newQuantity) =>
+                    handleQuantityChange(item._id, newQuantity)
+                  }
+                  onRemove={() => handleRemoveIngredient(item._id)}
+                />
+              ))}
+            </EditableList>
+          </div>
         </div>
       </div>
 
