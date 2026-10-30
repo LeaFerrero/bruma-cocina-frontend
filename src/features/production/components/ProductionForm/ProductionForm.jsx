@@ -124,7 +124,6 @@ function ProductionForm({
             name={meal.name}
             quantity={meal.quantity}
             suffix="cant."
-            /* Apuntamos a meals.${index}.quantity que es la clave que genera Zod */
             error={fieldErrors[`meals.${index}.quantity`]}
             onQuantityChange={(newQuantity) =>
               handleQuantityChange(meal._id, newQuantity)

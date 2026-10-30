@@ -3,5 +3,4 @@ export { default as KitchenOrderSummary } from "./components/KitchenOrderDetails
 export { default as KitchenOrderCard } from "./components/KitchenOrderCard/KitchenOrderCard";
 
 export * from "./services/kitchenApi";
-export * from "./utils/kitchenValidation";
 export * from "./utils/orderStatus";

@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { parseInteger } from "../../../utils/parsers";
 
+const notEmpty = (value) => String(value ?? "").trim() !== "";
+
 const mealStockListSchema = z.object({
   meals: z
     .array(
@@ -9,16 +11,13 @@ const mealStockListSchema = z.object({
         name: z.string().optional(),
         quantity: z
           .any()
+          .refine(notEmpty, "La cantidad es obligatoria")
           .transform((value) => parseInteger(value))
           .refine(
             (val) => !Number.isNaN(val),
             "La cantidad debe ser un número válido",
           )
-          .pipe(
-            z
-              .number({ required_error: "La cantidad es obligatoria" })
-              .positive("La cantidad debe ser mayor a 0"),
-          ),
+          .pipe(z.number().positive("La cantidad debe ser mayor a 0")),
       }),
     )
     .min(1, "Debe agregar al menos una vianda a la lista"),

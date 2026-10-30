@@ -13,6 +13,7 @@ function ProductionPage() {
   const [availableMeals, setAvailableMeals] = useState([]);
   const [formError, setFormError] = useState(null);
   const [fieldErrors, setFieldErrors] = useState({});
+  const [formKey, setFormKey] = useState(0);
 
   useEffect(() => {
     const loadAvailableMeals = async () => {
@@ -53,6 +54,7 @@ function ProductionPage() {
       const response = await registerProduction(cleanData);
 
       toast.success(response.message);
+      setFormKey((prevKey) => prevKey + 1);
     } catch (error) {
       if (error.details) {
         setFieldErrors(error.details);
@@ -69,6 +71,7 @@ function ProductionPage() {
       <div className={styles.productionContainer}>
         <Card title="Registrar producción" headingLevel="h2">
           <ProductionForm
+            key={formKey}
             availableMeals={availableMeals}
             onSave={handleSaveProduction}
             formError={formError}

@@ -4,6 +4,5 @@ export { default as CheckoutOrderCard } from "./components/CheckoutOrderCard/Che
 export { default as PaymentForm } from "./components/PaymentForm/PaymentForm";
 
 export * from "./services/checkoutApi";
-export * from "./utils/checkoutValidation";
 export * from "./utils/paymentMethods";
 export * from "./utils/paymentStatus";
