@@ -23,7 +23,7 @@
   padding-left: 0;
   padding-right: 0.5rem;
   scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-color: var(--color-scrollbar-thumb) transparent;
 }
 
 .emptyMessage {

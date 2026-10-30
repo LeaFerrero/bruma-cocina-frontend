@@ -3,7 +3,6 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  /* Corregido el salto de línea y el operador matemático */
   min-height: calc(100vh - 9.375rem);
   width: 100%;
   padding: 1rem 0.75rem;

@@ -122,7 +122,6 @@ export function MealForm({
 
   return (
     <Form id="meal-form" onSubmit={handleSubmit} error={formError}>
-      {/* Contenedor de dos columnas */}
       <div className={styles.formGridContainer}>
         <div className={styles.dataContainer}>
           <h3 className={styles.sectionTitle}>Datos de la vianda</h3>

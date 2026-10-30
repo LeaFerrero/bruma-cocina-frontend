@@ -53,7 +53,6 @@
     top: 85%;
   }
 
-  /* Animación cuando JS le agrega la clase '.active' */
   &.active .barTop {
     transform: translate(-50%, -50%) rotate(-315deg);
     top: 50%;
@@ -69,9 +68,6 @@
   }
 }
 
-/* --- BREAKPOINTS --- */
-
-/* Tablets (900px) */
 @media (min-width: 900px) {
   .hamburgerButton {
     display: none;

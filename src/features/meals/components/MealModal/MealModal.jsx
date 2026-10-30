@@ -20,6 +20,7 @@ function MealModal({
     >
       <div className={styles.modalLayout}>
         <MealForm
+          key={mealToEdit ? mealToEdit._id : "create-new"}
           mealToEdit={mealToEdit}
           availableSupplies={availableSupplies}
           onSave={onSave}

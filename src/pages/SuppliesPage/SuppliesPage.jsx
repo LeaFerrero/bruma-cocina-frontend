@@ -35,8 +35,6 @@ function SuppliesPage() {
   const [supplyToEdit, setSupplyToEdit] = useState(null);
   const [supplyToDelete, setSuplyToDelete] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
-  // Estados para controlar la visibilidad de las alertas
   const [showErrorAlert, setShowErrorAlert] = useState(true);
   const [showWarningAlert, setShowWarningAlert] = useState(true);
 

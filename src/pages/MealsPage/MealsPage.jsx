@@ -87,7 +87,7 @@ function MealsPage() {
       setIsLoading(true);
       const response = await getMealById(meal._id);
 
-      setMealToEdit(response.data);
+      setMealToEdit(response.data.meal);
       setIsModalOpen(true);
       setFieldErrors({});
       setFormError(null);

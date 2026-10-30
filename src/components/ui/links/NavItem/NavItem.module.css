@@ -2,7 +2,7 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  text-align: center; /* 1. Cambiado a centrado para móviles */
+  text-align: center;
   text-decoration: none;
   white-space: nowrap;
   color: var(--color-text-sidebar) !important;

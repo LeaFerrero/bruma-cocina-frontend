@@ -36,7 +36,6 @@
   text-align: left;
 }
 
-/* Si la pantalla es más grande, permitimos que el bloque completo crezca de forma armónica */
 @media (min-width: 1200px) {
   .productionWrapper {
     max-width: 70rem;
