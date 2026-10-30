@@ -6,10 +6,10 @@
   width: 100%;
   max-width: 100vw;
   height: 100%;
-  padding: 0.25rem 1rem; /* Reducimos ligeramente el padding vertical */
-  gap: 0.5rem; /* Reducimos un poco el espacio entre secciones */
+  padding: 0.25rem 1rem;
+  gap: 0.5rem;
   box-sizing: border-box;
-  overflow: hidden; /* Oculta cualquier desborde accidental */
+  overflow: hidden;
 }
 
 .heroSection {

@@ -147,17 +147,6 @@ function CatalogPage() {
     toast.dismiss();
   };
 
-  if (isLoading) {
-    return (
-      <section className={styles.menuSection}>
-        <h2>Viandas disponibles</h2>
-        <div className={styles.loadingContainer}>
-          <p>Cargando viandas...</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section className={styles.menuSection}>
       <h2>Viandas disponibles</h2>
@@ -172,16 +161,24 @@ function CatalogPage() {
         />
       </div>
 
-      <div className={styles.mealsGrid}>
-        {filteredMeals.map((meal) => (
-          <CatalogCard
-            key={meal._id}
-            meal={meal}
-            onClick={() => addToCart(meal)}
-            onDetails={() => setSelectedMeal(meal)}
-          />
-        ))}
-      </div>
+      {isLoading ? (
+        <p className={styles.statusMessage}>Cargando datos...</p>
+      ) : (
+        <div className={styles.mealsGrid}>
+          {filteredMeals.length > 0 ? (
+            filteredMeals.map((meal) => (
+              <CatalogCard
+                key={meal._id}
+                meal={meal}
+                onClick={() => addToCart(meal)}
+                onDetails={() => setSelectedMeal(meal)}
+              />
+            ))
+          ) : (
+            <p className={styles.statusMessage}>No se encontraron viandas.</p>
+          )}
+        </div>
+      )}
 
       {cart.length > 0 && (
         <div className={styles.floatingCartContainer}>

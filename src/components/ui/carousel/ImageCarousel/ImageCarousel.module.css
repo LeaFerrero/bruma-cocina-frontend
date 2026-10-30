@@ -15,9 +15,9 @@
 .carouselSlide {
   width: 100%;
   height: 100%;
-  background-size: contain; /* Cambiado de cover a contain para mostrar la imagen completa */
+  background-size: contain;
   background-position: center;
-  background-repeat: no-repeat; /* Evita que la imagen se repita si es chica */
+  background-repeat: no-repeat;
   display: flex;
   align-items: flex-end;
   transition: background-image 0.5s ease-in-out;
