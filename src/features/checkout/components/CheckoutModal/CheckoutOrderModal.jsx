@@ -11,6 +11,7 @@ function CheckoutOrderModal({
   onClose,
   onProcessPayment,
   onCancel,
+  formError,
 }) {
   const [isPaying, setIsPaying] = useState(false);
 
@@ -37,11 +38,7 @@ function CheckoutOrderModal({
     >
       <div className={styles.modalLayout}>
         {!isPaying ? (
-          <CheckoutOrderDetails
-            order={order}
-            showPrices={true}
-            showCustomerData={true}
-          >
+          <CheckoutOrderDetails order={order}>
             <ButtonGroup>
               <Button text="Registrar pago" onClick={() => setIsPaying(true)} />
               <Button
@@ -56,6 +53,7 @@ function CheckoutOrderModal({
             order={order}
             onConfirm={handleConfirmPayment}
             onCancel={() => setIsPaying(false)}
+            formError={formError}
           />
         )}
       </div>

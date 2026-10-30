@@ -30,7 +30,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 0rem 0rem 1rem 0rem;
+  border-bottom: 0.1rem solid var(--color-detail);
 }
+
 .closeButton {
   display: flex;
   align-items: center;
@@ -47,14 +49,24 @@
   color: var(--color-btn-secondary-hover);
 }
 
+.modalError {
+  margin-top: 1rem;
+  background-color: var(--color-error-bg);
+  color: var(--color-error-secondary);
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-error-border);
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+}
+
 .modalChildrenContainer {
-  padding-top: 1rem;
+  margin-top: 1rem;
   overflow-y: visible;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: 0.5rem;
-  border-top: 0.1rem solid var(--color-detail);
   overflow-y: auto;
   overflow: hidden;
 }

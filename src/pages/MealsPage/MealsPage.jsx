@@ -31,8 +31,6 @@ function MealsPage() {
   const [fieldErrors, setFieldErrors] = useState({});
   const [mealToDelete, setMealToDelete] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-
-  // Estados para controlar la visibilidad de las alertas
   const [showErrorAlert, setShowErrorAlert] = useState(true);
   const [showWarningAlert, setShowWarningAlert] = useState(true);
 

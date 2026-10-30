@@ -1,6 +1,11 @@
-.buttonsContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
+.modalError {
+  background-color: var(--color-error-bg);
+  color: var(--color-error-secondary);
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-error-border);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
 }

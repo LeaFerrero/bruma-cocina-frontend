@@ -10,7 +10,7 @@ import {
   logout as apiLogout,
   verifySession,
 } from "../features/auth/services/loginapi";
-import AppError from "../utils/AppError"; // <--- Importas tu clase
+import AppError from "../utils/AppError";
 
 const AuthContext = createContext();
 

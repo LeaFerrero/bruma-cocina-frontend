@@ -9,7 +9,7 @@ import {
 import { PAYMENT_METHODS_OPTIONS } from "../../utils/paymentMethods";
 import { formatForDisplay } from "../../../../utils/parsers";
 
-function PaymentForm({ order, onConfirm, onCancel }) {
+function PaymentForm({ order, onConfirm, onCancel, formError }) {
   const [paymentMethod, setPaymentMethod] = useState("efectivo");
 
   const handleSubmit = (e) => {
@@ -18,7 +18,7 @@ function PaymentForm({ order, onConfirm, onCancel }) {
   };
 
   return (
-    <Form title="Registrar Cobro" onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} error={formError}>
       <div className={styles.totalBox}>
         <p>Total a cobrar:</p>
         <p className={styles.totalAmount}>

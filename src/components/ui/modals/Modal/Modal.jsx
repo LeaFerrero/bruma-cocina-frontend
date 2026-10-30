@@ -9,8 +9,8 @@ function Modal({
   isOpen,
   onClose,
   children,
-  maxWidth,
   closeOnOutsideClick = false,
+  error,
 }) {
   if (!isOpen) return null;
 
@@ -36,6 +36,12 @@ function Modal({
             onClick={onClose}
           />
         </div>
+
+        {error && (
+          <div className={styles.modalError} role="alert">
+            <p>{error}</p>
+          </div>
+        )}
 
         <div className={styles.modalChildrenContainer}>{children}</div>
       </div>

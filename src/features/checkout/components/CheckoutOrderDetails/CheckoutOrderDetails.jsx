@@ -10,7 +10,6 @@ function CheckoutOrderDetails({ order, children }) {
       {order && (
         <div className={styles.checkoutOrderSection}>
           <h3 className={styles.checkoutOrderTitle}>Datos del Cliente</h3>
-
           <p>
             <strong>Nombre:</strong> {order.name} {order.lastName}
           </p>

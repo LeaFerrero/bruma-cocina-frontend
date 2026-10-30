@@ -25,6 +25,7 @@ function Kitchen() {
   const [selectedDate, setSelectedDate] = useState(getBusinessDate());
   const [searchTerm, setSearchTerm] = useState("");
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadOrders = async () => {
@@ -68,28 +69,32 @@ function Kitchen() {
   );
 
   const handleDetails = (order) => {
+    setError(null);
     setSelectedOrder(order);
   };
 
   const handleOpenCancelModal = () => {
+    setError(null);
     setIsConfirmOpen(true);
   };
 
   const handleCloseModal = () => {
     setSelectedOrder(null);
     setIsConfirmOpen(false);
+    setError(null);
   };
 
   const handleDispatchOrder = async () => {
     if (!selectedOrder) return;
 
     try {
+      setError(null);
       const response = await dispatchOrder(selectedOrder._id);
       toast.success(response.message);
 
       handleCloseModal();
     } catch (error) {
-      toast.error(error.message);
+      setError(error.message);
     }
   };
 
@@ -97,12 +102,13 @@ function Kitchen() {
     if (!selectedOrder) return;
 
     try {
+      setError(null);
       const response = await cancelOrder(selectedOrder._id);
       toast.success(response.message);
 
       handleCloseModal();
     } catch (error) {
-      toast.error(error.message);
+      setError(error.message);
     }
   };
 
@@ -163,6 +169,7 @@ function Kitchen() {
         onClose={handleCloseModal}
         onDispatch={handleDispatchOrder}
         onCancel={handleOpenCancelModal}
+        error={error}
       />
 
       <ConfirmModal
@@ -174,6 +181,7 @@ function Kitchen() {
         confirmText="Sí, cancelar"
         cancelText="Volver"
         message={`¿Desea cancelar la comanda "${selectedOrder?.orderCode || ""}"? Esta acción no se puede deshacer.`}
+        error={error}
       />
     </section>
   );

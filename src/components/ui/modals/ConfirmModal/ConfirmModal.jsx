@@ -13,12 +13,13 @@ function ConfirmModal({
   message,
   confirmText,
   cancelText = "Cancelar",
+  error,
 }) {
   const defaultConfirmText = isDanger ? "Borrar" : "Confirmar";
   const finalConfirmText = confirmText || defaultConfirmText;
 
   return (
-    <Modal title={title} isOpen={isOpen} onClose={onClose}>
+    <Modal title={title} isOpen={isOpen} onClose={onClose} error={error}>
       <p className={styles.messageText}>{message}</p>
       <ButtonGroup>
         <Button

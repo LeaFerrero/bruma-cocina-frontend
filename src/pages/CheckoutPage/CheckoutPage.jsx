@@ -25,6 +25,7 @@ function Checkout() {
   const [selectedDate, setSelectedDate] = useState(getBusinessDate());
   const [searchTerm, setSearchTerm] = useState("");
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const loadOrders = async () => {
@@ -68,16 +69,19 @@ function Checkout() {
   );
 
   const handleDetails = (order) => {
+    setError(null);
     setSelectedOrder(order);
   };
 
   const handleOpenCancelModal = () => {
+    setError(null);
     setIsConfirmOpen(true);
   };
 
   const handleCloseModal = () => {
     setSelectedOrder(null);
     setIsConfirmOpen(false);
+    setError(null);
   };
 
   const handleProcessPayment = async (paymentData) => {
@@ -86,7 +90,7 @@ function Checkout() {
       toast.success(response.message);
       handleCloseModal();
     } catch (error) {
-      toast.error(error.message);
+      setError(error.message);
     }
   };
 
@@ -99,7 +103,7 @@ function Checkout() {
 
       handleCloseModal();
     } catch (error) {
-      toast.error(error.message);
+      setError(error.message);
     }
   };
 
@@ -160,6 +164,7 @@ function Checkout() {
         onClose={handleCloseModal}
         onProcessPayment={handleProcessPayment}
         onCancel={handleOpenCancelModal}
+        formError={error}
       />
 
       <ConfirmModal
@@ -171,6 +176,7 @@ function Checkout() {
         confirmText="Sí, cancelar"
         cancelText="Volver"
         message={`¿Desea cancelar la comanda "${selectedOrder?.orderCode || ""}"? Esta acción no se puede deshacer.`}
+        error={error}
       />
     </section>
   );
