@@ -1,4 +1,4 @@
-import { test } from "node:test";
+import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
   supplySchema,
@@ -13,59 +13,73 @@ const validSupply = {
   minStock: "2",
 };
 
-const messagesOf = (result) => result.error.issues.map((issue) => issue.message);
+const messagesOf = (result) =>
+  result.error.issues.map((issue) => issue.message);
 
-test("acepta un insumo válido y convierte la coma decimal", () => {
-  const result = supplySchema.safeParse(validSupply);
+describe("Validadores de insumos (Frontend)", () => {
+  describe("supplySchema", () => {
+    it("acepta un insumo válido y convierte la coma decimal", () => {
+      const result = supplySchema.safeParse(validSupply);
 
-  assert.equal(result.success, true);
-  assert.equal(result.data.price, 1500.5);
-  assert.equal(result.data.currentStock, 10.5);
-  assert.equal(result.data.minStock, 2);
-});
+      assert.equal(result.success, true);
+      assert.equal(result.data.price, 1500.5);
+      assert.equal(result.data.currentStock, 10.5);
+      assert.equal(result.data.minStock, 2);
+    });
 
-test("rechaza un nombre vacío con el mensaje esperado", () => {
-  const result = supplySchema.safeParse({ ...validSupply, name: "" });
+    it("rechaza un nombre vacío con el mensaje esperado", () => {
+      const result = supplySchema.safeParse({ ...validSupply, name: "" });
 
-  assert.equal(result.success, false);
-  assert.ok(messagesOf(result).includes("El nombre es obligatorio."));
-});
+      assert.equal(result.success, false);
+      assert.ok(messagesOf(result).includes("El nombre es obligatorio."));
+    });
 
-test("rechaza un precio igual a cero", () => {
-  const result = supplySchema.safeParse({ ...validSupply, price: "0" });
+    it("rechaza un precio igual a cero", () => {
+      const result = supplySchema.safeParse({ ...validSupply, price: "0" });
 
-  assert.equal(result.success, false);
-  assert.ok(messagesOf(result).includes("El precio debe ser mayor a 0"));
-});
+      assert.equal(result.success, false);
+      assert.ok(messagesOf(result).includes("El precio debe ser mayor a 0"));
+    });
 
-test("rechaza un stock actual negativo", () => {
-  const result = supplySchema.safeParse({ ...validSupply, currentStock: "-5" });
+    it("rechaza un stock actual negativo", () => {
+      const result = supplySchema.safeParse({
+        ...validSupply,
+        currentStock: "-5",
+      });
 
-  assert.equal(result.success, false);
-  assert.ok(messagesOf(result).includes("El stock no puede ser negativo"));
-});
+      assert.equal(result.success, false);
+      assert.ok(messagesOf(result).includes("El stock no puede ser negativo"));
+    });
 
-test("rechaza un insumo sin unidad de medida", () => {
-  const result = supplySchema.safeParse({ ...validSupply, unit: "" });
+    it("rechaza un insumo sin unidad de medida", () => {
+      const result = supplySchema.safeParse({ ...validSupply, unit: "" });
 
-  assert.equal(result.success, false);
-  assert.ok(
-    messagesOf(result).includes("Debes seleccionar una unidad de medida"),
-  );
-});
+      assert.equal(result.success, false);
+      assert.ok(
+        messagesOf(result).includes("Debes seleccionar una unidad de medida"),
+      );
+    });
 
-test("rechaza un ingreso de stock con la lista vacía", () => {
-  const result = stockEntryListSchema.safeParse({ items: [] });
+    it("rechaza un precio no numérico con el mensaje esperado", () => {
+      const result = supplySchema.safeParse({ ...validSupply, price: "abc" });
 
-  assert.equal(result.success, false);
-  assert.ok(
-    messagesOf(result).includes("Debe agregar al menos un insumo a la lista"),
-  );
-});
+      assert.equal(result.success, false);
+      assert.ok(
+        messagesOf(result).includes("El precio tiene que ser numérico"),
+      );
+    });
+  });
 
-test("rechaza un precio no numérico con el mensaje esperado", () => {
-  const result = supplySchema.safeParse({ ...validSupply, price: "abc" });
+  describe("stockEntryListSchema", () => {
+    it("rechaza un ingreso de stock con la lista vacía", () => {
+      const result = stockEntryListSchema.safeParse({ items: [] });
 
-  assert.equal(result.success, false);
-  assert.ok(messagesOf(result).includes("El precio tiene que ser numérico"));
+      assert.equal(result.success, false);
+      assert.ok(
+        messagesOf(result).includes(
+          "Debe agregar al menos un insumo a la lista",
+        ),
+      );
+    });
+  });
 });

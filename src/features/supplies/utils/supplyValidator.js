@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { parseDecimal } from "../../../utils/parsers";
+import { parseDecimal } from "../../../utils/parsers.js";
 
 const notEmpty = (value) => String(value ?? "").trim() !== "";
 
