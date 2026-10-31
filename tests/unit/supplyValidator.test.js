@@ -51,6 +51,16 @@ describe("Validadores de insumos (Frontend)", () => {
       assert.ok(messagesOf(result).includes("El stock no puede ser negativo"));
     });
 
+    it("rechaza un stock actual vacío", () => {
+      const result = supplySchema.safeParse({
+        ...validSupply,
+        currentStock: "",
+      });
+
+      assert.equal(result.success, false);
+      assert.ok(messagesOf(result).includes("El stock actual es obligatorio"));
+    });
+
     it("rechaza un insumo sin unidad de medida", () => {
       const result = supplySchema.safeParse({ ...validSupply, unit: "" });
 

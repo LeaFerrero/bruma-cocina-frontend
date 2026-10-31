@@ -259,24 +259,22 @@ function MealsPage() {
         />
       </div>
 
-      {isLoading ? (
-        <p className={styles.statusMessage}>Cargando datos...</p>
-      ) : (
-        <div className={styles.mealsGrid}>
-          {filteredMeals.length > 0 ? (
-            filteredMeals.map((meal) => (
-              <MealCard
-                key={meal._id}
-                meal={meal}
-                onEdit={() => handleOpenEditModal(meal)}
-                onDelete={() => handleOpenDeleteModal(meal)}
-              />
-            ))
-          ) : (
-            <p className={styles.statusMessage}>No se encontraron viandas.</p>
-          )}
-        </div>
-      )}
+      <div className={styles.mealsGrid}>
+        {isLoading ? (
+          <p className={styles.statusMessage}>Cargando datos...</p>
+        ) : filteredMeals.length > 0 ? (
+          filteredMeals.map((meal) => (
+            <MealCard
+              key={meal._id}
+              meal={meal}
+              onEdit={() => handleOpenEditModal(meal)}
+              onDelete={() => handleOpenDeleteModal(meal)}
+            />
+          ))
+        ) : (
+          <p className={styles.statusMessage}>No se encontraron viandas.</p>
+        )}
+      </div>
 
       <MealModal
         isOpen={isModalOpen}

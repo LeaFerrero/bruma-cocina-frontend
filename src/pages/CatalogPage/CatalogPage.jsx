@@ -161,24 +161,22 @@ function CatalogPage() {
         />
       </div>
 
-      {isLoading ? (
-        <p className={styles.statusMessage}>Cargando datos...</p>
-      ) : (
-        <div className={styles.mealsGrid}>
-          {filteredMeals.length > 0 ? (
-            filteredMeals.map((meal) => (
-              <CatalogCard
-                key={meal._id}
-                meal={meal}
-                onClick={() => addToCart(meal)}
-                onDetails={() => setSelectedMeal(meal)}
-              />
-            ))
-          ) : (
-            <p className={styles.statusMessage}>No se encontraron viandas.</p>
-          )}
-        </div>
-      )}
+      <div className={styles.mealsGrid}>
+        {isLoading ? (
+          <p className={styles.statusMessage}>Cargando datos...</p>
+        ) : filteredMeals.length > 0 ? (
+          filteredMeals.map((meal) => (
+            <CatalogCard
+              key={meal._id}
+              meal={meal}
+              onClick={() => addToCart(meal)}
+              onDetails={() => setSelectedMeal(meal)}
+            />
+          ))
+        ) : (
+          <p className={styles.statusMessage}>No se encontraron viandas.</p>
+        )}
+      </div>
 
       {cart.length > 0 && (
         <div className={styles.floatingCartContainer}>

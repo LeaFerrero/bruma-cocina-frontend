@@ -145,23 +145,22 @@ function Kitchen() {
           />
         </div>
       </div>
-      {isLoading ? (
-        <p className={styles.statusMessage}>Cargando datos...</p>
-      ) : (
-        <div className={styles.ordersGrid}>
-          {filteredOrders.length > 0 ? (
-            filteredOrders.map((order) => (
-              <KitchenOrderCard
-                key={order._id}
-                order={order}
-                onDetails={() => handleDetails(order)}
-              />
-            ))
-          ) : (
-            <p className={styles.statusMessage}>No se encontraron comandas.</p>
-          )}
-        </div>
-      )}
+
+      <div className={styles.ordersGrid}>
+        {isLoading ? (
+          <p className={styles.statusMessage}>Cargando datos...</p>
+        ) : filteredOrders.length > 0 ? (
+          filteredOrders.map((order) => (
+            <KitchenOrderCard
+              key={order._id}
+              order={order}
+              onDetails={() => handleDetails(order)}
+            />
+          ))
+        ) : (
+          <p className={styles.statusMessage}>No se encontraron comandas.</p>
+        )}
+      </div>
 
       <KitchenOrderModal
         order={selectedOrder}

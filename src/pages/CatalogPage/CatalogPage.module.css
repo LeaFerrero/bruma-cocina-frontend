@@ -32,6 +32,12 @@
   color: var(--color-text-secondary);
 }
 
+.statusMessage {
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 @media (min-width: 1200px) {
   .mealsGrid {
     justify-content: flex-start;

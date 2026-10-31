@@ -140,23 +140,22 @@ function Checkout() {
           />
         </div>
       </div>
-      {isLoading ? (
-        <p className={styles.statusMessage}>Cargando datos...</p>
-      ) : (
-        <div className={styles.ordersGrid}>
-          {filteredOrders.length > 0 ? (
-            filteredOrders.map((order) => (
-              <CheckoutOrderCard
-                key={order._id}
-                order={order}
-                onDetails={() => handleDetails(order)}
-              />
-            ))
-          ) : (
-            <p className={styles.statusMessage}>No se encontraron comandas.</p>
-          )}
-        </div>
-      )}
+
+      <div className={styles.ordersGrid}>
+        {isLoading ? (
+          <p className={styles.statusMessage}>Cargando datos...</p>
+        ) : filteredOrders.length > 0 ? (
+          filteredOrders.map((order) => (
+            <CheckoutOrderCard
+              key={order._id}
+              order={order}
+              onDetails={() => handleDetails(order)}
+            />
+          ))
+        ) : (
+          <p className={styles.statusMessage}>No se encontraron comandas.</p>
+        )}
+      </div>
 
       <CheckoutOrderModal
         order={selectedOrder}
