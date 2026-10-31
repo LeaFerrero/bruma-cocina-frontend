@@ -15,7 +15,6 @@
 .modalContainer {
   background-color: var(--color-modal-bg);
   padding: 1rem;
-  width: fit-content;
   max-width: 90vw;
   border-radius: var(--border-radius);
   display: flex;
@@ -31,6 +30,16 @@
   align-items: center;
   padding: 0rem 0rem 1rem 0rem;
   border-bottom: 0.1rem solid var(--color-detail);
+  min-width: 0;
+  gap: 1rem;
+}
+
+.modalHeader h2,
+.modalHeader h3,
+.modalHeader span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 
 .closeButton {

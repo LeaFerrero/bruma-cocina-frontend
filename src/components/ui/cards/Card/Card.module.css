@@ -8,6 +8,9 @@
   padding: 1rem;
   border: 0.5rem solid transparent;
   height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
   transition:
     transform 0.25s cubic-bezier(0.2, 0, 0, 1),
     box-shadow 0.25s cubic-bezier(0.2, 0, 0, 1),
@@ -17,6 +20,9 @@
 
 .header {
   padding: 0.5rem 1rem 1rem 0rem;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .childrenContainer {
@@ -25,26 +31,7 @@
   flex: 1;
   border-top: 0.1rem solid var(--color-detail);
   padding-top: 1rem;
-}
-
-.interactive:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-}
-
-.default {
-  border-color: transparent;
-}
-
-.danger {
-  border-color: var(--color-danger-main);
-}
-
-.warning {
-  border-color: var(--color-warning-main);
-}
-
-.success {
-  border-color: var(--color-success-main);
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
