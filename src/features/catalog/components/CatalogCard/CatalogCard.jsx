@@ -4,7 +4,7 @@ import { Card, Button, ButtonGroup } from "../../../../components/ui";
 import { formatForDisplay } from "../../../../utils/parsers";
 
 function CatalogCard({ meal, onClick, onDetails }) {
-  const API_URL = import.meta.env.VITE_STATIC_URL || "http://localhost:3000";
+  const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
 
   return (
     <Card title={meal.name} interactive>
