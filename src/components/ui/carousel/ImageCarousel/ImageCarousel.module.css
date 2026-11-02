@@ -5,11 +5,11 @@
   width: 100%;
   max-width: 60rem;
   height: 20rem;
-  margin: 1.5rem auto 2rem auto;
+
   border-radius: var(--border-radius, 12px);
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-  background-color: var(--color-sidebar-bg, #1e293b);
+  background-color: var(--color-sidebar-bg);
 }
 
 .carouselSlide {

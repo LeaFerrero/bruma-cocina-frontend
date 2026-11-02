@@ -65,15 +65,15 @@
 
 .inputAddon {
   display: flex;
-  min-width: 2.5rem;
+  min-width: 3rem;
   align-items: center;
   justify-content: center;
-  padding: 0 0.75rem;
+  padding: 0 0.2rem;
   background-color: var(--color-header-bg);
   border-left: 0.1rem solid var(--color-input-border);
   color: var(--color-text-main);
   font-weight: bold;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   user-select: none;
   transition: border-color 0.3s ease;
 }

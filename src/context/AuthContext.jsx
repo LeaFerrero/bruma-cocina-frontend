@@ -37,8 +37,10 @@ const AuthProvider = ({ children }) => {
       setIsLogged(true);
       setUser(userData);
     } catch (error) {
-      setIsLogged(false);
-      setUser(null);
+      if (error?.statusCode === 401 || error?.errorCode === "UNAUTHORIZED") {
+        setIsLogged(false);
+        setUser(null);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -66,6 +68,8 @@ const AuthProvider = ({ children }) => {
 
   const loginContext = async (credentials) => {
     try {
+      await apiLogout().catch(() => {});
+
       const response = await apiLogin(credentials);
 
       const userData = response?.user || response?.data?.user;

@@ -34,7 +34,6 @@ const apiFetch = async (endpoint, options = {}) => {
     if (!response.ok) {
       if (
         response.status === 401 ||
-        response.status === 403 ||
         data.errorCode === "TOKEN_EXPIRED" ||
         data.errorCode === "INVALID_TOKEN" ||
         data.errorCode === "UNAUTHORIZED" ||

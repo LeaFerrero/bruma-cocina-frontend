@@ -119,22 +119,20 @@ function SupplyEntryForm({
         ))}
       </EditableList>
 
-      <div style={{ marginTop: "auto" }}>
-        <ButtonGroup>
-          <Button
-            text="Registrar ingreso"
-            variant="primary"
-            type="submit"
-            disabled={selectedSupplies.length === 0}
-          />
-          <Button
-            text="Cancelar"
-            variant="cancel"
-            type="button"
-            onClick={onCancel}
-          />
-        </ButtonGroup>
-      </div>
+      <ButtonGroup>
+        <Button
+          text="Registrar ingreso"
+          variant="primary"
+          type="submit"
+          disabled={selectedSupplies.length === 0}
+        />
+        <Button
+          text="Cancelar"
+          variant="cancel"
+          type="button"
+          onClick={onCancel}
+        />
+      </ButtonGroup>
     </Form>
   );
 }

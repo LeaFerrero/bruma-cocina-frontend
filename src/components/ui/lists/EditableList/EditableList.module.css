@@ -25,7 +25,7 @@
   flex-direction: column;
   flex: 1;
   overflow-y: auto;
-  min-height: 0;
+  min-height: 10rem;
   max-height: 26rem;
   padding-right: 0.5rem;
   scrollbar-width: thin;
