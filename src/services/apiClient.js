@@ -45,7 +45,11 @@ const apiFetch = async (endpoint, options = {}) => {
         ) {
           if (!isRedirecting) {
             isRedirecting = true;
-            window.location.href = "/gestion/login?expired=true";
+
+            const isTokenExpired = data.errorCode === "TOKEN_EXPIRED";
+            window.location.href = isTokenExpired
+              ? "/gestion/login?expired=true"
+              : "/gestion/login";
           }
           return new Promise(() => {});
         }
