@@ -11,82 +11,83 @@
   flex-direction: column;
   justify-content: flex-start;
   padding-top: 5.5rem;
-
-  &.active {
-    left: 0;
-  }
-
-  .logoContainer {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0.5rem;
-  }
-  .logo {
-    width: 4rem;
-    border-radius: 50%;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-family: var(--font-body);
-  }
-
-  li {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    text-decoration: none;
-
-    a {
-      text-decoration: none;
-      color: var(--color-text-sidebar);
-    }
-  }
-
-  .userSection {
-    margin-top: auto;
-    padding: 1.35rem 0 1.35em 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-    .userName {
-      color: var(--color-text-sidebar);
-      font-size: 0.95rem;
-    }
-
-    .logoutLink {
-      color: var(--color-btn-danger-bg);
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
 }
 
-/* Tablets (900px) */
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar .logoContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar .logo {
+  width: 4rem;
+  border-radius: 50%;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+}
+
+.sidebar li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.sidebar li a {
+  text-decoration: none;
+  color: var(--color-text-sidebar);
+}
+
+.sidebar .userSection {
+  margin-top: auto;
+  padding: 0.79rem 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .userSection .userName {
+  color: var(--color-text-sidebar);
+  font-size: 0.95rem;
+}
+
+.sidebar .userSection .logoutLink {
+  color: var(--color-btn-danger-bg);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sidebar .userSection .logoutLink:hover {
+  text-decoration: underline;
+}
+
 @media (min-width: 900px) {
-  .logo {
+  .sidebar .logo {
     margin-top: 0rem;
   }
+
   .sidebar {
     top: 0;
     left: 0;
     padding-top: 0.5rem;
     position: sticky;
-    width: 15rem;
+    width: 13rem;
     height: 100vh;
   }
 }
