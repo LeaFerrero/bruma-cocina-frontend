@@ -25,7 +25,7 @@ function CatalogModal({ meal, isOpen, onClose }) {
           </div>
         )}
 
-        <div className={styles.mealDetails}>
+          <div className={styles.mealDetails}>
           <p className={styles.description}>
             <strong>Descripción:</strong>{" "}
             {meal.description || "Sin descripción disponible."}

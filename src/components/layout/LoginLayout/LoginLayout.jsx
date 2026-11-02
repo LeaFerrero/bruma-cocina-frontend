@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import styles from "./LoginLayout.module.css";
-import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header/Header";
+import Sidebar from "../Sidebar/Sidebar";
 import Footer from "../Footer/Footer";
 
 function LoginLayout() {

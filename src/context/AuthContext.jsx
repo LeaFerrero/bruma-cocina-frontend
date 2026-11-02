@@ -9,7 +9,7 @@ import {
   login as apiLogin,
   logout as apiLogout,
   verifySession,
-} from "../features/auth/services/loginapi";
+} from "../features/auth/services/loginApi";
 import AppError from "../utils/AppError";
 
 const AuthContext = createContext();
