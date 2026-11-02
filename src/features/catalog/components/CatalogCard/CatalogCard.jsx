@@ -2,16 +2,15 @@ import React from "react";
 import styles from "./CatalogCard.module.css";
 import { Card, Button, ButtonGroup } from "../../../../components/ui";
 import { formatForDisplay } from "../../../../utils/parsers";
+import { BACKEND_URL } from "../../../../config/env";
 
 function CatalogCard({ meal, onClick, onDetails }) {
-  const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
-
   return (
     <Card title={meal.name} interactive>
       {meal.image && (
         <div className={styles.imageContainer}>
           <img
-            src={`${API_URL}/uploads/${meal.image}`}
+            src={`${BACKEND_URL}/uploads/${meal.image}`}
             alt={meal.name}
             className={styles.image}
           />

@@ -2,10 +2,9 @@ import React from "react";
 import styles from "./CatalogModal.module.css";
 import { Modal, Button, ButtonGroup } from "../../../../components/ui";
 import { formatForDisplay } from "../../../../utils/parsers";
+import { BACKEND_URL } from "../../../../config/env";
 
 function CatalogModal({ meal, isOpen, onClose }) {
-  const API_URL = import.meta.env.VITE_STATIC_URL || "http://localhost:3000";
-
   if (!meal) return null;
 
   return (
@@ -18,14 +17,14 @@ function CatalogModal({ meal, isOpen, onClose }) {
         {meal.image && (
           <div className={styles.imageContainer}>
             <img
-              src={`${API_URL}/uploads/${meal.image}`}
+              src={`${BACKEND_URL}/uploads/${meal.image}`}
               alt={meal.name}
               className={styles.image}
             />
           </div>
         )}
 
-          <div className={styles.mealDetails}>
+        <div className={styles.mealDetails}>
           <p className={styles.description}>
             <strong>Descripción:</strong>{" "}
             {meal.description || "Sin descripción disponible."}

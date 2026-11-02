@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ImageCarousel.module.css";
+import { BACKEND_URL } from "../../../../config/env";
 
 function ImageCarousel({ images = [] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,10 +21,8 @@ function ImageCarousel({ images = [] }) {
 
   const currentItem = images[currentIndex];
 
-  const backendUrl =
-    import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
   const imageUrl = currentItem?.image
-    ? `${backendUrl}/uploads/${currentItem.image}`
+    ? `${BACKEND_URL}/uploads/${currentItem.image}`
     : "";
 
   return (
