@@ -123,7 +123,7 @@ function CatalogPage() {
       setIsConfirmOpen(false);
       setPendingOrder(null);
 
-      setSuccessOrderCode(response.data.orderCode);
+      setSuccessOrderCode(response.data.order.orderCode);
     } catch (error) {
       setIsConfirmOpen(false);
       setIsModalOpen(true);

@@ -22,7 +22,7 @@ export function LandingPage() {
 
         setCarouselImages(validImages);
       } catch (error) {
-        toast.error("Error al cargar las imágenes de portada");
+        toast.error(error.message);
       } finally {
         setIsLoading(false);
       }

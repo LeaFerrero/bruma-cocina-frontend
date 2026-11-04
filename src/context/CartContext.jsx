@@ -20,14 +20,16 @@ function CartProvider({ children }) {
   const addToCart = (meal) => {
     setCart((prevCart) => {
       const existingMeal = prevCart.find((item) => item._id === meal._id);
-      const stockLimit = meal.currentStock;
 
       if (existingMeal) {
         const newQuantity = existingMeal.quantity + 1;
 
-        if (newQuantity > stockLimit) {
+        if (newQuantity > meal.currentStock) {
           toast.error(
-            `Ha alcanzado el stock disponible para "${meal.name}": ${stockLimit} unidades.`,
+            `${meal.name}: solo quedan ${meal.currentStock} unidades.`,
+            {
+              id: `stock-limit-${meal._id}`,
+            },
           );
           return prevCart;
         }
@@ -37,7 +39,7 @@ function CartProvider({ children }) {
         );
       }
 
-      if (stockLimit < 1) {
+      if (meal.currentStock < 1) {
         toast.error(`No hay stock disponible para "${meal.name}".`);
         return prevCart;
       }
@@ -47,18 +49,17 @@ function CartProvider({ children }) {
   };
 
   // Función para sumar o restar la cantidad desde el modal
-  const updateQuantity = (id, amount, max) => {
+  const updateQuantity = (id, amount, currentStock) => {
     setCart((prevCart) =>
       prevCart.map((item) => {
         if (item._id === id) {
           const newQuantity = item.quantity + amount;
 
-          if (newQuantity > max) {
-            console.log(max);
-            toast.error(
-              `Ha alcanzado el stock disponible para "${item.name}": ${max} unidades.`,
-            );
-            return { ...item, quantity: max };
+          if (newQuantity > currentStock) {
+            toast.error(`${item.name}: solo quedan ${currentStock} unidades.`, {
+              id: `stock-limit-${item._id}`,
+            });
+            return { ...item, quantity: currentStock };
           }
 
           return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;

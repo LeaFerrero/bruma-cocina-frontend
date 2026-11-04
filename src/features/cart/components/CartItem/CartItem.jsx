@@ -25,6 +25,7 @@ function CartItem({ item, onUpdateQuantity, onRemove }) {
           variant="secondary"
           isSquare={true}
           ariaLabel="Aumentar cantidad"
+          disabled={item.quantity >= item.currentStock}
           onClick={() => onUpdateQuantity(item._id, 1, item.currentStock)}
         />
 
