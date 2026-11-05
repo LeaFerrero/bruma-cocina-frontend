@@ -35,3 +35,15 @@
   overflow-wrap: break-word;
   word-break: break-word;
 }
+
+.success {
+  border-color: var(--color-success-main);
+}
+
+.warning {
+  border-color: var(--color-warning-main); /* O tu color de advertencia */
+}
+
+.danger {
+  border-color: var(--color-danger-main); /* O tu color de peligro/error */
+}
