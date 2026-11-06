@@ -8,11 +8,11 @@ const supplySchema = z.object({
   name: z
     .string()
     .trim()
-    .min(1, "El nombre es obligatorio.")
-    .min(2, "El nombre debe tener al menos 2 caracteres.")
-    .max(50, "El nombre debe tener como máximo 50 caracteres."),
+    .min(1, "El nombre es obligatorio")
+    .min(2, "El nombre debe tener al menos 2 caracteres")
+    .max(50, "El nombre debe tener como máximo 50 caracteres"),
 
-  unit: z.string().min(1, "Debes seleccionar una unidad de medida"),
+  unit: z.string().min(1, "La unidad de medida es obligatoria"),
 
   price: z
     .any()

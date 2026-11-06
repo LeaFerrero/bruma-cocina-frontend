@@ -6,8 +6,8 @@ const ORDER_STATUS = Object.freeze({
 
 const ORDER_STATUS_NAMES = Object.freeze({
   [ORDER_STATUS.PENDIENTE]: "Pendiente",
-  [ORDER_STATUS.DESPACHADO]: "Despachado",
-  [ORDER_STATUS.CANCELADO]: "Cancelado",
+  [ORDER_STATUS.DESPACHADO]: "Despachada",
+  [ORDER_STATUS.CANCELADO]: "Cancelada",
 });
 
 const ORDER_STATUS_OPTIONS = Object.values(ORDER_STATUS).map((orderStatus) => ({

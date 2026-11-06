@@ -248,7 +248,7 @@ export function MealForm({
 
       <ButtonGroup>
         <Button
-          text="Guardar Vianda"
+          text={mealToEdit ? "Guardar cambios" : "Registrar"}
           variant="primary"
           type="submit"
           disabled={ingredients.length === 0}
@@ -259,7 +259,7 @@ export function MealForm({
           type="button"
           onClick={onCancel}
         />
-      </ButtonGroup>
+      </ButtonGroup>  
     </Form>
   );
 }

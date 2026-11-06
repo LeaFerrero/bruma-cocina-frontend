@@ -10,9 +10,9 @@ const mealSchema = z.object({
   name: z
     .string()
     .trim()
-    .min(1, "El nombre es obligatorio.")
-    .min(2, "El nombre debe tener al menos 2 caracteres.")
-    .max(50, "El nombre debe tener como máximo 50 caracteres."),
+    .min(1, "El nombre es obligatorio")
+    .min(2, "El nombre debe tener al menos 2 caracteres")
+    .max(50, "El nombre debe tener como máximo 50 caracteres"),
 
   price: z
     .any()
@@ -38,7 +38,7 @@ const mealSchema = z.object({
   description: z
     .string()
     .trim()
-    .min(1, "La descripción es obligatoria.")
+    .min(1, "La descripción es obligatoria")
     .min(10, "La descripción debe tener al menos 10 caracteres")
     .max(250, "La descripción debe tener un máximo de 250 caracteres"),
 
@@ -48,16 +48,13 @@ const mealSchema = z.object({
         _id: z.string({ required_error: "Falta la referencia al insumo" }),
         quantity: z
           .any()
+          .refine(notEmpty, "La cantidad es obligatoria")
           .transform((value) => parseDecimal(value, 3))
           .refine(
             (val) => !Number.isNaN(val),
             "La cantidad debe ser un número válido",
           )
-          .pipe(
-            z
-              .number({ required_error: "La cantidad es obligatoria" })
-              .positive("La cantidad debe ser mayor a 0"),
-          ),
+          .pipe(z.number().positive("La cantidad debe ser mayor a 0")),
       }),
     )
     .min(1, "Debe agregar al menos un ingrediente a la receta"),
@@ -71,14 +68,14 @@ const mealSchema = z.object({
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message:
-              "El archivo es demasiado pesado. El límite máximo es de 2MB.",
+              "El archivo es demasiado pesado. El límite máximo es de 2MB",
           });
         }
         if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
           ctx.addIssue({
             code: z.ZodIssueCode.custom,
             message:
-              "Por favor, seleccioná un archivo de imagen válido (JPEG, PNG, WEBP).",
+              "Por favor, seleccione un archivo de imagen válido (JPEG, PNG, WEBP)",
           });
         }
       }

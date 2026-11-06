@@ -56,12 +56,16 @@ function ProductionPage() {
       toast.success(response.message);
       setFormKey((prevKey) => prevKey + 1);
     } catch (error) {
-      if (error.details) {
+      if (Array.isArray(error.details) && error.details.length > 0) {
+        error.details.forEach((item) => {
+          toast.error(item.message);
+        });
+      } else if (error.details && typeof error.details === "object") {
         setFieldErrors(error.details);
+      } else if (error.message) {
+        toast.error(error.message);
       } else {
-        setFormError(
-          error.message || "Ocurrió un error inesperado al guardar.",
-        );
+        toast.error("Ocurrió un error inesperado al guardar.");
       }
     }
   };

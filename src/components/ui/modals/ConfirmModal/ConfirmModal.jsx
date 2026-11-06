@@ -15,7 +15,7 @@ function ConfirmModal({
   cancelText = "Cancelar",
   error,
 }) {
-  const defaultConfirmText = isDanger ? "Borrar" : "Confirmar";
+  const defaultConfirmText = isDanger ? "Eliminar" : "Confirmar";
   const finalConfirmText = confirmText || defaultConfirmText;
 
   return (

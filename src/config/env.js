@@ -6,3 +6,4 @@ if (import.meta.env.PROD && !import.meta.env.VITE_BACKEND_URL) {
 
 export const BACKEND_URL = rawUrl.replace(/\/+$/, "");
 export const API_URL = `${BACKEND_URL}/api`;
+  
