@@ -31,7 +31,7 @@ describe("Validadores de insumos (Frontend)", () => {
       const result = supplySchema.safeParse({ ...validSupply, name: "" });
 
       assert.equal(result.success, false);
-      assert.ok(messagesOf(result).includes("El nombre es obligatorio."));
+      assert.ok(messagesOf(result).includes("El nombre es obligatorio"));
     });
 
     it("rechaza un precio igual a cero", () => {
@@ -66,7 +66,7 @@ describe("Validadores de insumos (Frontend)", () => {
 
       assert.equal(result.success, false);
       assert.ok(
-        messagesOf(result).includes("Debes seleccionar una unidad de medida"),
+        messagesOf(result).includes("La unidad de medida es obligatoria"),
       );
     });
 
