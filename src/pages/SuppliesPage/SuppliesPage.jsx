@@ -289,7 +289,7 @@ function SuppliesPage() {
 
       <div className={styles.suppliesGrid}>
         {isLoading ? (
-          <p className={styles.statusMessage}>Cargando insumos...</p>
+          <p className={styles.statusMessage}>Cargando datos...</p>
         ) : filteredSupplies.length > 0 ? (
           filteredSupplies.map((supply) => (
             <SupplyCard
@@ -300,7 +300,7 @@ function SuppliesPage() {
             />
           ))
         ) : (
-          <p className={styles.statusMessage}>No se encontraron insumos.</p>
+          <p className={styles.statusMessage}>No se encontraron datos</p>
         )}
       </div>
 

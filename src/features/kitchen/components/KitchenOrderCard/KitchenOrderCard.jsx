@@ -4,7 +4,6 @@ import { Card, Button, ButtonGroup } from "../../../../components/ui";
 import { formatTime, formatDateForDisplay } from "../../../../utils/dates";
 import { ORDER_STATUS_NAMES } from "../../utils/orderStatus";
 
-
 function OrderCard({ order, onDetails }) {
   return (
     <Card title={order.orderCode} interactive>
@@ -16,7 +15,8 @@ function OrderCard({ order, onDetails }) {
           <strong>Fecha:</strong> {formatDateForDisplay(order.dateOnly)}
         </p>
         <p className={styles.status}>
-          <strong>Estado:</strong> {ORDER_STATUS_NAMES[order.orderStatus]}
+          <strong>Estado de comanda:</strong>{" "}
+          {ORDER_STATUS_NAMES[order.orderStatus]}
         </p>
       </div>
       <ButtonGroup>

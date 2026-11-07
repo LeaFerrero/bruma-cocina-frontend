@@ -46,10 +46,7 @@ const apiFetch = async (endpoint, options = {}) => {
           if (!isRedirecting) {
             isRedirecting = true;
 
-            const isTokenExpired = data.errorCode === "TOKEN_EXPIRED";
-            window.location.href = isTokenExpired
-              ? "/gestion/login?expired=true"
-              : "/gestion/login";
+            window.location.href = "/gestion/login?expired=true";
           }
           return new Promise(() => {});
         }
@@ -70,8 +67,6 @@ const apiFetch = async (endpoint, options = {}) => {
     if (error instanceof AppError) {
       throw error;
     }
-
-    console.error("Error de red capturado en apiFetch:", error.message);
 
     throw new AppError(
       "No se pudo conectar con el servidor",

@@ -37,7 +37,7 @@ function CartModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Pedido">
+    <Modal isOpen={isOpen} onClose={onClose} title="Carrito">
       <div className={styles.modalLayout}>
         <div className={styles.columnForm}>
           <CartForm
@@ -81,7 +81,7 @@ function CartModal({
               type="submit"
               form="cart-order-form"
               disabled={cart.length === 0}
-              text="Confirmar pedido"
+              text="Confirmar"
             />
             <Button
               type="button"

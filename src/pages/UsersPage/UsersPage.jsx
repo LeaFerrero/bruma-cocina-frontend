@@ -167,7 +167,7 @@ function UsersPage() {
 
       <div className={styles.usersGrid}>
         {isLoading ? (
-          <p className={styles.statusMessage}>Cargando usuarios...</p>
+          <p className={styles.statusMessage}>Cargando datos...</p>
         ) : filteredUsers.length > 0 ? (
           filteredUsers.map((user) => (
             <UserCard
@@ -178,7 +178,7 @@ function UsersPage() {
             />
           ))
         ) : (
-          <p className={styles.statusMessage}>No se encontraron usuarios.</p>
+          <p className={styles.statusMessage}>No se encontraron datos</p>
         )}
       </div>
 

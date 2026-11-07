@@ -272,7 +272,7 @@ function MealsPage() {
             />
           ))
         ) : (
-          <p className={styles.statusMessage}>No se encontraron viandas.</p>
+          <p className={styles.statusMessage}>No se encontraron datos</p>
         )}
       </div>
 

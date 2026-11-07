@@ -153,7 +153,7 @@ function Checkout() {
             />
           ))
         ) : (
-          <p className={styles.statusMessage}>No se encontraron comandas.</p>
+          <p className={styles.statusMessage}>No se encontraron datos</p>
         )}
       </div>
 
