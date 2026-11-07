@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  Outlet,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import {
@@ -12,6 +6,7 @@ import {
   LoginLayout,
   ManagementLayout,
   ProtectedRoute,
+  RoleBasedRedirect,
 } from "./components/layout";
 
 import {
@@ -29,27 +24,6 @@ import {
 
 import { useAuth, CartProvider } from "./context";
 import { ROLES } from "./features/users";
-
-const RoleBasedRedirect = () => {
-  const { user } = useAuth();
-
-  if (!user || !user.role) return null;
-
-  const roleRoutes = {
-    [ROLES.ADMIN]: "/gestion/usuarios",
-    [ROLES.COCINA]: "/gestion/cocina",
-    [ROLES.CAJA]: "/gestion/caja",
-    [ROLES.STOCK]: "/gestion/insumos",
-  };
-
-  const targetRoute = roleRoutes[user.role];
-
-  if (!targetRoute) {
-    return <Navigate to="/gestion/login" replace />;
-  }
-
-  return <Navigate to={targetRoute} replace />;
-};
 
 function App() {
   return (
@@ -71,7 +45,7 @@ function App() {
             </CartProvider>
           }
         >
-          <Route index element={<LandingPage />} />{" "}
+          <Route index element={<LandingPage />} />
           <Route path="menu" element={<CatalogPage />} />
           <Route path="nosotros" element={<AboutUsPage />} />
         </Route>
@@ -81,14 +55,41 @@ function App() {
             <Route path="login" element={<LoginPage />} />
           </Route>
 
-          <Route element={<ProtectedRoute />}>
-            <Route element={<ManagementLayout />}>
-              <Route index element={<RoleBasedRedirect />} />
+          {/* El layout general sigue envolviendo a la sección de gestión */}
+          <Route element={<ManagementLayout />}>
+            <Route index element={<RoleBasedRedirect />} />
+
+            {/* Cocina y Producción: Admin y Cocina */}
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.COCINA]} />
+              }
+            >
               <Route path="cocina" element={<KitchenPage />} />
               <Route path="produccion" element={<ProductionPage />} />
+            </Route>
+
+            {/* Caja: Admin y Caja */}
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.CAJA]} />
+              }
+            >
               <Route path="caja" element={<CheckoutPage />} />
+            </Route>
+
+            {/* Viandas e Insumos: Admin y Stock */}
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.STOCK]} />
+              }
+            >
               <Route path="viandas" element={<MealsPage />} />
               <Route path="insumos" element={<SuppliesPage />} />
+            </Route>
+
+            {/* Usuarios: Exclusivo Admin */}
+            <Route element={<ProtectedRoute allowedRoles={[ROLES.ADMIN]} />}>
               <Route path="usuarios" element={<UsersPage />} />
             </Route>
           </Route>
