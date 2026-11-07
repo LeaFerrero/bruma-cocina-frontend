@@ -36,6 +36,8 @@ const AuthProvider = ({ children }) => {
 
       setIsLogged(true);
       setUser(userData);
+      localStorage.setItem("has_active_session", "true");
+      return response;
     } catch (error) {
       if (error?.statusCode === 401 || error?.errorCode === "UNAUTHORIZED") {
         setIsLogged(false);
@@ -86,6 +88,7 @@ const AuthProvider = ({ children }) => {
 
       setIsLogged(true);
       setUser(userData);
+      localStorage.setItem("has_active_session", "true");
       return response;
     } catch (error) {
       if (error instanceof AppError) {
@@ -106,10 +109,10 @@ const AuthProvider = ({ children }) => {
     try {
       await apiLogout();
     } catch (error) {
-      console.error("Error al cerrar sesión:", error);
     } finally {
       setIsLogged(false);
       setUser(null);
+      localStorage.removeItem("has_active_session");
       window.location.href = "/gestion/login";
     }
   };

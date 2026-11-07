@@ -55,11 +55,11 @@ function App() {
             <Route path="login" element={<LoginPage />} />
           </Route>
 
-          {/* El layout general sigue envolviendo a la sección de gestión */}
           <Route element={<ManagementLayout />}>
-            <Route index element={<RoleBasedRedirect />} />
+            <Route element={<ProtectedRoute />}>
+              <Route index element={<RoleBasedRedirect />} />
+            </Route>
 
-            {/* Cocina y Producción: Admin y Cocina */}
             <Route
               element={
                 <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.COCINA]} />
@@ -69,7 +69,6 @@ function App() {
               <Route path="produccion" element={<ProductionPage />} />
             </Route>
 
-            {/* Caja: Admin y Caja */}
             <Route
               element={
                 <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.CAJA]} />
@@ -78,7 +77,6 @@ function App() {
               <Route path="caja" element={<CheckoutPage />} />
             </Route>
 
-            {/* Viandas e Insumos: Admin y Stock */}
             <Route
               element={
                 <ProtectedRoute allowedRoles={[ROLES.ADMIN, ROLES.STOCK]} />
@@ -88,7 +86,6 @@ function App() {
               <Route path="insumos" element={<SuppliesPage />} />
             </Route>
 
-            {/* Usuarios: Exclusivo Admin */}
             <Route element={<ProtectedRoute allowedRoles={[ROLES.ADMIN]} />}>
               <Route path="usuarios" element={<UsersPage />} />
             </Route>

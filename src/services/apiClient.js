@@ -46,7 +46,14 @@ const apiFetch = async (endpoint, options = {}) => {
           if (!isRedirecting) {
             isRedirecting = true;
 
-            window.location.href = "/gestion/login?expired=true";
+            const hadSession =
+              localStorage.getItem("has_active_session") === "true";
+
+            localStorage.removeItem("has_active_session");
+
+            window.location.href = hadSession
+              ? "/gestion/login?expired=true"
+              : "/gestion/login";
           }
           return new Promise(() => {});
         }
