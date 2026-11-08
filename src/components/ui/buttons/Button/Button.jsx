@@ -1,12 +1,6 @@
-// Button.jsx
 import React from "react";
 import styles from "./Button.module.css";
 
-/**
- * @param {Object} props
- * @param {"primary" | "secondary" | "cancel" | "danger" | "ghost"} [props.variant="primary"] - Define el color del botón.
- * @param {boolean} [props.isSquare=false] - Si es true, anula el padding y lo hace un cuadrado perfecto de 2.5rem.
- */
 function Button({
   text,
   onClick,
