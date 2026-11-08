@@ -71,7 +71,7 @@ Apertura y cierre de caja, «Plato del Día», proveedores y facturas, punto de 
 ### 1. Clonar el repositorio
 
 ```bash
-git clone git@github.com:LeaFerrero/bruma-cocina-frontend.git
+git clone https://github.com/LeaFerrero/bruma-cocina-frontend.git
 cd bruma-cocina-frontend
 ```
 
@@ -132,7 +132,7 @@ El script de carga inicial del backend crea un usuario por rol:
 | Administrador | `admin.admin`   |
 | Cocina        | `cocina.cocina` |
 | Caja          | `caja.caja`     |
-| Stock         | `stock.stok`    |
+| Stock         | `stock.stock`   |
 
 Las contraseñas se definen en el `.env` del backend (`ADMIN_INIT_PASSWORD`, `COCINA_INIT_PASSWORD`, `CAJA_INIT_PASSWORD` y `STOCK_INIT_PASSWORD`). Las credenciales de prueba se detallan en el Manual Técnico; este repositorio no incluye contraseñas. El administrador puede crear más usuarios desde la pantalla **Usuarios**.
 
@@ -159,22 +159,22 @@ La vista previa también necesita acceso al backend para utilizar las funcionali
 
 ## Organización del código
 
-| Carpeta o archivo        | Contenido                                                                                                                                                                                       |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `public/`                | Recursos públicos.                                                                                                                                                                              |
-| `src/assets/img/`        | Imágenes del sitio: fondo principal y logos.                                                                                                                                                    |
-| `src/pages/`             | Una página por ruta: inicio, quiénes somos, catálogo, checkout, cocina, producción, insumos, viandas, usuarios e inicio de sesión.                                                              |
-| `src/features/`          | Un módulo por área de negocio: `auth`, `cart`, `catalog`, `checkout`, `kitchen`, `meals`, `production`, `supplies` y `users`. Cada uno tiene `components/`, `services/`, `utils/` e `index.js`. |
-| `src/components/ui/`     | Componentes reutilizables sin lógica de negocio: botones, inputs, formularios, modales, listas editables, tarjetas, alertas y carrusel.                                                         |
-| `src/components/layout/` | Header, sidebar, footer, los tres layouts (público, gestión y login) y `ProtectedRoute`.                                                                                                        |
-| `src/context/`           | Estado global: `AuthContext` (sesión) y `CartContext` (carrito).                                                                                                                                |
-| `src/services/`          | Infraestructura compartida: `apiClient.js` (cliente HTTP), `socket.js` (tiempo real) y `ordersApi.js`.                                                                                          |
-| `src/config/`            | `env.js`: lee `VITE_BACKEND_URL` y define las URL base del backend y de la API.                                                                                                                 |
-| `src/utils/`             | `AppError.js`, `dates.js` y `parsers.js` (conversión y formato de números).                                                                                                                     |
-| `src/styles/`            | `global.css`: estilos generales. Páginas y componentes tienen además su propio `.module.css`.                                                                                                   |
-| `src/App.jsx`            | Definición de rutas y montaje del `Toaster`.                                                                                                                                                    |
-| `src/main.jsx`           | Punto de entrada de la aplicación.                                                                                                                                                              |
-| `tests/`                 | Pruebas unitarias del frontend.                                                                                                                                                                 |
+| Carpeta o archivo        | Contenido                                                                                                                                                                                                         |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `public/`                | Recursos públicos.                                                                                                                                                                                                |
+| `src/assets/img/`        | Imágenes del sitio: fondo principal y logos.                                                                                                                                                                      |
+| `src/pages/`             | Una página por ruta: inicio, quiénes somos, catálogo, checkout, cocina, producción, insumos, viandas, usuarios e inicio de sesión.                                                                                |
+| `src/features/`          | Un módulo por área de negocio: `auth`, `cart`, `catalog`, `checkout`, `kitchen`, `meals`, `production`, `supplies` y `users`. Cada uno tiene `components/` e `index.js` y, según el caso, `services/` y `utils/`. |
+| `src/components/ui/`     | Componentes reutilizables sin lógica de negocio: botones, inputs, formularios, modales, listas editables, tarjetas, alertas y carrusel.                                                                           |
+| `src/components/layout/` | Header, sidebar, footer, los tres layouts (público, gestión y login) y `ProtectedRoute`.                                                                                                                          |
+| `src/context/`           | Estado global: `AuthContext` (sesión) y `CartContext` (carrito).                                                                                                                                                  |
+| `src/services/`          | Infraestructura compartida: `apiClient.js` (cliente HTTP), `socket.js` (tiempo real) y `ordersApi.js`.                                                                                                            |
+| `src/config/`            | `env.js`: lee `VITE_BACKEND_URL` y define las URL base del backend y de la API.                                                                                                                                   |
+| `src/utils/`             | `AppError.js`, `dates.js` y `parsers.js` (conversión y formato de números).                                                                                                                                       |
+| `src/styles/`            | `global.css`: estilos generales. Páginas y componentes tienen además su propio `.module.css`.                                                                                                                     |
+| `src/App.jsx`            | Definición de rutas y montaje del `Toaster`.                                                                                                                                                                      |
+| `src/main.jsx`           | Punto de entrada de la aplicación.                                                                                                                                                                                |
+| `tests/`                 | Pruebas unitarias del frontend.                                                                                                                                                                                   |
 
 ## Rutas
 
@@ -219,7 +219,7 @@ La sesión se maneja con `AuthContext`:
 - El token JWT está en una cookie `httpOnly` que el JavaScript del frontend no puede leer; el usuario vive solo en el estado de React.
 - Al cargar la aplicación se llama a `verifySession`. Mientras tanto se muestra «Verificando sesión...».
 - Se usa un indicador auxiliar en `localStorage` (`has_active_session`) para saber si corresponde mostrar el aviso de sesión vencida.
-- Si el servidor responde 401, se limpia la sesión y, desde una pantalla de gestión, se redirige a `/gestion/login?expired=true`.
+- Si el servidor responde 401, se limpia la sesión y, desde una pantalla de gestión, se redirige a `/gestion/login` (con `?expired=true` si había una sesión activa).
 - Cuando la pestaña vuelve a estar visible se revalida la sesión.
 - Al cerrar sesión se limpia el estado y se recarga la página en el login.
 
@@ -234,7 +234,7 @@ Todas las solicitudes pasan por `apiFetch` (`src/services/apiClient.js`), que:
 - Antepone la URL base de la API (`config/env.js`).
 - Envía `credentials: "include"` para adjuntar la cookie de sesión.
 - Agrega `Content-Type: application/json`, salvo con `FormData` (subida de imágenes).
-- Redirige a `/gestion/login?expired=true` ante un 401 en pantallas de gestión.
+- Redirige a `/gestion/login` ante un 401 en pantallas de gestión (con `?expired=true` si había una sesión activa).
 - Lanza un `AppError` con mensaje, estado, detalles por campo (`details`) y código interno (`errorCode`) ante errores del servidor.
 - Si no hay conexión, lanza un `AppError` con «No se pudo conectar con el servidor» (503, `NETWORK_ERROR`).
 
